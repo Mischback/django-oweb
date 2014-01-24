@@ -4,6 +4,8 @@ from django.db.models import signals
 from oweb.models import Account, Planet
 from oweb.models.research import *
 from oweb.models.ship import *
+from oweb.models.building import *
+from oweb.models.defense import *
 
 def callback_create_account(sender, instance, created, **kwargs):
     """
