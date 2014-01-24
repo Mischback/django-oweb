@@ -42,7 +42,54 @@ def callback_create_account(sender, instance, created, **kwargs):
 
         Planet.objects.create(account=instance, name='Homeworld')
 
-signals.post_save.connect(callback_create_account, 
+
+def callback_create_planet(sender, instance, created, **kwargs):
+    """
+    @brief  Callback function to be executed after Planet creation
+
+    Basically this function adds buildings to the planet
+    """
+    if created:
+        Supply1.objects.create(planet=instance)
+        Supply2.objects.create(planet=instance)
+        Supply3.objects.create(planet=instance)
+        Supply4.objects.create(planet=instance)
+        Supply12.objects.create(planet=instance)
+        Supply22.objects.create(planet=instance)
+        Supply23.objects.create(planet=instance)
+        Supply24.objects.create(planet=instance)
+        Supply25.objects.create(planet=instance)
+        Supply26.objects.create(planet=instance)
+        Supply27.objects.create(planet=instance)
+        Station14.objects.create(planet=instance)
+        Station15.objects.create(planet=instance)
+        Station21.objects.create(planet=instance)
+        Station31.objects.create(planet=instance)
+        Station33.objects.create(planet=instance)
+        Station34.objects.create(planet=instance)
+        Station44.objects.create(planet=instance)
+
+        Civil212.objects.create(account=instance.account, planet=instance)
+
+        Defense401.objects.create(planet=instance)
+        Defense402.objects.create(planet=instance)
+        Defense403.objects.create(planet=instance)
+        Defense404.objects.create(planet=instance)
+        Defense405.objects.create(planet=instance)
+        Defense406.objects.create(planet=instance)
+        Defense407.objects.create(planet=instance)
+        Defense408.objects.create(planet=instance)
+        Defense502.objects.create(planet=instance)
+        Defense503.objects.create(planet=instance)
+
+
+# Register the callbacks
+signals.post_save.connect(callback_create_account,
     sender=Account,
     weak=False,
     dispatch_uid='models.callback_create_account')
+
+signals.post_save.connect(callback_create_planet,
+    sender=Planet,
+    weak=False,
+    dispatch_uid='models.callback_create_planet')
