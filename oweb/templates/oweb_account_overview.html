@@ -1,7 +1,11 @@
-{{ account }}<br /><br />
+{% extends 'oweb_layout.html' %}
+
+{% block oweb_layout %}
+<h1>{{ account }}</h1>
 
 <ul>
 {% for p in planets %}
     <li>{{ p }}</li>
 {% endfor %}
 </ul>
+{% endblock %}
