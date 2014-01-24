@@ -1,0 +1,15 @@
+{% load sekizai_tags %}
+<!doctype html>
+<html>
+    <head>
+        {% render_block "meta" %}
+        {% addtoblock "meta" %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        {% endaddtoblock %}
+        {% render_block "css" %}
+    </head>
+    <body>
+        {% block oweb_base %}{% endblock %}
+        {% render_block "js" %}
+    </body>
+</html>
