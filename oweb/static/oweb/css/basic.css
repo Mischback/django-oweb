@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#oweb_layout {
+    margin: 2rem;
+}
+
+#oweb_layout ul {
+    list-style-position: inside;
+}
