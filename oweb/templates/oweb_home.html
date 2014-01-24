@@ -1,5 +1,5 @@
 {% if accounts %}
     {% for acc in accounts %}
-        {{ acc }}<br />
+        <a href="{% url 'oweb:account_overview' acc.id %}">{{ acc }}</a>
     {% endfor %}
 {% endif %}

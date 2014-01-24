@@ -1,2 +1,4 @@
-from oweb.models.account import Account
-from oweb.models.planet import Planet
+from oweb.models.account import *
+from oweb.models.planet import *
+
+from oweb.models.signals import *
