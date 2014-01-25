@@ -7,6 +7,7 @@ urlpatterns = patterns('oweb.views',
 
     url(r'^planet/(?P<planet_id>\d+)$', 'planet_overview', name='planet_overview'),
     url(r'^(?P<account_id>\d+)/planet-create$', 'planet_create', name='planet_create'),
+    url(r'^planet/(?P<planet_id>\d+)/settings$', 'planet_settings', name='planet_settings'),
 )
 
 urlpatterns += patterns('',
