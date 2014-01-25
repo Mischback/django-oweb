@@ -4,6 +4,19 @@ from django.conf.urls import patterns, url
 urlpatterns = patterns('oweb.views',
     url(r'^$', 'home', name='home'),
     url(r'^(?P<account_id>\d+)$', 'account_overview', name='account_overview'),
+
+    url(r'^planet/(?P<planet_id>\d+)$',
+        'planet_overview', name='planet_overview'),
+    url(r'^(?P<account_id>\d+)/planet/create$',
+        'planet_create', name='planet_create'),
+    url(r'^planet/(?P<planet_id>\d+)/settings$',
+        'planet_settings', name='planet_settings'),
+    url(r'^planet/(?P<planet_id>\d+)/settings/update$',
+        'planet_settings_commit', name='planet_settings_update'),
+    url(r'^planet/(?P<planet_id>\d+)/buildings$',
+        'planet_buildings', name='planet_buildings'),
+    url(r'^planet/(?P<planet_id>\d+)/defense$',
+        'planet_defense', name='planet_defense'),
 )
 
 urlpatterns += patterns('',
