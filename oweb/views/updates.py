@@ -2,7 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 # app imports
-from oweb.models import Research
+from oweb.models import Research, Ship
 
 def item_update(req):
     """
@@ -23,6 +23,9 @@ def item_update(req):
     if 'research' == item_type:
         obj = Research.objects.select_related('account').get(pk=item_id)
         account = obj.account
+    elif 'ship' == item_type:
+        obj = Ship.objects.select_related('account').get(pk=item_id)
+        account = obj.account
     else:
         raise Http404
 
@@ -31,7 +34,10 @@ def item_update(req):
         raise Http404
 
     if not int(item_level) < 0:
-        obj.level = item_level
+        if isinstance(obj, Ship):
+            obj.count = item_level
+        else:
+            obj.level = item_level
         obj.save()
 
     return HttpResponseRedirect(req.META['HTTP_REFERER'])

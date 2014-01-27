@@ -6,4 +6,17 @@
         <h1>Account Ships</h1>
     </header>
 </section>
+{% if ships %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Count</th>
+        </tr>
+    {% for s in ships %}
+        <tr>
+            <td>{{ s.name }}</td>
+            <td>{% include 'oweb/includes/item_form.html' with item=s item_type='ship' %}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
 {% endblock %}

@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import get_list_or_404, redirect, render
 # app imports
-from oweb.models import Account, Planet, Research
+from oweb.models import Account, Planet, Research, Ship
 
 def home(req):
     """
@@ -79,7 +79,7 @@ def account_research(req, account_id):
     research = []
     for r in res:
         this = r.as_real_class()
-        research.append((this.name, this.level, this.id))
+        research.append({'name': this.name, 'level': this.level, 'id': this.id})
 
     return render(req, 'oweb/account_research.html', 
         {
@@ -112,9 +112,16 @@ def account_ships(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
+    sl = get_list_or_404(Ship, account=account_id)
+    ships = []
+    for s in sl:
+        this = s.as_real_class()
+        ships.append({'name': this.name, 'level': this.count, 'id': this.id})
+
     return render(req, 'oweb/account_ships.html', 
         {
             'account': account,
             'planets': planets,
+            'ships': ships,
         }
     )
