@@ -19,7 +19,7 @@ def home(req):
     # get all accounts of this user
     accounts = get_list_or_404(Account, owner_id=req.user.id)
     # render the template
-    return render(req, 'oweb_home.html', 
+    return render(req, 'oweb/home.html', 
         {'accounts': accounts}
     )
 
@@ -45,7 +45,7 @@ def account_overview(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
-    return render(req, 'oweb_account_overview.html', 
+    return render(req, 'oweb/account_overview.html', 
         {
             'account': account,
             'planets': planets,

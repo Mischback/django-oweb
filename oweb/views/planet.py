@@ -37,7 +37,7 @@ def planet_overview(req, planet_id):
     for b in buildings:
         planet_fields += b.level
 
-    return render(req, 'oweb_planet_overview.html',
+    return render(req, 'oweb/planet_overview.html',
         {
             'account': planet.account,
             'planet': planet,
@@ -68,7 +68,7 @@ def planet_settings(req, planet_id):
 
     planets = Planet.objects.filter(account_id=planet.account.id)
 
-    return render(req, 'oweb_planet_settings.html',
+    return render(req, 'oweb/planet_settings.html',
         {
             'account': planet.account,
             'planet': planet,
@@ -136,7 +136,7 @@ def planet_buildings(req, planet_id):
         except:
             buildings.append((this, False))
 
-    return render(req, 'oweb_planet_buildings.html',
+    return render(req, 'oweb/planet_buildings.html',
         {
             'account': planet.account,
             'planet': planet,
@@ -176,7 +176,7 @@ def planet_defense(req, planet_id):
         this = d.as_real_class()
         defense.append((this.name, this.count, this.id))
 
-    return render(req, 'oweb_planet_defense.html',
+    return render(req, 'oweb/planet_defense.html',
         {
             'account': planet.account,
             'planet': planet,
