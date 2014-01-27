@@ -7,6 +7,10 @@
 <link href="{% static 'oweb/css/basic.css' %}" rel="stylesheet" type="text/css" />
 {% endaddtoblock %}
 <div id="oweb_layout">
+    <header class="page_header">
+        <div class="logo">OWeb</div>
+        {% if account %}{{ account }}{% endif %}
+    </header>
 {% block oweb_layout %}{% endblock %}
 </div>
 {% endblock %}
