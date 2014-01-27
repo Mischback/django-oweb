@@ -132,9 +132,9 @@ def planet_buildings(req, planet_id):
         this = b.as_real_class()
         try:
             check = this.performance
-            buildings.append((this, True))
+            buildings.append({'name': this.name, 'level': this.level, 'id': this.id})
         except:
-            buildings.append((this, False))
+            buildings.append({'name': this.name, 'level': this.level, 'id': this.id})
 
     return render(req, 'oweb/planet_buildings.html',
         {
