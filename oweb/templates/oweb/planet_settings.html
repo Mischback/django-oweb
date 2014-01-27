@@ -5,5 +5,27 @@
     <header>
         <h1>{{ planet.name }} Settings</h1>
     </header>
+    <form action="{% url 'oweb:planet_settings_update' planet.id %}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input value="{{ planet.name }}" name="planet_name" type="text" /></td>
+            </tr>
+            <tr>
+                <td>Coords:</td>
+                <td><input value="{{ planet.coord }}" name="planet_coord" type="text" /></td>
+            </tr>
+            <tr>
+                <td>minimal Temperature:</td>
+                <td><input value="{{ planet.min_temp }}" name="planet_min_temp" type="text" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
 </section>
 {% endblock %}
