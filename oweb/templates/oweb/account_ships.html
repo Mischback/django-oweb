@@ -1,0 +1,23 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>Account Ships</h1>
+    </header>
+{% if ships %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Count</th>
+        </tr>
+    {% for s in ships %}
+        <tr>
+            <td>{{ s.name }}</td>
+            <td>{% include 'oweb/includes/item_form.html' with item=s item_type='ship' %}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+</section>
+{% endblock %}

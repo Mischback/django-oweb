@@ -1,4 +1,4 @@
-{% extends 'oweb_layout.html' %}
+{% extends 'oweb/layout.html' %}
 
 {% block oweb_layout %}
 <nav>
@@ -9,8 +9,10 @@
         <li>
             <a href="{% url 'oweb:account_overview' account.id %}">Account</a>
             <ul>
-                <li><a href="#">Research</a></li>
-                <li><a href="#">Ships</a></li>
+                <li><a href="{% url 'oweb:account_overview' account.id %}">Overview</a></li>
+                <li><a href="{% url 'oweb:account_research' account.id %}">Research</a></li>
+                <li><a href="{% url 'oweb:account_ships' account.id %}">Ships</a></li>
+                <li><a href="{% url 'oweb:account_settings' account.id %}">Settings</a></li>
             </ul>
         </li>
 {% if planet %}

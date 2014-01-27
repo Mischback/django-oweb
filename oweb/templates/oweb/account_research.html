@@ -1,0 +1,23 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>Account Research</h1>
+    </header>
+{% if research %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Level</th>
+        </tr>
+    {% for r in research %}
+        <tr>
+            <td>{{ r.name }}</td>
+            <td>{% include 'oweb/includes/item_form.html' with item=r item_type='research' %}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+</section>
+{% endblock %}

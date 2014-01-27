@@ -37,7 +37,7 @@ def planet_overview(req, planet_id):
     for b in buildings:
         planet_fields += b.level
 
-    return render(req, 'oweb_planet_overview.html',
+    return render(req, 'oweb/planet_overview.html',
         {
             'account': planet.account,
             'planet': planet,
@@ -68,7 +68,7 @@ def planet_settings(req, planet_id):
 
     planets = Planet.objects.filter(account_id=planet.account.id)
 
-    return render(req, 'oweb_planet_settings.html',
+    return render(req, 'oweb/planet_settings.html',
         {
             'account': planet.account,
             'planet': planet,
@@ -115,7 +115,8 @@ def planet_buildings(req, planet_id):
 
     # fetch the account and the current planet
     try:
-        planet = Planet.objects.select_related('account').get(id=planet_id)
+        building_list = Building.objects.select_related('planet', 'planet__account').filter(planet=planet_id)
+        planet = building_list.first().planet
     except Planet.DoesNotExist:
         raise Http404
 
@@ -124,19 +125,13 @@ def planet_buildings(req, planet_id):
         raise Http404
 
     planets = Planet.objects.filter(account_id=planet.account.id)
-    building_list = get_list_or_404(Building, planet=planet_id)
     solarsat = get_object_or_404(Civil212, planet=planet_id)
 
     buildings = []
     for b in building_list:
-        this = b.as_real_class()
-        try:
-            check = this.performance
-            buildings.append((this, True))
-        except:
-            buildings.append((this, False))
+        buildings.append({'name': b.name, 'level': b.level, 'id': b.id})
 
-    return render(req, 'oweb_planet_buildings.html',
+    return render(req, 'oweb/planet_buildings.html',
         {
             'account': planet.account,
             'planet': planet,
@@ -160,7 +155,8 @@ def planet_defense(req, planet_id):
 
     # fetch the account and the current planet
     try:
-        planet = Planet.objects.select_related('account').get(id=planet_id)
+        defense_list = Defense.objects.select_related('planet', 'planet__account').filter(planet=planet_id)
+        planet = defense_list.first().planet
     except Planet.DoesNotExist:
         raise Http404
 
@@ -173,10 +169,9 @@ def planet_defense(req, planet_id):
 
     defense = []
     for d in defense_list:
-        this = d.as_real_class()
-        defense.append((this.name, this.count, this.id))
+        defense.append({'name': d.name, 'level': d.count, 'id': d.id})
 
-    return render(req, 'oweb_planet_defense.html',
+    return render(req, 'oweb/planet_defense.html',
         {
             'account': planet.account,
             'planet': planet,

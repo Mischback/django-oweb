@@ -1,0 +1,20 @@
+<form action="{% url 'oweb:item_update' %}" method="post">
+    {% csrf_token %}
+    <input value="{{ item_type }}" name="item_type" type="hidden" />
+    <input value="{{ item.id }}" name="item_id" type="hidden" />
+    <input value="{{ item.level|add:'-1' }}" name="item_level" type="hidden" />
+    <button type="submit">-</button>
+</form>
+<form action="{% url 'oweb:item_update' %}" method="post">
+    {% csrf_token %}
+    <input value="{{ item_type }}" name="item_type" type="hidden" />
+    <input value="{{ item.id }}" name="item_id" type="hidden" />
+    <input value="{{ item.level }}" name="item_level" type="text" />
+</form>
+<form action="{% url 'oweb:item_update' %}" method="post">
+    {% csrf_token %}
+    <input value="{{ item_type }}" name="item_type" type="hidden" />
+    <input value="{{ item.id }}" name="item_id" type="hidden" />
+    <input value="{{ item.level|add:'1' }}" name="item_level" type="hidden" />
+    <button type="submit">+</button>
+</form>
