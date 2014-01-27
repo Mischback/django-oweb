@@ -6,6 +6,7 @@ urlpatterns = patterns('oweb.views',
     url(r'^update$', 'item_update', name='item_update'),
 
     url(r'^(?P<account_id>\d+)$', 'account_overview', name='account_overview'),
+    url(r'^(?P<account_id>\d+)/settings$', 'account_settings', name='account_settings'),
     url(r'^(?P<account_id>\d+)/research$', 'account_research', name='account_research'),
     url(r'^(?P<account_id>\d+)/ships$', 'account_ships', name='account_ships'),
 
