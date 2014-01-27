@@ -115,7 +115,8 @@ def planet_buildings(req, planet_id):
 
     # fetch the account and the current planet
     try:
-        planet = Planet.objects.select_related('account').get(id=planet_id)
+        building_list = Building.objects.select_related('content_type', 'planet', 'planet__account').filter(planet=planet_id)
+        planet = building_list.first().planet
     except Planet.DoesNotExist:
         raise Http404
 
@@ -124,17 +125,11 @@ def planet_buildings(req, planet_id):
         raise Http404
 
     planets = Planet.objects.filter(account_id=planet.account.id)
-    building_list = get_list_or_404(Building, planet=planet_id)
     solarsat = get_object_or_404(Civil212, planet=planet_id)
 
     buildings = []
     for b in building_list:
-        this = b.as_real_class()
-        try:
-            check = this.performance
-            buildings.append({'name': this.name, 'level': this.level, 'id': this.id})
-        except:
-            buildings.append({'name': this.name, 'level': this.level, 'id': this.id})
+        buildings.append({'name': b.name, 'level': b.level, 'id': b.id})
 
     return render(req, 'oweb/planet_buildings.html',
         {
