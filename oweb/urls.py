@@ -24,6 +24,6 @@ urlpatterns = patterns('oweb.views',
 urlpatterns += patterns('',
     url(r'^login/$',
         'django.contrib.auth.views.login',
-        {'template_name': 'app_login.html'},
+        {'template_name': 'oweb/login.html'},
         name='app_login'),
 )
