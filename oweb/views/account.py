@@ -1,5 +1,6 @@
 # Django imports
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from django.shortcuts import get_list_or_404, redirect, render
 # app imports
@@ -64,8 +65,8 @@ def account_research(req, account_id):
 
     # fetch the account and the list of planets
     try:
-        planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        res = Research.objects.select_related('account').filter(account=account_id)
+        account = res[0].account
     except Planet.DoesNotExist:
         raise Http404
     except IndexError:
@@ -75,11 +76,11 @@ def account_research(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
-    res = get_list_or_404(Research, account=account_id)
+    planets = get_list_or_404(Planet, account=account_id)
+
     research = []
     for r in res:
-        this = r.as_real_class()
-        research.append({'name': this.name, 'level': this.level, 'id': this.id})
+        research.append({'name': r.name, 'level': r.level, 'id': r.id})
 
     return render(req, 'oweb/account_research.html', 
         {
@@ -112,13 +113,14 @@ def account_ships(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
+    sat_id = ContentType.objects.get(model='civil212').id
+
     sl = get_list_or_404(Ship, account=account_id)
     ships = []
     for s in sl:
-        this = s.as_real_class()
         # exclude SolarSats
-        if not isinstance(this, Civil212):
-            ships.append({'name': this.name, 'level': this.count, 'id': this.id})
+        if not s.content_type_id == sat_id:
+            ships.append({'name': s.name, 'level': s.count, 'id': s.id})
 
     return render(req, 'oweb/account_ships.html', 
         {
