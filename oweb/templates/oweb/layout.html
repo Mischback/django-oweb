@@ -13,10 +13,4 @@
     </header>
 {% block oweb_layout %}{% endblock %}
 </div>
-<pre>
-{{ sql_queries|length }}
-{% for qdict in sql_queries %}
-{{ qdict.sql }} - {{ qdict.time }}
-{% endfor %}
-</pre>
 {% endblock %}
