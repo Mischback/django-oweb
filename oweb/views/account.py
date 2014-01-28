@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import get_list_or_404, redirect, render
 # app imports
 from oweb.models import Account, Civil212, Planet, Research, Ship
+from oweb.libs.production import get_planet_production
 
 def home(req):
     """
@@ -46,10 +47,17 @@ def account_overview(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
+    production = []
+    for p in planets:
+        production.append(get_planet_production(p, account.speed))
+
+    production = tuple(sum(x) for x in zip(*production))
+
     return render(req, 'oweb/account_overview.html', 
         {
             'account': account,
             'planets': planets,
+            'production': production,
         }
     )
 
