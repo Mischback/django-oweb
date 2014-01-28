@@ -5,5 +5,10 @@
     <header>
         <h1>{{ planet.name }} Overview</h1>
     </header>
+
+    <section>
+        <header>Meta</header>
+        {{ planet.coord }} | {{ planet_fields }} | {{ planet.min_temp }}
+    </section>
 </section>
 {% endblock %}
