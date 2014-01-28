@@ -5,5 +5,32 @@
     <header>
         <h1>{{ planet.name }} Overview</h1>
     </header>
+
+    <section>
+        <header>Meta</header>
+        {{ planet.coord }} | {{ planet_fields }} | {{ planet.min_temp }}
+    </section>
+
+    <section>
+        <header>Production</header>
+        <table>
+            <tr>
+                <td>Metal:</td>
+                <td>{{ production.0 }}</td>
+            </tr>
+            <tr>
+                <td>Crystal:</td>
+                <td>{{ production.1 }}</td>
+            </tr>
+            <tr>
+                <td>Deuterium:</td>
+                <td>{{ production.2 }}</td>
+            </tr>
+            <tr>
+                <td>Energy:</td>
+                <td>{{ production.3 }}</td>
+            </tr>
+        </table>
+    </section>
 </section>
 {% endblock %}

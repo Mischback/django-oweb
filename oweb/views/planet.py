@@ -7,6 +7,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 # app imports
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research113, Research122
+from oweb.libs.production import get_planet_production
 
 
 def planet_overview(req, planet_id):
@@ -37,12 +38,15 @@ def planet_overview(req, planet_id):
     for b in buildings:
         planet_fields += b.level
 
+    production = get_planet_production(planet, planet.account.speed)
+
     return render(req, 'oweb/planet_overview.html',
         {
             'account': planet.account,
             'planet': planet,
-            'planet_fields': planet_fields,
             'planets': planets,
+            'planet_fields': planet_fields,
+            'production': production,
         }
     )
 
