@@ -32,5 +32,16 @@
             </tr>
         </table>
     </section>
+
+    <section>
+        <header>Queue</header>
+        {% if queue %}
+        <ol>
+            {% for q in queue %}
+            <li>{{ q.1 }} {{ q.2 }}</li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+    </section>
 </section>
 {% endblock %}
