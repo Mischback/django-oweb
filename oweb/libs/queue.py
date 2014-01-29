@@ -57,7 +57,7 @@ def get_planet_queue(planet, speed,
     this_metal_prod_mse = get_metal_equivalent(this_metal_prod, trade)
     this_crystal_prod = get_crystal_production(supply2.level, speed=speed)
     this_crystal_prod_mse = get_metal_equivalent(this_crystal_prod, trade)
-    this_deut_prod = get_deuterium_production(supply3.level, speed=speed)
+    this_deut_prod = get_deuterium_production(supply3.level, temp=planet.min_temp + 40, speed=speed)
     this_deut_prod_mse = get_metal_equivalent(this_deut_prod, trade)
 
     queue = []
