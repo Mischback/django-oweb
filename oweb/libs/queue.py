@@ -12,8 +12,8 @@ def get_metal_equivalent(ressources, trade):
     @param  ressources TUPEL
     """
     mse = ressources[0]
-    mse = mse + (trade[0] / trade[1] * ressources[1])
-    mse = mse + (trade[0] / trade[2] * ressources[2])
+    mse = mse + (trade[0] / float(trade[1]) * ressources[1])
+    mse = mse + (trade[0] / float(trade[2]) * ressources[2])
 
     return int(mse)
 
@@ -62,17 +62,17 @@ def get_planet_queue(planet, speed,
 
     queue = []
     for i in range(1, 6):
-        next_cost = costs_onepointfive(supply1.base_cost, supply1.level, offset=i)
-        next_cost_mse = get_metal_equivalent(next_cost, trade)
+        next_metal_cost = costs_onepointfive(supply1.base_cost, supply1.level, offset=i)
+        next_metal_cost_mse = get_metal_equivalent(next_metal_cost, trade)
         next_metal_prod = get_metal_production(supply1.level + i, speed=speed)
         next_metal_prod_mse = get_metal_equivalent(next_metal_prod, trade)
 
         try:
-            next_score = int(next_cost_mse / (next_metal_prod_mse - this_metal_prod_mse))
+            next_score = int(next_metal_cost_mse / (next_metal_prod_mse - this_metal_prod_mse))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply1.name, supply1.level + i))
+        queue.append((next_score, supply1.name, supply1.level + i, next_metal_cost_mse, next_metal_prod_mse - this_metal_prod_mse))
 
         this_metal_prod_mse = next_metal_prod_mse
 
@@ -82,25 +82,25 @@ def get_planet_queue(planet, speed,
         next_crystal_prod_mse = get_metal_equivalent(next_crystal_prod, trade)
 
         try:
-            next_score = int(next_cost_mse / (next_crystal_prod_mse - this_crystal_prod_mse))
+            next_score = int(next_crystal_cost_mse / (next_crystal_prod_mse - this_crystal_prod_mse))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply2.name, supply2.level + i))
+        queue.append((next_score, supply2.name, supply2.level + i, next_crystal_cost_mse, next_crystal_prod_mse - this_crystal_prod_mse))
 
         this_crystal_prod_mse = next_crystal_prod_mse
 
-        next_deut_cost = costs_onepointeight(supply3.base_cost, supply3.level, offset=i)
+        next_deut_cost = costs_onepointfive(supply3.base_cost, supply3.level, offset=i)
         next_deut_cost_mse = get_metal_equivalent(next_deut_cost, trade)
         next_deut_prod = get_deuterium_production(supply3.level + i, temp=planet.min_temp + 40, speed=speed)
         next_deut_prod_mse = get_metal_equivalent(next_deut_prod, trade)
 
         try:
-            next_score = int(next_cost_mse / (next_deut_prod_mse - this_deut_prod_mse))
+            next_score = int(next_deut_cost_mse / (next_deut_prod_mse - this_deut_prod_mse))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply3.name, supply3.level + i))
+        queue.append((next_score, supply3.name, supply3.level + i, next_deut_cost_mse, next_deut_prod_mse - this_deut_prod_mse))
 
         this_deut_prod_mse = next_deut_prod_mse
 
