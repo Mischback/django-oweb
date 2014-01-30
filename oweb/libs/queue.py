@@ -59,9 +59,6 @@ def get_planet_queue(planet, speed,
         civil212 = get_object_or_404(Civil212, planet=planet.id)
     if not research113:
         research113 = get_object_or_404(Research113, account=planet.account.id)
-    # plasma bonus
-    if not research122:
-        research122 = get_object_or_404(Research122, account=planet.account.id)
 
     trade = (planet.account.trade_metal, planet.account.trade_crystal, planet.account.trade_deut)
 
