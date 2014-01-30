@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404, redirect, rende
 # app imports
 from oweb.models import Account, Civil212, Planet, Research, Ship
 from oweb.libs.production import get_planet_production
-from oweb.libs.queue import get_planet_queue
+from oweb.libs.queue import get_planet_queue, get_plasma_queue
 
 def home(req):
     """
@@ -55,6 +55,7 @@ def account_overview(req, account_id):
         queue += get_planet_queue(p, account.speed)
 
     production = tuple(sum(x) for x in zip(*production))
+    queue += get_plasma_queue(account, production=production)
     queue.sort()
 
     return render(req, 'oweb/account_overview.html', 

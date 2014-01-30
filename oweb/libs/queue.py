@@ -2,8 +2,8 @@
 from django.shortcuts import get_object_or_404
 # app imports
 from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Civil212, Research113, Research122
-from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production
-from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_onepointeight
+from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production, get_plasma_bonus
+from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_onepointeight, costs_two
 
 
 def get_mse(ressources, trade):
@@ -125,5 +125,40 @@ def get_planet_queue(planet, speed,
         this_deut_prod = next_deut_prod
 
     queue.sort()
+
+    return queue
+
+
+def get_plasma_queue(account, research122=None, production=(0, 0, 0, 0)):
+    """
+    """
+    if not research122:
+        research122 = get_object_or_404(Research122, account=account.id)
+
+    trade = (account.trade_metal, account.trade_crystal, account.trade_deut)
+
+    this_prod = get_mse(
+        get_plasma_bonus(research122.level, production[0], production[1]),
+        trade
+    )
+
+    queue = []
+
+    for i in range(1, 6):
+        next_cost = costs_two(research122.base_cost, research122.level, offset=i)
+        next_prod = get_mse(
+            get_plasma_bonus(research122.level + i, production[0], production[1]),
+            trade
+        )
+
+        queue.append(queue_item(
+            research122.name,
+            research122.level + i,
+            next_cost,
+            next_prod,
+            this_prod,
+            trade))
+
+        this_prod = next_prod
 
     return queue
