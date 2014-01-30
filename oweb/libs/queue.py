@@ -68,7 +68,7 @@ def get_planet_queue(planet, speed,
 
     queue = []
     for i in range(1, 6):
-        next_metal_cost = get_mse(
+        next_cost = get_mse(
             costs_onepointfive(supply1.base_cost, supply1.level, offset=i),
             trade
         )
@@ -78,15 +78,15 @@ def get_planet_queue(planet, speed,
         )
 
         try:
-            next_score = int(next_metal_cost / (next_metal_prod - this_metal_prod))
+            next_score = int(next_cost / (next_metal_prod - this_metal_prod))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply1.name, supply1.level + i, next_metal_cost, next_metal_prod - this_metal_prod))
+        queue.append((next_score, supply1.name, supply1.level + i, next_cost, next_metal_prod - this_metal_prod))
 
         this_metal_prod = next_metal_prod
 
-        next_crystal_cost = get_mse(
+        next_cost = get_mse(
             costs_onepointsix(supply2.base_cost, supply2.level, offset=i),
             trade
         )
@@ -96,15 +96,15 @@ def get_planet_queue(planet, speed,
         )
 
         try:
-            next_score = int(next_crystal_cost / (next_crystal_prod - this_crystal_prod))
+            next_score = int(next_cost / (next_crystal_prod - this_crystal_prod))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply2.name, supply2.level + i, next_crystal_cost, next_crystal_prod - this_crystal_prod))
+        queue.append((next_score, supply2.name, supply2.level + i, next_cost, next_crystal_prod - this_crystal_prod))
 
         this_crystal_prod = next_crystal_prod
 
-        next_deut_cost = get_mse(
+        next_cost = get_mse(
             costs_onepointfive(supply3.base_cost, supply3.level, offset=i),
             trade
         )
@@ -114,11 +114,11 @@ def get_planet_queue(planet, speed,
         )
 
         try:
-            next_score = int(next_deut_cost / (next_deut_prod - this_deut_prod))
+            next_score = int(next_cost / (next_deut_prod - this_deut_prod))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply3.name, supply3.level + i, next_deut_cost, next_deut_prod - this_deut_prod))
+        queue.append((next_score, supply3.name, supply3.level + i, next_cost, next_deut_prod - this_deut_prod))
 
         this_deut_prod = next_deut_prod
 
