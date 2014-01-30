@@ -53,74 +53,74 @@ def get_planet_queue(planet, speed,
 
     trade = (planet.account.trade_metal, planet.account.trade_crystal, planet.account.trade_deut)
 
-    this_metal_prod_mse = get_mse(
+    this_metal_prod = get_mse(
         get_metal_production(supply1.level, speed=speed),
         trade
     )
-    this_crystal_prod_mse = get_mse(
+    this_crystal_prod = get_mse(
         get_crystal_production(supply2.level, speed=speed),
         trade
     )
-    this_deut_prod_mse = get_mse(
+    this_deut_prod = get_mse(
         get_deuterium_production(supply3.level, temp=planet.min_temp + 40, speed=speed),
         trade
     )
 
     queue = []
     for i in range(1, 6):
-        next_metal_cost_mse = get_mse(
+        next_metal_cost = get_mse(
             costs_onepointfive(supply1.base_cost, supply1.level, offset=i),
             trade
         )
-        next_metal_prod_mse = get_mse(
+        next_metal_prod = get_mse(
             get_metal_production(supply1.level + i, speed=speed),
             trade
         )
 
         try:
-            next_score = int(next_metal_cost_mse / (next_metal_prod_mse - this_metal_prod_mse))
+            next_score = int(next_metal_cost / (next_metal_prod - this_metal_prod))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply1.name, supply1.level + i, next_metal_cost_mse, next_metal_prod_mse - this_metal_prod_mse))
+        queue.append((next_score, supply1.name, supply1.level + i, next_metal_cost, next_metal_prod - this_metal_prod))
 
-        this_metal_prod_mse = next_metal_prod_mse
+        this_metal_prod = next_metal_prod
 
-        next_crystal_cost_mse = get_mse(
+        next_crystal_cost = get_mse(
             costs_onepointsix(supply2.base_cost, supply2.level, offset=i),
             trade
         )
-        next_crystal_prod_mse = get_mse(
+        next_crystal_prod = get_mse(
             get_crystal_production(supply2.level + i, speed=speed),
             trade
         )
 
         try:
-            next_score = int(next_crystal_cost_mse / (next_crystal_prod_mse - this_crystal_prod_mse))
+            next_score = int(next_crystal_cost / (next_crystal_prod - this_crystal_prod))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply2.name, supply2.level + i, next_crystal_cost_mse, next_crystal_prod_mse - this_crystal_prod_mse))
+        queue.append((next_score, supply2.name, supply2.level + i, next_crystal_cost, next_crystal_prod - this_crystal_prod))
 
-        this_crystal_prod_mse = next_crystal_prod_mse
+        this_crystal_prod = next_crystal_prod
 
-        next_deut_cost_mse = get_mse(
+        next_deut_cost = get_mse(
             costs_onepointfive(supply3.base_cost, supply3.level, offset=i),
             trade
         )
-        next_deut_prod_mse = get_mse(
+        next_deut_prod = get_mse(
             get_deuterium_production(supply3.level + i, temp=planet.min_temp + 40, speed=speed),
             trade
         )
 
         try:
-            next_score = int(next_deut_cost_mse / (next_deut_prod_mse - this_deut_prod_mse))
+            next_score = int(next_deut_cost / (next_deut_prod - this_deut_prod))
         except ZeroDivisionError:
             next_score = 1000000000000
 
-        queue.append((next_score, supply3.name, supply3.level + i, next_deut_cost_mse, next_deut_prod_mse - this_deut_prod_mse))
+        queue.append((next_score, supply3.name, supply3.level + i, next_deut_cost, next_deut_prod - this_deut_prod))
 
-        this_deut_prod_mse = next_deut_prod_mse
+        this_deut_prod = next_deut_prod
 
     queue.sort()
 
