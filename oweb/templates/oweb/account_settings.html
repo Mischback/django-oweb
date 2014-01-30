@@ -5,5 +5,46 @@
     <header>
         <h1>Account Settings</h1>
     </header>
+
+    <form action="{% url 'oweb:account_settings_commit' account.id %}" method="post">
+        <section>
+            <header>Account Information</header>
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Username:</td>
+                    <td><input value="{{ account.username }}" name="account_username" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Universe:</td>
+                    <td><input value="{{ account.universe }}" name="account_universe" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Speed:</td>
+                    <td><input value="{{ account.speed }}" name="account_speed" type="text" /></td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <header>Trading Rates</header>
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Metal:</td>
+                    <td><input value="{{ account.trade_metal }}" name="account_trade_metal" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Crystal:</td>
+                    <td><input value="{{ account.trade_crystal }}" name="account_trade_crystal" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Deuterium:</td>
+                    <td><input value="{{ account.trade_deut }}" name="account_trade_deut" type="text" /></td>
+                </tr>
+            </table>
+            <button type="submit">update rates</button>
+        </section>
+    </form>
 </section>
 {% endblock %}
