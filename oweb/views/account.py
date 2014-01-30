@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404, redirect, rende
 # app imports
 from oweb.models import Account, Civil212, Planet, Research, Ship
 from oweb.libs.production import get_planet_production
+from oweb.libs.queue import get_planet_queue
 
 def home(req):
     """
@@ -48,16 +49,20 @@ def account_overview(req, account_id):
         raise Http404
 
     production = []
+    queue = []
     for p in planets:
         production.append(get_planet_production(p, account.speed))
+        queue += get_planet_queue(p, account.speed)
 
     production = tuple(sum(x) for x in zip(*production))
+    queue.sort()
 
     return render(req, 'oweb/account_overview.html', 
         {
             'account': account,
             'planets': planets,
             'production': production,
+            'queue': queue,
         }
     )
 

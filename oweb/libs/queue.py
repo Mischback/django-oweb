@@ -37,8 +37,7 @@ def get_planet_queue(planet, speed,
     supply4=None,
     supply12=None,
     civil212=None,
-    research113=None,
-    research122=None):
+    research113=None):
     """
     """
     # Metal
