@@ -53,20 +53,29 @@ def get_planet_queue(planet, speed,
 
     trade = (planet.account.trade_metal, planet.account.trade_crystal, planet.account.trade_deut)
 
-    this_metal_prod = get_metal_production(supply1.level, speed=speed)
-    this_metal_prod_mse = get_mse(this_metal_prod, trade)
-    #this_metal_prod_mse = get_metal_equivalent(get_metal_production(supply1.level, speed=speed), trade)
-    this_crystal_prod = get_crystal_production(supply2.level, speed=speed)
-    this_crystal_prod_mse = get_mse(this_crystal_prod, trade)
-    this_deut_prod = get_deuterium_production(supply3.level, temp=planet.min_temp + 40, speed=speed)
-    this_deut_prod_mse = get_mse(this_deut_prod, trade)
+    this_metal_prod_mse = get_mse(
+        get_metal_production(supply1.level, speed=speed),
+        trade
+    )
+    this_crystal_prod_mse = get_mse(
+        get_crystal_production(supply2.level, speed=speed),
+        trade
+    )
+    this_deut_prod_mse = get_mse(
+        get_deuterium_production(supply3.level, temp=planet.min_temp + 40, speed=speed),
+        trade
+    )
 
     queue = []
     for i in range(1, 6):
-        next_metal_cost = costs_onepointfive(supply1.base_cost, supply1.level, offset=i)
-        next_metal_cost_mse = get_mse(next_metal_cost, trade)
-        next_metal_prod = get_metal_production(supply1.level + i, speed=speed)
-        next_metal_prod_mse = get_mse(next_metal_prod, trade)
+        next_metal_cost_mse = get_mse(
+            costs_onepointfive(supply1.base_cost, supply1.level, offset=i),
+            trade
+        )
+        next_metal_prod_mse = get_mse(
+            get_metal_production(supply1.level + i, speed=speed),
+            trade
+        )
 
         try:
             next_score = int(next_metal_cost_mse / (next_metal_prod_mse - this_metal_prod_mse))
@@ -77,10 +86,14 @@ def get_planet_queue(planet, speed,
 
         this_metal_prod_mse = next_metal_prod_mse
 
-        next_crystal_cost = costs_onepointsix(supply2.base_cost, supply2.level, offset=i)
-        next_crystal_cost_mse = get_mse(next_crystal_cost, trade)
-        next_crystal_prod = get_crystal_production(supply2.level + i, speed=speed)
-        next_crystal_prod_mse = get_mse(next_crystal_prod, trade)
+        next_crystal_cost_mse = get_mse(
+            costs_onepointsix(supply2.base_cost, supply2.level, offset=i),
+            trade
+        )
+        next_crystal_prod_mse = get_mse(
+            get_crystal_production(supply2.level + i, speed=speed),
+            trade
+        )
 
         try:
             next_score = int(next_crystal_cost_mse / (next_crystal_prod_mse - this_crystal_prod_mse))
@@ -91,10 +104,14 @@ def get_planet_queue(planet, speed,
 
         this_crystal_prod_mse = next_crystal_prod_mse
 
-        next_deut_cost = costs_onepointfive(supply3.base_cost, supply3.level, offset=i)
-        next_deut_cost_mse = get_mse(next_deut_cost, trade)
-        next_deut_prod = get_deuterium_production(supply3.level + i, temp=planet.min_temp + 40, speed=speed)
-        next_deut_prod_mse = get_mse(next_deut_prod, trade)
+        next_deut_cost_mse = get_mse(
+            costs_onepointfive(supply3.base_cost, supply3.level, offset=i),
+            trade
+        )
+        next_deut_prod_mse = get_mse(
+            get_deuterium_production(supply3.level + i, temp=planet.min_temp + 40, speed=speed),
+            trade
+        )
 
         try:
             next_score = int(next_deut_cost_mse / (next_deut_prod_mse - this_deut_prod_mse))
