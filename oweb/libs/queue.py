@@ -1,8 +1,8 @@
 # Django imports
 from django.shortcuts import get_object_or_404
 # app imports
-from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Civil212, Research113, Research122
-from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production, get_plasma_bonus
+from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Station14, Station15, Civil212, Research113, Research122
+from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production, get_plasma_bonus, get_capacity
 from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_onepointeight, costs_two
 
 
@@ -19,13 +19,28 @@ def get_mse(ressources, trade):
 
 
 def queue_item(id, name, level,                 # which item?
-    next_cost, next_prod, this_prod, trade, # used for calculation
+    next_cost, next_prod, this_prod, trade,
+    this_capacity, next_capacity, next_cap_cost, next_cap_time,
     planet
     ):
     """
     """
     # calculate MSE
     next_cost_mse = get_mse(next_cost, trade)
+
+    # calculate building time
+    if this_capacity and next_capacity:
+        ress = next_cost[0] + next_cost[1] + next_cost[2]
+        this_build_time = ress / float(this_capacity)
+        next_build_time = ress / float(next_capacity)
+        cap_bonus = (this_build_time - (next_cap_time + next_build_time)) * next_prod
+        if cap_bonus < next_cap_cost:
+            need_capacity = 0
+        else:
+            need_capacity = 1
+    else:
+        need_capacity = 0
+
     # determine score
     try:
         score = int(next_cost_mse / (next_prod - this_prod))
@@ -33,6 +48,7 @@ def queue_item(id, name, level,                 # which item?
         score = 1000000000000
 
     return (score,
+        need_capacity,
         {
             'id': id,
             'name': name, 
@@ -89,18 +105,32 @@ def get_planet_queue(planet,
     if not trade:
         trade = (planet.account.trade_metal, planet.account.trade_crystal, planet.account.trade_deut)
 
+    # calculate current metal production
     this_metal_prod = get_mse(
         get_metal_production(supply1.level, speed=speed),
         trade
     )
+    # calculate current crystal production
     this_crystal_prod = get_mse(
         get_crystal_production(supply2.level, speed=speed),
         trade
     )
+    # calculate current deuterium production
     this_deut_prod = get_mse(
         get_deuterium_production(supply3.level, temp=planet.min_temp + 40, speed=speed),
         trade
     )
+
+    # calculate current capacity (ress per hour)
+    this_capacity = get_capacity(station14.level, station15.level, speed)
+    if station14.level > 9:
+        next_capacity = get_capacity(station14.level, station15.level + 1, speed)
+        next_cap_cost = costs_two(station15.base_cost, station15.level, offset=1)
+    else:
+        next_capacity = get_capacity(station14.level + 1, station15.level, speed)
+        next_cap_cost = costs_two(station14.base_cost, station14.level, offset=1)
+    next_cap_cost_mse = get_mse(next_cap_cost, trade)
+    next_cap_time = (next_cap_cost[0] + next_cap_cost[1] + next_cap_cost[2]) / float(this_capacity)
 
     queue = []
     for i in range(1, 6):
@@ -118,6 +148,10 @@ def get_planet_queue(planet,
             next_metal_prod,
             this_metal_prod,
             trade,
+            this_capacity,
+            next_capacity,
+            next_cap_cost_mse,
+            next_cap_time,
             planet))
 
         this_metal_prod = next_metal_prod
@@ -136,6 +170,10 @@ def get_planet_queue(planet,
             next_crystal_prod,
             this_crystal_prod,
             trade,
+            this_capacity,
+            next_capacity,
+            next_cap_cost_mse,
+            next_cap_time,
             planet))
 
         this_crystal_prod = next_crystal_prod
@@ -154,6 +192,10 @@ def get_planet_queue(planet,
             next_deut_prod,
             this_deut_prod,
             trade,
+            this_capacity,
+            next_capacity,
+            next_cap_cost_mse,
+            next_cap_time,
             planet))
 
         this_deut_prod = next_deut_prod
@@ -193,6 +235,10 @@ def get_plasma_queue(account, research122=None, production=(0, 0, 0, 0)):
             next_prod,
             this_prod,
             trade,
+            None,
+            None,
+            None,
+            None,
             account))
 
         this_prod = next_prod

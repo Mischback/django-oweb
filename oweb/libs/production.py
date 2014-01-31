@@ -184,3 +184,20 @@ def get_planet_production(planet, speed,
 
     return prod
 
+
+def get_planet_capacity(planet, speed=None):
+    """
+    """
+    if not speed:
+        speed = planet.account.speed
+
+    robo = get_object_or_404(Station14, planet=planet.id)
+    nani = get_object_or_404(Station15, planet=planet.id)
+
+    return get_capacity(robo.level, nani.level, speed)
+
+
+def get_capacity(robo, nani, speed):
+    """
+    """
+    return (2500 * speed * (1 + robo) * 2 ** nani)

@@ -29,7 +29,7 @@
         {% if queue %}
         <ol>
             {% for q in queue %}
-                {% with q.1 as detail %}
+                {% with q.2 as detail %}
             <li>
                     {% if detail.planet == account %}
                 <a href="{% url 'oweb:account_research' account.id %}">Research</a>: {{ detail.name }} {{ detail.level }} ({{ q.0 }})
