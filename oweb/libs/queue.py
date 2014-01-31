@@ -18,7 +18,7 @@ def get_mse(ressources, trade):
     return int(mse)
 
 
-def queue_item(name, level,                 # which item?
+def queue_item(id, name, level,                 # which item?
     next_cost, next_prod, this_prod, trade, # used for calculation
     planet
     ):
@@ -34,6 +34,7 @@ def queue_item(name, level,                 # which item?
 
     return (score,
         {
+            'id': id,
             'name': name, 
             'level': level,
             'planet': planet,
@@ -93,6 +94,7 @@ def get_planet_queue(planet, speed,
         )
 
         queue.append(queue_item(
+            supply1.id,
             supply1.name,
             supply1.level + i,
             next_cost,
@@ -110,6 +112,7 @@ def get_planet_queue(planet, speed,
         )
 
         queue.append(queue_item(
+            supply2.id,
             supply2.name,
             supply2.level + i,
             next_cost,
@@ -127,6 +130,7 @@ def get_planet_queue(planet, speed,
         )
 
         queue.append(queue_item(
+            supply3.id,
             supply3.name,
             supply3.level + i,
             next_cost,
@@ -165,6 +169,7 @@ def get_plasma_queue(account, research122=None, production=(0, 0, 0, 0)):
         )
 
         queue.append(queue_item(
+            research122.id,
             research122.name,
             research122.level + i,
             next_cost,

@@ -39,7 +39,16 @@
         <ol>
             {% for q in queue %}
                 {% with q.1 as detail %}
-            <li>{{ detail.name }} {{ detail.level }} ({{ q.0 }})</li>
+            <li>
+                {{ detail.name }} {{ detail.level }} ({{ q.0 }})
+                <form action="{% url 'oweb:item_update' %}" method="post">
+                    {% csrf_token %}
+                    <input value="building" name="item_type" type="hidden" />
+                    <input value="{{ detail.id }}" name="item_id" type="hidden" />
+                    <input value="{{ detail.level }}" name="item_level" type="hidden" />
+                    <button type="submit">+</button>
+                </form>
+            </li>
                 {% endwith %}
             {% endfor %}
         </ol>
