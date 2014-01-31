@@ -1,19 +1,21 @@
 /* ***** GENERAL SETTINGS ***** */
 * {
-    margin:     0;
-    padding:    0;
+    margin:             0;
+    padding:            0;
 }
 
 body {
+    font-family:        'UbuntuRegular', sans-serif;
     font-size:          16px;
     color:              #aaa;
     background-color:   #060619;
 }
 
 a, a:link, a:visited {
+    font-family:        'UbuntuMedium', sans-serif;
     color:              #ffcc00;
     text-decoration:    none;
 }
 a:hover {
-    color:  #66cc00;
+    color:              #66cc00;
 }
