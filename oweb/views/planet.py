@@ -40,7 +40,7 @@ def planet_overview(req, planet_id):
         planet_fields += b.level
 
     production = get_planet_production(planet, planet.account.speed)
-    queue = get_planet_queue(planet, planet.account.speed)
+    queue = get_planet_queue(planet)
 
     return render(req, 'oweb/planet_overview.html',
         {

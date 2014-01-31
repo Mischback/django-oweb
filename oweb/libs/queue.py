@@ -41,7 +41,9 @@ def queue_item(id, name, level,                 # which item?
         })
 
 
-def get_planet_queue(planet, speed, 
+def get_planet_queue(planet,
+    speed=None, 
+    trade=None,
     supply1=None,
     supply2=None,
     supply3=None,
@@ -80,8 +82,12 @@ def get_planet_queue(planet, speed,
     # Energy
     if not research113:
         research113 = get_object_or_404(Research113, account=planet.account.id)
-
-    trade = (planet.account.trade_metal, planet.account.trade_crystal, planet.account.trade_deut)
+    # account speed
+    if not speed:
+        speed = planet.account.speed
+    # trade rates
+    if not trade:
+        trade = (planet.account.trade_metal, planet.account.trade_crystal, planet.account.trade_deut)
 
     this_metal_prod = get_mse(
         get_metal_production(supply1.level, speed=speed),

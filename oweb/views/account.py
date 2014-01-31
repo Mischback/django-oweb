@@ -52,7 +52,7 @@ def account_overview(req, account_id):
     queue = []
     for p in planets:
         production.append(get_planet_production(p, account.speed))
-        queue += get_planet_queue(p, account.speed)
+        queue += get_planet_queue(p)
 
     production = tuple(sum(x) for x in zip(*production))
     queue += get_plasma_queue(account, production=production)
