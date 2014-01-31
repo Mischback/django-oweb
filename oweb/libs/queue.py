@@ -21,7 +21,7 @@ def get_mse(ressources, trade):
 def queue_item(id, name, level,
     next_cost, next_prod, this_prod, trade,
     this_capacity, next_capacity, next_cap_cost, next_cap_time,
-    required_sats,
+    required_energy, required_sats,
     planet
     ):
     """
@@ -70,6 +70,7 @@ def queue_item(id, name, level,
             'name': name, 
             'level': level,
             'gain': gain,
+            'required_energy': required_energy,
             'planet': planet,
         })
 
@@ -195,6 +196,7 @@ def get_planet_queue(planet,
             next_capacity,
             next_cap_cost_mse,
             next_cap_time,
+            this_energy,
             required_sats,
             planet))
 
@@ -225,6 +227,7 @@ def get_planet_queue(planet,
             next_capacity,
             next_cap_cost_mse,
             next_cap_time,
+            this_energy,
             required_sats,
             planet))
 
@@ -255,6 +258,7 @@ def get_planet_queue(planet,
             next_capacity,
             next_cap_cost_mse,
             next_cap_time,
+            this_energy,
             required_sats,
             planet))
 
@@ -299,6 +303,7 @@ def get_plasma_queue(account, research122=None, production=(0, 0, 0, 0)):
             None,
             None,
             None,
+            0,
             0,
             account))
 
