@@ -18,16 +18,26 @@ def get_mse(ressources, trade):
     return int(mse)
 
 
-def queue_item(name, level,
-    next_cost, next_prod, this_prod,
-    trade):
+def queue_item(name, level,                 # which item?
+    next_cost, next_prod, this_prod, trade, # used for calculation
+    planet
+    ):
+    """
+    """
+    # calculate MSE
     next_cost_mse = get_mse(next_cost, trade)
+    # determine score
     try:
         score = int(next_cost_mse / (next_prod - this_prod))
     except ZeroDivisionError:
         score = 1000000000000
 
-    return (score, name, level)
+    return (score,
+        {
+            'name': name, 
+            'level': level,
+            'planet': planet,
+        })
 
 
 def get_planet_queue(planet, speed, 
@@ -88,7 +98,8 @@ def get_planet_queue(planet, speed,
             next_cost,
             next_metal_prod,
             this_metal_prod,
-            trade))
+            trade,
+            planet))
 
         this_metal_prod = next_metal_prod
 
@@ -104,7 +115,8 @@ def get_planet_queue(planet, speed,
             next_cost,
             next_crystal_prod,
             this_crystal_prod,
-            trade))
+            trade,
+            planet))
 
         this_crystal_prod = next_crystal_prod
 
@@ -120,7 +132,8 @@ def get_planet_queue(planet, speed,
             next_cost,
             next_deut_prod,
             this_deut_prod,
-            trade))
+            trade,
+            planet))
 
         this_deut_prod = next_deut_prod
 
@@ -157,7 +170,8 @@ def get_plasma_queue(account, research122=None, production=(0, 0, 0, 0)):
             next_cost,
             next_prod,
             this_prod,
-            trade))
+            trade,
+            account))
 
         this_prod = next_prod
 

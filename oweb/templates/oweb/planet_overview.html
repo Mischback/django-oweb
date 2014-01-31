@@ -38,7 +38,9 @@
         {% if queue %}
         <ol>
             {% for q in queue %}
-            <li>{{ q.1 }} {{ q.2 }} ({{ q.0 }})</li>
+                {% with q.1 as detail %}
+            <li>{{ detail.name }} {{ detail.level }} ({{ q.0 }})</li>
+                {% endwith %}
             {% endfor %}
         </ol>
         {% endif %}
