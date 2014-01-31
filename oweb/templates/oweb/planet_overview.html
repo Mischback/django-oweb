@@ -38,9 +38,10 @@
         {% if queue %}
         <ol>
             {% for q in queue %}
-                {% with q.1 as detail %}
+                {% with q.4 as detail %}
             <li>
                 {{ detail.name }} {{ detail.level }} ({{ q.0 }})
+                {% if q.3 > 0 %}need capacity{% endif %}
                 <form action="{% url 'oweb:item_update' %}" method="post">
                     {% csrf_token %}
                     <input value="building" name="item_type" type="hidden" />
