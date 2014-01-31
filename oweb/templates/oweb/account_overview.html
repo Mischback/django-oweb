@@ -29,7 +29,7 @@
         {% if queue %}
         <ol>
             {% for q in queue %}
-                {% with q.2 as detail %}
+                {% with q.3 as detail %}
             <li>
                     {% if detail.planet == account %}
                 <a href="{% url 'oweb:account_research' account.id %}">Research</a>: {{ detail.name }} {{ detail.level }} ({{ q.0 }})
@@ -37,7 +37,7 @@
                     <input value="research" name="item_type" type="hidden" />
                     {% else %}
                 <a href="{% url 'oweb:planet_buildings' detail.planet.id %}">{{ detail.planet.name }}</a>: {{ detail.name }} {{ detail.level }} ({{ q.0 }})
-                        {% if q.1 > 0 %}need capacity{% endif %}
+                        {% if q.2 > 0 %}need capacity{% endif %}
                 <form action="{% url 'oweb:item_update' %}" method="post">
                     <input value="building" name="item_type" type="hidden" />
                     {% endif %}

@@ -18,41 +18,52 @@ def get_mse(ressources, trade):
     return int(mse)
 
 
-def queue_item(id, name, level,                 # which item?
+def queue_item(id, name, level,
     next_cost, next_prod, this_prod, trade,
     this_capacity, next_capacity, next_cap_cost, next_cap_time,
     planet
     ):
     """
     """
+    # init some vars... 
+    # This catches some issues with Plasma research
+    need_capacity = 0
+    this_build_time = 0
+
     # calculate MSE
     next_cost_mse = get_mse(next_cost, trade)
+
+    # calc production gain
+    gain = next_prod - this_prod
+
+    # calc amortisation time
+    amortisation = next_cost_mse / float(gain)
 
     # calculate building time
     if this_capacity and next_capacity:
         ress = next_cost[0] + next_cost[1] + next_cost[2]
         this_build_time = ress / float(this_capacity)
         next_build_time = ress / float(next_capacity)
-        cap_bonus = (this_build_time - (next_cap_time + next_build_time)) * (next_prod - this_prod)
+        cap_bonus = (this_build_time - (next_cap_time + next_build_time)) * gain
         if cap_bonus < next_cap_cost:
             need_capacity = 0
         else:
             need_capacity = 1
-    else:
-        need_capacity = 0
 
     # determine score
     try:
-        score = int(next_cost_mse / (next_prod - this_prod))
+        score = int(next_cost_mse / gain)
     except ZeroDivisionError:
         score = 1000000000000
 
     return (score,
+        this_build_time,
         need_capacity,
         {
             'id': id,
             'name': name, 
             'level': level,
+            'gain': gain,
             'planet': planet,
         })
 
