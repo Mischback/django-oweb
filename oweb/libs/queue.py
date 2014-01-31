@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404
 # app imports
 from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Station14, Station15, Civil212, Research113, Research122
-from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production, get_plasma_bonus, get_capacity
+from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production, get_plasma_bonus, get_capacity, get_sat_production, get_energy_production
 from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_onepointeight, costs_two
 
 
@@ -21,6 +21,7 @@ def get_mse(ressources, trade):
 def queue_item(id, name, level,
     next_cost, next_prod, this_prod, trade,
     this_capacity, next_capacity, next_cap_cost, next_cap_time,
+    required_sats,
     planet
     ):
     """
@@ -56,7 +57,12 @@ def queue_item(id, name, level,
     except ZeroDivisionError:
         score = 1000000000000
 
+    # normalize required sats
+    if required_sats < 0:
+        required_sats = 0
+
     return (score,
+        required_sats,
         this_build_time,
         need_capacity,
         {
@@ -135,6 +141,22 @@ def get_planet_queue(planet,
         trade
     )
 
+    # calculate planet's energy
+    sol, fus, sat = get_energy_production(
+        supply4.level,
+        supply12.level,
+        civil212.count,
+        temp=planet.min_temp + 40,
+        energy=research113.level,
+        max_performance=True)
+    planet_energy = tuple(sum(x) for x in zip(sol, fus, sat))[3]
+    planet_energy += this_metal_prod[3]
+    planet_energy += this_crystal_prod[3]
+    planet_energy += this_deut_prod[3]
+
+    # how much can one sat produce?
+    sat_prod = get_sat_production(1, temp=planet.min_temp + 40)[3]
+
     # calculate current capacity (ress per hour)
     this_capacity = get_capacity(station14.level, station15.level, speed)
     if station14.level > 9:
@@ -148,12 +170,18 @@ def get_planet_queue(planet,
 
     queue = []
     for i in range(1, 6):
+        # *** Metal Mine
+        # cost of this level
         next_cost = costs_onepointfive(supply1.base_cost, supply1.level, offset=i)
+        # production of this level
         next_metal_prod = get_metal_production(supply1.level + i, speed=speed)
         next_metal_prod_mse = get_mse(
             next_metal_prod,
             trade
         )
+        # energy (number of sats to determine the energy consumption)
+        this_energy = -1 * (planet_energy + next_metal_prod[3] - this_metal_prod[3])
+        required_sats = this_energy / sat_prod
 
         queue.append(queue_item(
             supply1.id,
@@ -167,16 +195,23 @@ def get_planet_queue(planet,
             next_capacity,
             next_cap_cost_mse,
             next_cap_time,
+            required_sats,
             planet))
 
         this_metal_prod_mse = next_metal_prod_mse
 
+        # *** Crystal Mine
+        # cost of this level
         next_cost = costs_onepointsix(supply2.base_cost, supply2.level, offset=i)
+        # production of this level
         next_crystal_prod = get_crystal_production(supply2.level + i, speed=speed)
         next_crystal_prod_mse = get_mse(
             next_crystal_prod,
             trade
         )
+        # energy (number of sats to determine the energy consumption)
+        this_energy = -1 * (planet_energy + next_crystal_prod[3] - this_crystal_prod[3])
+        required_sats = this_energy / sat_prod
 
         queue.append(queue_item(
             supply2.id,
@@ -190,16 +225,23 @@ def get_planet_queue(planet,
             next_capacity,
             next_cap_cost_mse,
             next_cap_time,
+            required_sats,
             planet))
 
         this_crystal_prod_mse = next_crystal_prod_mse
 
+        # *** Deuterium Synthesizer
+        # cost of this level
         next_cost = costs_onepointfive(supply3.base_cost, supply3.level, offset=i)
+        # production of this level
         next_deut_prod = get_deuterium_production(supply3.level + i, temp=planet.min_temp + 40, speed=speed)
         next_deut_prod_mse = get_mse(
             next_deut_prod,
             trade
         )
+        # energy (number of sats to determine the energy consumption)
+        this_energy = -1 * (planet_energy + next_deut_prod[3] - this_deut_prod[3])
+        required_sats = this_energy / sat_prod
 
         queue.append(queue_item(
             supply3.id,
@@ -213,6 +255,7 @@ def get_planet_queue(planet,
             next_capacity,
             next_cap_cost_mse,
             next_cap_time,
+            required_sats,
             planet))
 
         this_deut_prod_mse = next_deut_prod_mse
@@ -256,6 +299,7 @@ def get_plasma_queue(account, research122=None, production=(0, 0, 0, 0)):
             None,
             None,
             None,
+            0,
             account))
 
         this_prod = next_prod
