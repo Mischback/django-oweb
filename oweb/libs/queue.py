@@ -33,7 +33,7 @@ def queue_item(id, name, level,                 # which item?
         ress = next_cost[0] + next_cost[1] + next_cost[2]
         this_build_time = ress / float(this_capacity)
         next_build_time = ress / float(next_capacity)
-        cap_bonus = (this_build_time - (next_cap_time + next_build_time)) * next_prod
+        cap_bonus = (this_build_time - (next_cap_time + next_build_time)) * (next_prod - this_prod)
         if cap_bonus < next_cap_cost:
             need_capacity = 0
         else:
