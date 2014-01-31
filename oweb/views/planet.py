@@ -132,7 +132,8 @@ def planet_buildings(req, planet_id):
         raise Http404
 
     planets = Planet.objects.filter(account_id=planet.account.id)
-    solarsat = get_object_or_404(Civil212, planet=planet_id)
+    s = get_object_or_404(Civil212, planet=planet_id)
+    solarsat = {'name': s.name, 'level': s.count, 'id': s.id}
 
     buildings = []
     for b in building_list:

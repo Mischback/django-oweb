@@ -17,6 +17,10 @@
             <td>{% include 'oweb/includes/item_form.html' with item=b item_type='building' %}</td>
         </tr>
     {% endfor %}
+        <tr>
+            <td>{{ solarsat.name }}</td>
+            <td>{% include 'oweb/includes/item_form.html' with item=solarsat item_type='ship' %}</td>
+        </tr>
     </table>
 {% endif %}
 </section>
