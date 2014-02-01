@@ -1,23 +1,27 @@
 {% extends 'oweb/account_base.html' %}
 
+{% block html_title %}Account - Research | OWeb{% endblock %}
+
 {% block oweb_account %}
 <section class="account_overview">
     <header>
-        <h1>Account Research</h1>
+        <h1>Account - Research</h1>
     </header>
+    <section>
 {% if research %}
-    <table>
+    <table class="item_listing research_listing">
         <tr>
             <th>Name</th>
             <th>Level</th>
         </tr>
     {% for r in research %}
-        <tr>
+        <tr class="{% cycle 'even' 'uneven' %}">
             <td>{{ r.name }}</td>
-            <td>{% include 'oweb/includes/item_form.html' with item=r item_type='research' %}</td>
+            <td class="form">{% include 'oweb/includes/item_form.html' with item=r item_type='research' %}</td>
         </tr>
     {% endfor %}
     </table>
 {% endif %}
+    </section>
 </section>
 {% endblock %}

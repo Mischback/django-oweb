@@ -1,23 +1,27 @@
 {% extends 'oweb/account_base.html' %}
 
+{% block html_title %}Account - Ships | OWeb{% endblock %}
+
 {% block oweb_account %}
 <section class="account_overview">
     <header>
-        <h1>Account Ships</h1>
+        <h1>Account - Ships</h1>
     </header>
+    <section>
 {% if ships %}
-    <table>
+    <table class="item_listing ship_listing">
         <tr>
             <th>Name</th>
             <th>Count</th>
         </tr>
     {% for s in ships %}
-        <tr>
+        <tr class="{% cycle 'even' 'uneven' %}">
             <td>{{ s.name }}</td>
-            <td>{% include 'oweb/includes/item_form.html' with item=s item_type='ship' %}</td>
+            <td class="form">{% include 'oweb/includes/item_form.html' with item=s item_type='ship' %}</td>
         </tr>
     {% endfor %}
     </table>
 {% endif %}
+    </section>
 </section>
 {% endblock %}

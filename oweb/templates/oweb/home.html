@@ -1,11 +1,16 @@
 {% extends 'oweb/layout.html' %}
 
+{% block html_title %}Home | OWeb{% endblock %}
+
 {% block oweb_layout %}
 {% if accounts %}
-<ul>
+<section class="oweb_home">
+    <header>Accounts</header>
+    <ul>
     {% for acc in accounts %}
-    <li><a href="{% url 'oweb:account_overview' acc.id %}">{{ acc }}</a></li>
+        <li><a href="{% url 'oweb:account_overview' acc.id %}">{{ acc }}</a></li>
     {% endfor %}
-</ul>
+    </ul>
+</section>
 {% endif %}
 {% endblock %}

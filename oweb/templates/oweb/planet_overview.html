@@ -1,32 +1,34 @@
 {% extends 'oweb/account_base.html' %}
 
+{% block html_title %}{{ planet.name }} - Overview | OWeb{% endblock %}
+
 {% block oweb_account %}
 <section class="account_overview">
     <header>
-        <h1>{{ planet.name }} Overview</h1>
+        <h1>{{ planet.name }} - Overview</h1>
     </header>
 
     <section>
         <header>Meta</header>
-        {{ planet.coord }} | {{ planet_fields }} | {{ planet.min_temp }}
+        {{ planet.coord }} | {{ planet_fields }} occupied | {{ planet.min_temp }} °C
     </section>
 
     <section>
         <header>Production</header>
         <table>
-            <tr>
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Metal:</td>
                 <td>{{ production.0 }}</td>
             </tr>
-            <tr>
+            <tr class="{% cycle rowcycle %}">
                 <td>Crystal:</td>
                 <td>{{ production.1 }}</td>
             </tr>
-            <tr>
+            <tr class="{% cycle rowcycle %}">
                 <td>Deuterium:</td>
                 <td>{{ production.2 }}</td>
             </tr>
-            <tr>
+            <tr class="{% cycle rowcycle %}">
                 <td>Energy:</td>
                 <td>{{ production.3 }}</td>
             </tr>
@@ -35,25 +37,31 @@
 
     <section>
         <header>Queue</header>
-        {% if queue %}
-        <ol>
-            {% for q in queue %}
-                {% with q.4 as detail %}
-            <li>
-                {{ detail.name }} {{ detail.level }} ({{ q.0 }})
-                {% if q.3 > 0 %}need capacity{% endif %}
-                <form action="{% url 'oweb:item_update' %}" method="post">
-                    {% csrf_token %}
-                    <input value="building" name="item_type" type="hidden" />
-                    <input value="{{ detail.id }}" name="item_id" type="hidden" />
-                    <input value="{{ detail.level }}" name="item_level" type="hidden" />
-                    <button type="submit">+</button>
-                </form>
-            </li>
-                {% endwith %}
-            {% endfor %}
-        </ol>
-        {% endif %}
+    {% if queue %}
+        <table class="queue">
+        {% for q in queue %}
+            {% with q.4 as detail %}
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                <td class="counter">{{ forloop.counter }}.</td>
+                <td class="detail">
+                    {{ detail.name }} {{ detail.level }}
+                    {% if q.3 > 0 %}<span class="capacity">C</span>{% endif %}
+                    {% if q.1 > 0 %}<span class="energy">E</span>{% endif %}
+                </td>
+                <td class="commit">
+                    <form action="{% url 'oweb:item_update' %}" method="post">
+                        {% csrf_token %}
+                        <input value="building" name="item_type" type="hidden" />
+                        <input value="{{ detail.id }}" name="item_id" type="hidden" />
+                        <input value="{{ detail.level }}" name="item_level" type="hidden" />
+                        <button type="submit">+</button>
+                    </form>
+                </td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        </table>
+    {% endif %}
     </section>
 </section>
 {% endblock %}
