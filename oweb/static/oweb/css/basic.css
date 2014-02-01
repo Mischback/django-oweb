@@ -19,6 +19,12 @@ a, a:link, a:visited {
 a:hover {
     color:              #66cc00;
 }
+input {
+    font-family: 'UbuntuRegular', sans-serif;
+    font-size: 1em;
+    color: #ffcc00;
+    padding: 0.1em 0.5em;
+}
 
 header {
     font-family:        'FjallaOne', sans-serif;
@@ -97,18 +103,28 @@ section > section > header {
     margin: 0 0 0.5rem 0;
 }
 
-
-/* ***** ITEMS ***** */
-table.queue {
+table {
     border-collapse: collapse;
 }
-table.queue td {
+table td {
     padding: 0 0.5em 0.1em 0.5em;
 }
+
+
+/* ***** ITEMS ***** */
 table.queue td.counter {
     text-align: right;
 }
 table.queue td.detail span {
     font-size: 0.6em;
     color: #990000;
+}
+
+table.item_listing td.form form {
+    display: inline-block;
+}
+table.item_listing td.form form input {
+    border: 1px solid #444;
+    color: #ffcc00;
+    background-color: #000;
 }
