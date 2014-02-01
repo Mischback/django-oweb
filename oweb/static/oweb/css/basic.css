@@ -23,7 +23,7 @@ input {
     font-family: 'UbuntuRegular', sans-serif;
     font-size: 1em;
     color: #ffcc00;
-    background-color: #000;
+    background-color: #03030c;
     padding: 0.1em 0.5em;
     border: 1px solid #444;
 }
@@ -31,7 +31,7 @@ button {
     font-family: 'UbuntuRegular', sans-serif;
     font-size: 1em;
     color: #ffcc00;
-    background-color: #000;
+    background-color: #03030c;
     border: 1px solid #444;
     padding: 0.1em 0.5em;
 }
@@ -119,6 +119,9 @@ table {
 table td {
     padding: 0 0.5em 0.1em 0.5em;
 }
+table tr.uneven td {
+    background-color: #0e0e20;
+}
 
 
 /* ***** ITEMS ***** */
@@ -135,6 +138,15 @@ table.item_listing td.form form {
 }
 table.item_listing td.form form button {
     font-weight: bold;
+}
+table.item_listing th {
+    font-family:        'FjallaOne', sans-serif;
+    text-align: center;
+    font-weight: normal;
+    border-bottom: 1px solid #aaa;
+}
+table.item_listing tr:nth-child(2) td {
+    padding-top: 0.75em;
 }
 
 table.research_listing td.form form input {
