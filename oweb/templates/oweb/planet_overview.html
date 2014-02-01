@@ -21,18 +21,22 @@
             <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Metal:</td>
                 <td>{{ production.0|number_beautify }}</td>
+                <td>{{ production.0|daily_production|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Crystal:</td>
                 <td>{{ production.1|number_beautify }}</td>
+                <td>{{ production.1|daily_production|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Deuterium:</td>
                 <td>{{ production.2|number_beautify }}</td>
+                <td>{{ production.2|daily_production|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Energy:</td>
                 <td>{{ production.3|number_beautify }}</td>
+                <td>&nbsp;</td>
             </tr>
         </table>
     </section>
