@@ -18,6 +18,11 @@
     <section>
         <header>Production</header>
         <table class="production">
+            <tr>
+                <th>&nbsp;</th>
+                <th>1h</th>
+                <th>24h</th>
+            </tr>
             <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Metal:</td>
                 <td class="value">{{ production.0|number_beautify }}</td>
