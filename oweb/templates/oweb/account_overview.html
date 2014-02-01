@@ -19,11 +19,11 @@
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Crystal:</td>
-                <td>{{ production.1 }}</td>
+                <td>{{ production.1|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Deuterium:</td>
-                <td>{{ production.2 }}</td>
+                <td>{{ production.2|number_beautify }}</td>
             </tr>
         </table>
     </section>

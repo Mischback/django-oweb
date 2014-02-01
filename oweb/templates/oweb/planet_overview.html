@@ -2,6 +2,8 @@
 
 {% block html_title %}{{ planet.name }} - Overview | OWeb{% endblock %}
 
+{% load oweb_tags %}
+
 {% block oweb_account %}
 <section class="account_overview">
     <header>
@@ -18,19 +20,19 @@
         <table>
             <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Metal:</td>
-                <td>{{ production.0 }}</td>
+                <td>{{ production.0|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Crystal:</td>
-                <td>{{ production.1 }}</td>
+                <td>{{ production.1|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Deuterium:</td>
-                <td>{{ production.2 }}</td>
+                <td>{{ production.2|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Energy:</td>
-                <td>{{ production.3 }}</td>
+                <td>{{ production.3|number_beautify }}</td>
             </tr>
         </table>
     </section>
