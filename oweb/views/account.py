@@ -56,8 +56,8 @@ def account_overview(req, account_id):
 
     production = tuple(sum(x) for x in zip(*production))
     queue += get_plasma_queue(account, production=production)
-    queue = queue[:20]
     queue.sort()
+    queue = queue[:20]
 
     return render(req, 'oweb/account_overview.html', 
         {
