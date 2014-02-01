@@ -7,6 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         {% endaddtoblock %}
         {% render_block "css" %}
+        <title>{% block html_title %}Oweb{% endblock %}</title>
     </head>
     <body>
         {% block oweb_base %}{% endblock %}

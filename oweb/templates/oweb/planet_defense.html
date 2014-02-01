@@ -1,9 +1,11 @@
 {% extends 'oweb/account_base.html' %}
 
+{% block html_title %}{{ planet.name }} - Defense | OWeb{% endblock %}
+
 {% block oweb_account %}
 <section class="account_overview">
     <header>
-        <h1>{{ planet.name }} Defense</h1>
+        <h1>{{ planet.name }} - Defense</h1>
     </header>
 {% if defense %}
     <table class="item_listing defense_listing">

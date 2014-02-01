@@ -1,9 +1,11 @@
 {% extends 'oweb/account_base.html' %}
 
+{% block html_title %}{{ planet.name }} - Settings | OWeb{% endblock %}
+
 {% block oweb_account %}
 <section class="account_overview">
     <header>
-        <h1>{{ planet.name }} Settings</h1>
+        <h1>{{ planet.name }} - Settings</h1>
     </header>
     <form action="{% url 'oweb:planet_settings_update' planet.id %}" method="post">
         {% csrf_token %}
