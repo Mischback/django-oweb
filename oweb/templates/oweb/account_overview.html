@@ -2,6 +2,8 @@
 
 {% block html_title %}Account - Overview | OWeb{% endblock %}
 
+{% load oweb_tags %}
+
 {% block oweb_account %}
 <section class="account_overview">
     <header>
@@ -10,18 +12,26 @@
 
     <section>
         <header>Production</header>
-        <table>
+        <table class="production">
+            <tr>
+                <th>&nbsp;</th>
+                <th>1h</th>
+                <th>24h</th>
+            </tr>
             <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Metal:</td>
-                <td>{{ production.0 }}</td>
+                <td class="value">{{ production.0|number_beautify }}</td>
+                <td class="value">{{ production.0|daily_production|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Crystal:</td>
-                <td>{{ production.1 }}</td>
+                <td class="value">{{ production.1|number_beautify }}</td>
+                <td class="value">{{ production.1|daily_production|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Deuterium:</td>
-                <td>{{ production.2 }}</td>
+                <td class="value">{{ production.2|number_beautify }}</td>
+                <td class="value">{{ production.2|daily_production|number_beautify }}</td>
             </tr>
         </table>
     </section>

@@ -188,3 +188,10 @@ table.trading_rates input {
     width: 2em;
     text-align: right;
 }
+
+table.production th {
+    font-size: 0.7em;
+}
+table.production td.value {
+    text-align: right;
+}
