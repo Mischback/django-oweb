@@ -126,6 +126,13 @@ table tr.uneven td {
 }
 
 
+/* ***** HOME ***** */
+section.oweb_home ul {
+    margin: 0.5rem;
+    list-style-position: inside;
+}
+
+
 /* ***** ITEMS ***** */
 table.queue td.counter {
     text-align: right;
