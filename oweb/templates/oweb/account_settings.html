@@ -12,7 +12,7 @@
         <section>
             <header>Account Information</header>
             {% csrf_token %}
-            <table>
+            <table class="meta_information">
                 <tr>
                     <td>Username:</td>
                     <td><input value="{{ account.username }}" name="account_username" type="text" /></td>
@@ -31,7 +31,7 @@
         <section>
             <header>Trading Rates</header>
             {% csrf_token %}
-            <table>
+            <table class="trading_rates">
                 <tr>
                     <td>Metal:</td>
                     <td><input value="{{ account.trade_metal }}" name="account_trade_metal" type="text" /></td>
@@ -45,7 +45,7 @@
                     <td><input value="{{ account.trade_deut }}" name="account_trade_deut" type="text" /></td>
                 </tr>
             </table>
-            <button type="submit">update rates</button>
+            <button type="submit">update</button>
         </section>
     </form>
 </section>

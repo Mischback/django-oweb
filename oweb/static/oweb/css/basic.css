@@ -110,7 +110,8 @@ section > form > section {
     margin: 1rem 2rem 1rem 1rem;
     float: left;
 }
-section > section > header {
+section > section > header,
+section > form > section > header {
     margin: 0 0 0.5rem 0;
 }
 
@@ -164,4 +165,13 @@ table.defense_listing td.form form input {
 table.building_listing td.form form input {
     width: 2em;
     text-align: center;
+}
+
+table.meta_information input {
+    width: 7em;
+}
+
+table.trading_rates input {
+    width: 2em;
+    text-align: right;
 }
