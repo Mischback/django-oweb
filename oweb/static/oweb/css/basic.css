@@ -19,3 +19,72 @@ a, a:link, a:visited {
 a:hover {
     color:              #66cc00;
 }
+
+header {
+    font-family:        'FjallaOne', sans-serif;
+    font-size:          1.25em;
+    display:            block;
+}
+section {
+    display:            block;
+}
+
+/* ***** NAVIGATION ***** */
+nav {
+    display: block;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    list-style: none;
+    float: left;
+}
+nav ul li a {
+    margin: 0 1rem 0.25rem 0;
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    display: block;
+    border: 1px solid #444;
+    background-color: #000;
+}
+nav ul li:hover > ul {
+    visibility: visible;
+}
+nav ul li ul {
+    display: inline;
+    visibility: hidden;
+    position: absolute;
+    padding: 0;
+    background-color:   #060619;
+}
+nav ul li ul li {
+    float: none;
+}
+nav ul li ul li a {
+    margin: 0.25rem 0.5rem 0.5rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* ***** LAYOUT ***** */
+#oweb_layout {
+    margin: 0 1rem;
+}
+#oweb_layout > section {
+    margin: 5rem 1rem 0 1rem;
+    clear: both;
+}
+
+header.page_header {
+    font-family: 'UbuntuRegular', sans-serif;
+    font-size: 0.9em;
+    margin: 0.25rem 0 0.5rem 0;
+    text-align: right;
+}
+header.page_header div.logo {
+    font-family: 'FjallaOne', sans-serif;
+    font-size: 3rem;
+    margin: 0.5rem 2rem 0rem 0rem;
+    float: left;
+}
