@@ -16,6 +16,7 @@
             <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Metal:</td>
                 <td>{{ production.0|number_beautify }}</td>
+                <td>{{ production.0|daily_production|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Crystal:</td>
