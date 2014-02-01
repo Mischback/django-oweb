@@ -141,3 +141,14 @@ table.research_listing td.form form input {
     width: 2em;
     text-align: right;
 }
+
+table.ship_listing td.form form input,
+table.defense_listing td.form form input {
+    width: 6em;
+    text-align: right;
+}
+
+table.building_listing td.form form input {
+    width: 2em;
+    text-align: center;
+}

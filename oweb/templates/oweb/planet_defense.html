@@ -6,7 +6,7 @@
         <h1>{{ planet.name }} Defense</h1>
     </header>
 {% if defense %}
-    <table>
+    <table class="item_listing defense_listing">
         <tr>
             <th>Name</th>
             <th>Level</th>
@@ -14,7 +14,7 @@
     {% for d in defense %}
         <tr>
             <td>{{ d.name }}</td>
-            <td>{% include 'oweb/includes/item_form.html' with item=d item_type='defense' %}</td>
+            <td class="form">{% include 'oweb/includes/item_form.html' with item=d item_type='defense' %}</td>
         </tr>
     {% endfor %}
     </table>

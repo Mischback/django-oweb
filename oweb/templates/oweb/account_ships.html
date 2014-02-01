@@ -6,7 +6,7 @@
         <h1>Account Ships</h1>
     </header>
 {% if ships %}
-    <table>
+    <table class="item_listing ship_listing">
         <tr>
             <th>Name</th>
             <th>Count</th>
@@ -14,7 +14,7 @@
     {% for s in ships %}
         <tr>
             <td>{{ s.name }}</td>
-            <td>{% include 'oweb/includes/item_form.html' with item=s item_type='ship' %}</td>
+            <td class="form">{% include 'oweb/includes/item_form.html' with item=s item_type='ship' %}</td>
         </tr>
     {% endfor %}
     </table>
