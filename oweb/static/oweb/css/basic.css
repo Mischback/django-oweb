@@ -133,6 +133,12 @@ section.oweb_home ul {
 }
 
 
+/* ***** LOGIN ***** */
+section.oweb_login header {
+    margin-bottom: 1rem;
+}
+
+
 /* ***** ITEMS ***** */
 table.queue td.counter {
     text-align: right;

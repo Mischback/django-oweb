@@ -1,7 +1,10 @@
 {% extends 'oweb/layout.html' %}
 {% block oweb_layout %}
 
-<div id="oweb_login">
+{% block html_title %}Login | OWeb{% endblock %}
+
+<section class="oweb_login">
+    <header>Login</header>
     <form method="post" action="{% url 'oweb:app_login' %}">
         {% csrf_token %}
         <input placeholder="Username" id="id_username" maxlength="254" name="username" text="text" />
@@ -12,5 +15,5 @@
     {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
-</div>
+</section>
 {% endblock %}
