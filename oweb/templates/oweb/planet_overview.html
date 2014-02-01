@@ -16,19 +16,19 @@
     <section>
         <header>Production</header>
         <table>
-            <tr>
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Metal:</td>
                 <td>{{ production.0 }}</td>
             </tr>
-            <tr>
+            <tr class="{% cycle rowcycle %}">
                 <td>Crystal:</td>
                 <td>{{ production.1 }}</td>
             </tr>
-            <tr>
+            <tr class="{% cycle rowcycle %}">
                 <td>Deuterium:</td>
                 <td>{{ production.2 }}</td>
             </tr>
-            <tr>
+            <tr class="{% cycle rowcycle %}">
                 <td>Energy:</td>
                 <td>{{ production.3 }}</td>
             </tr>
@@ -41,7 +41,7 @@
         <table class="queue">
         {% for q in queue %}
             {% with q.4 as detail %}
-            <tr>
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td class="counter">{{ forloop.counter }}.</td>
                 <td class="detail">
                     {{ detail.name }} {{ detail.level }}

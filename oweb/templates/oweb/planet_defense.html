@@ -7,6 +7,7 @@
     <header>
         <h1>{{ planet.name }} - Defense</h1>
     </header>
+    <section>
 {% if defense %}
     <table class="item_listing defense_listing">
         <tr>
@@ -14,12 +15,13 @@
             <th>Level</th>
         </tr>
     {% for d in defense %}
-        <tr>
+        <tr class="{% cycle 'even' 'uneven' %}">
             <td>{{ d.name }}</td>
             <td class="form">{% include 'oweb/includes/item_form.html' with item=d item_type='defense' %}</td>
         </tr>
     {% endfor %}
     </table>
 {% endif %}
+    </section>
 </section>
 {% endblock %}

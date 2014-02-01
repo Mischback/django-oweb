@@ -105,7 +105,8 @@ header.page_header div.logo {
     float: left;
 }
 
-section > section {
+section > section,
+section > form > section {
     margin: 1rem 2rem 1rem 1rem;
     float: left;
 }
