@@ -23,6 +23,16 @@ input {
     font-family: 'UbuntuRegular', sans-serif;
     font-size: 1em;
     color: #ffcc00;
+    background-color: #000;
+    padding: 0.1em 0.5em;
+    border: 1px solid #444;
+}
+button {
+    font-family: 'UbuntuRegular', sans-serif;
+    font-size: 1em;
+    color: #ffcc00;
+    background-color: #000;
+    border: 1px solid #444;
     padding: 0.1em 0.5em;
 }
 
@@ -123,8 +133,11 @@ table.queue td.detail span {
 table.item_listing td.form form {
     display: inline-block;
 }
-table.item_listing td.form form input {
-    border: 1px solid #444;
-    color: #ffcc00;
-    background-color: #000;
+table.item_listing td.form form button {
+    font-weight: bold;
+}
+
+table.research_listing td.form form input {
+    width: 2em;
+    text-align: right;
 }
