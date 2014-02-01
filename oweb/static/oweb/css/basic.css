@@ -99,11 +99,16 @@ section > section > header {
 
 
 /* ***** ITEMS ***** */
-ol.queue {
-    margin: 0 0 0 2rem;
-    list-style-position: outside;
+table.queue {
+    border-collapse: collapse;
 }
-ol.queue li form {
-    display: inline-block;
-    margin: 0 0 0 1rem;
+table.queue td {
+    padding: 0 0.5em 0.1em 0.5em;
+}
+table.queue td.counter {
+    text-align: right;
+}
+table.queue td.detail span {
+    font-size: 0.6em;
+    color: #990000;
 }

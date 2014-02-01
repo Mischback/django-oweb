@@ -70,7 +70,7 @@ def queue_item(id, name, level,
             'name': name, 
             'level': level,
             'gain': gain,
-            'required_energy': required_energy,
+            'required_energy': -1 * required_energy,
             'planet': planet,
         })
 

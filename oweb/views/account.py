@@ -52,10 +52,11 @@ def account_overview(req, account_id):
     queue = []
     for p in planets:
         production.append(get_planet_production(p, account.speed))
-        queue += get_planet_queue(p)
+        queue += get_planet_queue(p)[:5]
 
     production = tuple(sum(x) for x in zip(*production))
     queue += get_plasma_queue(account, production=production)
+    queue = queue[:20]
     queue.sort()
 
     return render(req, 'oweb/account_overview.html', 
