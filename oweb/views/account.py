@@ -108,15 +108,16 @@ def account_empire(req, account_id):
     m =['Name', 'Coords', 'Temperature']
     meta_list.append(izip_longest([], m, fillvalue='plain'))
     b = buildings.filter(planet_id=planets[0].id).values_list('name', flat=True)
-    building_list.append(izip_longest([], b, fillvalue='plain'))
+    s = sats.filter(planet_id=planets[0].id).values_list('name', flat=True)
+    building_list.append(izip_longest([], chain(b, s), fillvalue='plain'))
     d = defense.filter(planet_id=planets[0].id).values_list('name', flat=True)
     defense_list.append(izip_longest([], d, fillvalue='plain'))
     for p in planets:
         # buildings
         b = buildings.filter(planet_id=p.id)
-#        s = sats.filter(planet_id=p.id)
+        s = sats.filter(planet_id=p.id)
         this_buildings = izip_longest([], b, fillvalue='building')
-#        this_buildings = chain(this_buildings, izip_longest([], s, fillvalue='ship'))
+        this_buildings = chain(this_buildings, izip_longest([], s, fillvalue='ship'))
         building_list.append(this_buildings)
 
         # defense
