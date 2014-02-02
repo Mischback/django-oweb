@@ -10,13 +10,13 @@
         <h1>Account - Empire</h1>
     </header>
     <section>
-        <table>
+        <table class="empire">
     {% for e in empire %}
             <tr>
-                <td>{{ e.0 }}</td>
+                <td class="section">{{ e.0 }}</td>
             </tr>
         {% for l in e.1 %}
-            <tr>
+            <tr class="{% cycle 'even' 'uneven' %} values">
             {% for i in l %}
                 {% if i.0 == 'plain' %}
                 <td>{{ i.1 }}</td>
