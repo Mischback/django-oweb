@@ -1,3 +1,5 @@
+# Python imports
+from itertools import izip_longest
 # Django imports
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -99,21 +101,26 @@ def account_empire(req, account_id):
     defense = Defense.objects.filter(planet_id__in=planet_ids)
 
     meta_list = []
-    meta_list.append(['Name', 'Coords', 'Temperature'])
+#    meta_list.append(['Name', 'Coords', 'Temperature'])
     building_list = []
-    building_list.append(buildings.filter(planet_id=planets[0].id).values_list('name', flat=True))
+#    building_list.append(buildings.filter(planet_id=planets[0].id).values_list('name', flat=True))
     defense_list = []
-    defense_list.append(defense.filter(planet_id=planets[0].id).values_list('name', flat=True))
+#    defense_list.append(defense.filter(planet_id=planets[0].id).values_list('name', flat=True))
     for p in planets:
         # buildings
-        this_buildings = buildings.filter(planet_id=p.id).values_list('level', flat=True)
+        b = buildings.filter(planet_id=p.id)
+        this_buildings = izip_longest([], b, fillvalue='building')
         building_list.append(this_buildings)
+
         # defense
-        this_def = defense.filter(planet_id=p.id).values_list('count', flat=True)
+        d = defense.filter(planet_id=p.id)
+        this_def = izip_longest([], d, fillvalue='defense')
         defense_list.append(this_def)
 
         # planet meta information
-        meta_list.append([p.name, p.coord, p.min_temp])
+        m = [p.name, p.coord, p.min_temp]
+        this_meta = izip_longest([], m, fillvalue='plain')
+        meta_list.append(this_meta)
 
     empire = [
         ['Meta', zip(*meta_list)],
@@ -243,7 +250,7 @@ def account_ships(req, account_id):
     for s in sl:
         # exclude SolarSats
         if not s.content_type_id == sat_id:
-            ships.append({'name': s.name, 'level': s.count, 'id': s.id})
+            ships.append(s)
 
     return render(req, 'oweb/account_ships.html', 
         {

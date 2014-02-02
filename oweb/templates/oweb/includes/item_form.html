@@ -2,19 +2,31 @@
     {% csrf_token %}
     <input value="{{ item_type }}" name="item_type" type="hidden" />
     <input value="{{ item.id }}" name="item_id" type="hidden" />
+{% if item_type == 'ship' or item_type == 'defense' %}
+    <input value="{{ item.count|add:'-1' }}" name="item_level" type="hidden" />
+{% else %}
     <input value="{{ item.level|add:'-1' }}" name="item_level" type="hidden" />
+{% endif %}
     <button type="submit">-</button>
 </form>
 <form action="{% url 'oweb:item_update' %}" method="post">
     {% csrf_token %}
     <input value="{{ item_type }}" name="item_type" type="hidden" />
     <input value="{{ item.id }}" name="item_id" type="hidden" />
+{% if item_type == 'ship' or item_type == 'defense' %}
+    <input value="{{ item.count }}" name="item_level" type="text" />
+{% else %}
     <input value="{{ item.level }}" name="item_level" type="text" />
+{% endif %}
 </form>
 <form action="{% url 'oweb:item_update' %}" method="post">
     {% csrf_token %}
     <input value="{{ item_type }}" name="item_type" type="hidden" />
     <input value="{{ item.id }}" name="item_id" type="hidden" />
+{% if item_type == 'ship' or item_type == 'defense' %}
+    <input value="{{ item.count|add:'1' }}" name="item_level" type="hidden" />
+{% else %}
     <input value="{{ item.level|add:'1' }}" name="item_level" type="hidden" />
+{% endif %}
     <button type="submit">+</button>
 </form>

@@ -18,7 +18,13 @@
         {% for l in e.1 %}
             <tr>
             {% for i in l %}
-                <td>{{ i }}</td>
+                {% if i.0 == 'plain' %}
+                <td>{{ i.1 }}</td>
+                {% else %}
+                <td class="form">
+                    {% include 'oweb/includes/item_form.html' with item=i.1 item_type=i.0 %}
+                </td>
+                {% endif %}
             {% endfor %}
             </tr>
         {% endfor %}
