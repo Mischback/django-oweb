@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
 # app imports
-from oweb.models import Account, Civil212, Planet, Research, Ship
+from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
 
@@ -91,10 +91,30 @@ def account_empire(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
+    # build a list of planet ids
+    planet_ids = planets.values_list('id', flat=True)
+
+    # fetch buildings and defense
+    buildings = Building.objects.filter(planet_id__in=planet_ids)
+    defense = Defense.objects.filter(planet_id__in=planet_ids)
+
+    empire = [
+        [''], # planet name
+        [''], # planet coords
+        [''], # planet fields
+        [''], # planet temp
+    ]
+    for p in planets:
+        empire[0].append(p.name)
+        empire[1].append(p.coord)
+        empire[2].append(0)
+        empire[3].append(p.min_temp)
+
     return render(req, 'oweb/account_empire.html', 
         {
             'account': account,
             'planets': planets,
+            'empire': empire,
         }
     )
 

@@ -9,5 +9,17 @@
     <header>
         <h1>Account - Empire</h1>
     </header>
+    <section>
+        <table>
+    {% for e in empire %}
+            <tr>
+        {% for i in e %}
+                <td>{{ i }}</td>
+        {% endfor %}
+            </tr>
+    {% endfor %}
+        </table>
+
+    </section>
 </section>
 {% endblock %}
