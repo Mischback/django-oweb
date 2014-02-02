@@ -1,5 +1,5 @@
 # Python imports
-from itertools import izip_longest
+from itertools import chain, izip_longest
 # Django imports
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -99,17 +99,24 @@ def account_empire(req, account_id):
     # fetch buildings and defense
     buildings = Building.objects.filter(planet_id__in=planet_ids)
     defense = Defense.objects.filter(planet_id__in=planet_ids)
+    sats = Civil212.objects.filter(planet_id__in=planet_ids)
 
     meta_list = []
-#    meta_list.append(['Name', 'Coords', 'Temperature'])
     building_list = []
-#    building_list.append(buildings.filter(planet_id=planets[0].id).values_list('name', flat=True))
     defense_list = []
-#    defense_list.append(defense.filter(planet_id=planets[0].id).values_list('name', flat=True))
+
+    m =['Name', 'Coords', 'Temperature']
+    meta_list.append(izip_longest([], m, fillvalue='plain'))
+    b = buildings.filter(planet_id=planets[0].id).values_list('name', flat=True)
+    building_list.append(izip_longest([], b, fillvalue='plain'))
+    d = defense.filter(planet_id=planets[0].id).values_list('name', flat=True)
+    defense_list.append(izip_longest([], d, fillvalue='plain'))
     for p in planets:
         # buildings
         b = buildings.filter(planet_id=p.id)
+#        s = sats.filter(planet_id=p.id)
         this_buildings = izip_longest([], b, fillvalue='building')
+#        this_buildings = chain(this_buildings, izip_longest([], s, fillvalue='ship'))
         building_list.append(this_buildings)
 
         # defense
