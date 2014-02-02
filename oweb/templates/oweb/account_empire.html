@@ -1,0 +1,36 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}Account - Overview | OWeb{% endblock %}
+
+{% load oweb_tags %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>Account - Empire</h1>
+    </header>
+    <section>
+        <table class="empire">
+    {% for e in empire %}
+            <tr>
+                <td class="section">{{ e.0 }}</td>
+            </tr>
+        {% for l in e.1 %}
+            <tr class="{% cycle 'even' 'uneven' %} values">
+            {% for i in l %}
+                {% if i.0 == 'plain' %}
+                <td>{{ i.1 }}</td>
+                {% else %}
+                <td class="form">
+                    {% include 'oweb/includes/item_form.html' with item=i.1 item_type=i.0 %}
+                </td>
+                {% endif %}
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    {% endfor %}
+        </table>
+
+    </section>
+</section>
+{% endblock %}

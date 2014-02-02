@@ -15,6 +15,8 @@ urlpatterns = patterns('oweb.views',
         'account_research', name='account_research'),
     url(r'^(?P<account_id>\d+)/ships$',
         'account_ships', name='account_ships'),
+    url(r'^(?P<account_id>\d+)/empire$',
+        'account_empire', name='account_empire'),
 
     url(r'^planet/(?P<planet_id>\d+)$',
         'planet_overview', name='planet_overview'),
