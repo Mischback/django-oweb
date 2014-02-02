@@ -98,17 +98,28 @@ def account_empire(req, account_id):
     buildings = Building.objects.filter(planet_id__in=planet_ids)
     defense = Defense.objects.filter(planet_id__in=planet_ids)
 
-    empire = [
-        [''], # planet name
-        [''], # planet coords
-        [''], # planet fields
-        [''], # planet temp
-    ]
+    meta_list = []
+    meta_list.append(['Name', 'Coords', 'Temperature'])
+    building_list = []
+    building_list.append(buildings.filter(planet_id=planets[0].id).values_list('name', flat=True))
+    defense_list = []
+    defense_list.append(defense.filter(planet_id=planets[0].id).values_list('name', flat=True))
     for p in planets:
-        empire[0].append(p.name)
-        empire[1].append(p.coord)
-        empire[2].append(0)
-        empire[3].append(p.min_temp)
+        # buildings
+        this_buildings = buildings.filter(planet_id=p.id).values_list('level', flat=True)
+        building_list.append(this_buildings)
+        # defense
+        this_def = defense.filter(planet_id=p.id).values_list('count', flat=True)
+        defense_list.append(this_def)
+
+        # planet meta information
+        meta_list.append([p.name, p.coord, p.min_temp])
+
+    empire = [
+        ['Meta', zip(*meta_list)],
+        ['Buildings', zip(*building_list)],
+        ['Defense', zip(*defense_list)],
+    ]
 
     return render(req, 'oweb/account_empire.html', 
         {
