@@ -195,8 +195,8 @@ def account_research(req, account_id):
 
     # fetch the account and the list of planets
     try:
-        res = Research.objects.select_related('account').filter(account=account_id)
-        account = res[0].account
+        research = Research.objects.select_related('account').filter(account=account_id)
+        account = research[0].account
     except Planet.DoesNotExist:
         raise Http404
     except IndexError:
@@ -207,10 +207,6 @@ def account_research(req, account_id):
         raise Http404
 
     planets = get_list_or_404(Planet, account=account_id)
-
-    research = []
-    for r in res:
-        research.append({'name': r.name, 'level': r.level, 'id': r.id})
 
     return render(req, 'oweb/account_research.html', 
         {
@@ -245,12 +241,7 @@ def account_ships(req, account_id):
 
     sat_id = ContentType.objects.get(model='civil212').id
 
-    sl = get_list_or_404(Ship, account=account_id)
-    ships = []
-    for s in sl:
-        # exclude SolarSats
-        if not s.content_type_id == sat_id:
-            ships.append(s)
+    ships = Ship.objects.filter(account_id=account_id).exclude(content_type_id=sat_id)
 
     return render(req, 'oweb/account_ships.html', 
         {
