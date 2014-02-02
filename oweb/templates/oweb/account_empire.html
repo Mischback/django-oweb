@@ -12,6 +12,9 @@
     <section>
         <table>
     {% for e in empire %}
+            <tr>
+                <td>{{ e.0 }}</td>
+            </tr>
         {% for l in e.1 %}
             <tr>
             {% for i in l %}
