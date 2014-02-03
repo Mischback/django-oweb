@@ -63,8 +63,7 @@ def account_settings_commit(req, account_id):
     acc.trade_deut = req.POST['account_trade_deut']
     acc.save()
 
-    return HttpResponseRedirect(reverse('oweb:account_settings',
-        args=(acc.id,)))
+    return HttpResponseRedirect(req.META['HTTP_REFERER'])
 
 
 def planet_settings_commit(req, planet_id):
@@ -91,7 +90,7 @@ def planet_settings_commit(req, planet_id):
     planet.min_temp = req.POST['planet_min_temp']
     planet.save()
 
-    return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet_id,)))
+    return HttpResponseRedirect(req.META['HTTP_REFERER'])
 
 
 def planet_create(req, account_id):
