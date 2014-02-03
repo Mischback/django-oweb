@@ -1,13 +1,12 @@
 # Django imports
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 # app imports
 from oweb.models import Account, Building, Defense, Planet, Research, Ship
 
 def item_update(req):
-    """
-    """
+    """todo Documentation still missing!"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -50,9 +49,30 @@ def item_update(req):
     return HttpResponseRedirect(req.META['HTTP_REFERER'])
 
 
+def create_account(req):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    acc = Account()
+    acc.owner = req.user
+    acc.save()
+
+    return redirect(reverse('oweb:account_settings', args=[acc.id]),
+    )
+
+
 def account_settings_commit(req, account_id):
-    """
-    """
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
     acc = get_object_or_404(Account, pk=account_id)
 
     acc.username = req.POST['account_username']
@@ -67,8 +87,7 @@ def account_settings_commit(req, account_id):
 
 
 def planet_settings_commit(req, planet_id):
-    """
-    """
+    """todo Documentation still missing!"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -94,8 +113,7 @@ def planet_settings_commit(req, planet_id):
 
 
 def planet_create(req, account_id):
-    """
-    """
+    """todo Documentation still missing!"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.

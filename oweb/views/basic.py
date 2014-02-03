@@ -4,9 +4,7 @@ from django.shortcuts import get_list_or_404, render
 from oweb.models import Account
 
 def home(req):
-    """
-    @brief  Overview of all accounts of a user
-    """
+    """todo Documentation still missing!"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -19,5 +17,3 @@ def home(req):
     return render(req, 'oweb/home.html', 
         {'accounts': accounts}
     )
-
-
