@@ -1,2 +1,4 @@
 *.pyc
+
 doc/build/
+oweb/static/oweb/doc
