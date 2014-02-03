@@ -2,13 +2,15 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns('oweb.views',
-    url(r'^$', 'home', name='home'),
+    # updates.py
     url(r'^update$', 'item_update', name='item_update'),
     url(r'^(?P<account_id>\d+)/settings/commit$',
         'account_settings_commit', name='account_settings_commit'),
     url(r'^planet/(?P<planet_id>\d+)/settings/update$',
         'planet_settings_commit', name='planet_settings_update'),
 
+    # account.py
+    url(r'^$', 'home', name='home'),    # this is not really an account view... Move elsewhere?
     url(r'^(?P<account_id>\d+)$',
         'account_overview', name='account_overview'),
     url(r'^(?P<account_id>\d+)/settings$',
@@ -20,6 +22,7 @@ urlpatterns = patterns('oweb.views',
     url(r'^(?P<account_id>\d+)/empire$',
         'account_empire', name='account_empire'),
 
+    # planet.py
     url(r'^planet/(?P<planet_id>\d+)$',
         'planet_overview', name='planet_overview'),
     url(r'^(?P<account_id>\d+)/planet/create$',
