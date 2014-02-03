@@ -84,33 +84,6 @@ def planet_settings(req, planet_id):
     )
 
 
-def planet_settings_commit(req, planet_id):
-    """
-    """
-    # this is the non-decorator version of the login_required decorator
-    # basically it checks, if the user is authenticated and redirects him, if
-    # not. The decorator could not handle the reverse url-resolution.
-    if not req.user.is_authenticated():
-        return redirect(reverse('oweb:app_login'))
-
-    # fetch the account and the current planet
-    try:
-        planet = Planet.objects.select_related('account').get(id=planet_id)
-    except Planet.DoesNotExist:
-        raise Http404
-
-    # checks, if this account belongs to the authenticated user
-    if not req.user.id == planet.account.owner_id:
-        raise Http404
-
-    planet.name = req.POST['planet_name']
-    planet.coord = req.POST['planet_coord']
-    planet.min_temp = req.POST['planet_min_temp']
-    planet.save()
-
-    return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet_id,)))
-
-
 def planet_buildings(req, planet_id):
     """
     """
@@ -178,28 +151,3 @@ def planet_defense(req, planet_id):
             'defense': defense,
         }
     )
-
-
-def planet_create(req, account_id):
-    """
-    """
-    # this is the non-decorator version of the login_required decorator
-    # basically it checks, if the user is authenticated and redirects him, if
-    # not. The decorator could not handle the reverse url-resolution.
-    if not req.user.is_authenticated():
-        return redirect(reverse('oweb:app_login'))
-
-    account = get_object_or_404(Account, pk=account_id)
-
-    # checks, if this account belongs to the authenticated user
-    if not req.user.id == account.owner_id:
-        raise Http404
-
-    tmp_name = hashlib.md5(str(datetime.now))
-    Planet.objects.create(account=account, name=tmp_name)
-
-    planet = get_object_or_404(Planet, name=tmp_name)
-    planet.name = 'Colony'
-    planet.save()
-
-    return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet.id,)))

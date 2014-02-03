@@ -175,23 +175,6 @@ def account_settings(req, account_id):
     )
 
 
-def account_settings_commit(req, account_id):
-    """
-    """
-    acc = get_object_or_404(Account, pk=account_id)
-
-    acc.username = req.POST['account_username']
-    acc.universe = req.POST['account_universe']
-    acc.speed = req.POST['account_speed']
-    acc.trade_metal = req.POST['account_trade_metal']
-    acc.trade_crystal = req.POST['account_trade_crystal']
-    acc.trade_deut = req.POST['account_trade_deut']
-    acc.save()
-
-    return HttpResponseRedirect(reverse('oweb:account_settings',
-        args=(acc.id,)))
-
-
 def account_research(req, account_id):
     """
     """
