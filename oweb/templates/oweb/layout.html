@@ -10,7 +10,7 @@
 <div id="oweb_layout">
     <header class="page_header">
         <div class="logo">OWeb</div>
-        {% if account %}{{ account }}{% endif %}
+        {% if account %}{{ account }} - <a href="{% url 'oweb:app_logout' %}">logout</a>{% endif %}
     </header>
 {% block oweb_layout %}{% endblock %}
 </div>

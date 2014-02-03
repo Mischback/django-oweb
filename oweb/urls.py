@@ -40,4 +40,7 @@ urlpatterns += patterns('',
         'django.contrib.auth.views.login',
         {'template_name': 'oweb/login.html'},
         name='app_login'),
+    url(r'^logout/$',
+        'django.contrib.auth.views.logout', {'next_page': '/'},
+        name='app_logout')
 )

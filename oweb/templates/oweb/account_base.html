@@ -5,6 +5,9 @@
     <ul>
         <li>
             <a href="{% url 'oweb:home' %}">Home</a>
+            <ul>
+                <li><a href="{% url 'oweb:app_logout' %}">logout</a></li>
+            </ul>
         </li>
         <li>
             <a href="{% url 'oweb:account_overview' account.id %}">Account</a>
