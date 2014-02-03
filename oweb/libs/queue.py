@@ -38,7 +38,10 @@ def queue_item(id, name, level,
     gain = next_prod - this_prod
 
     # calc amortisation time
-    amortisation = next_cost_mse / float(gain)
+    try:
+        amortisation = next_cost_mse / float(gain)
+    except ZeroDivisionError:
+        amortisation = 0
 
     # calculate building time
     if this_capacity and next_capacity:
