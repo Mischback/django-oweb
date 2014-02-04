@@ -1,0 +1,40 @@
+oweb package
+============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    oweb.libs
+    oweb.models
+    oweb.templatetags
+    oweb.views
+
+Submodules
+----------
+
+oweb.admin module
+-----------------
+
+.. automodule:: oweb.admin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.urls module
+----------------
+
+.. automodule:: oweb.urls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: oweb
+    :members:
+    :undoc-members:
+    :show-inheritance:

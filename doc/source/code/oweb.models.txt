@@ -1,0 +1,70 @@
+oweb.models package
+===================
+
+Submodules
+----------
+
+oweb.models.account module
+--------------------------
+
+.. automodule:: oweb.models.account
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.models.building module
+---------------------------
+
+.. automodule:: oweb.models.building
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.models.defense module
+--------------------------
+
+.. automodule:: oweb.models.defense
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.models.planet module
+-------------------------
+
+.. automodule:: oweb.models.planet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.models.research module
+---------------------------
+
+.. automodule:: oweb.models.research
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.models.ship module
+-----------------------
+
+.. automodule:: oweb.models.ship
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.models.signals module
+--------------------------
+
+.. automodule:: oweb.models.signals
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: oweb.models
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,5 +1,0 @@
-admin
-*****
-
-.. automodule:: oweb.admin
-    :members:

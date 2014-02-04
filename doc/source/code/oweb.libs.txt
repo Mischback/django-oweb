@@ -1,0 +1,38 @@
+oweb.libs package
+=================
+
+Submodules
+----------
+
+oweb.libs.costs module
+----------------------
+
+.. automodule:: oweb.libs.costs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.libs.production module
+---------------------------
+
+.. automodule:: oweb.libs.production
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+oweb.libs.queue module
+----------------------
+
+.. automodule:: oweb.libs.queue
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: oweb.libs
+    :members:
+    :undoc-members:
+    :show-inheritance:

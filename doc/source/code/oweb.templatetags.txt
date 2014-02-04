@@ -1,0 +1,22 @@
+oweb.templatetags package
+=========================
+
+Submodules
+----------
+
+oweb.templatetags.oweb_tags module
+----------------------------------
+
+.. automodule:: oweb.templatetags.oweb_tags
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: oweb.templatetags
+    :members:
+    :undoc-members:
+    :show-inheritance:
