@@ -13,7 +13,14 @@
 # serve to show the default.
 
 import sys
-import os
+from os.path import dirname, abspath, join
+
+APP_ROOT = dirname(dirname(dirname(abspath(__file__))))
+
+sys.path.insert(0, APP_ROOT)
+
+from django.conf import settings
+settings.configure()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
