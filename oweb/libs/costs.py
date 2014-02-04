@@ -1,6 +1,5 @@
 """
-@file   costs.py
-@brief  Contains functions to calculate costs
+Contains functions to calculate costs
 
 The functions in this file are used to calculate the costs of buildings and
 researches. There are certain categories of these items; the only difference
@@ -18,12 +17,15 @@ mathematic formulas were taken from Wikipedia.
 """
 
 def costs(base_cost, modifier, level):
-    """
-    @brief  Generic functiont to calculate the costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  modifier FLOAT The base factor to be used
-    @param  level INTEGER The level to be calculated
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Generic functiont to calculate the costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param modifier: The base factor to be used
+    :type modifier: float
+    :param level: The level to be calculated
+    :type level: int
+    :returns: tupel -- The costs in metal, crystal and deuterium
     """
     metal = (base_cost[0] / modifier) * modifier ** level
     crystal = (base_cost[1] / modifier) * modifier ** level
@@ -33,12 +35,15 @@ def costs(base_cost, modifier, level):
 
 
 def costs_total(base_cost, modifier, level):
-    """
-    @brief  Generic functiont to calculate the total costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  modifier FLOAT The base factor to be used
-    @param  level INTEGER The level to be calculated
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Generic functiont to calculate the total costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param modifier: The base factor to be used
+    :type modifier: float
+    :param level: The level to be calculated
+    :type level: int
+    :returns: tupel -- The costs in metal, crystal and deuterium
     """
     geo = float(1 - modifier ** (level + 1)) / float(1 - modifier)
     metal = (base_cost[0] / modifier) * geo - (base_cost[0] / modifier)
@@ -48,12 +53,15 @@ def costs_total(base_cost, modifier, level):
 
 
 def costs_onepointfive(base_cost, current_level, offset=1):
-    """
-    @brief  Returns a tupel with the costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  current_level INTEGER The current level of the item
-    @param  offset INTEGER The offset from the current level
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Returns a tupel with the costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param current_level: The current level of the item
+    :type current_level: int
+    :param offset: The offset from the current level
+    :type offset: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 1.5
     """
@@ -61,11 +69,13 @@ def costs_onepointfive(base_cost, current_level, offset=1):
 
 
 def costs_onepointfive_total(base_cost, level):
-    """
-    @brief  Generic functiont to calculate the total costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  level INTEGER The level to be calculated
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Generic functiont to calculate the total costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param level: The current level of the item
+    :type level: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 1.5
     """
@@ -73,12 +83,15 @@ def costs_onepointfive_total(base_cost, level):
 
 
 def costs_onepointsix(base_cost, current_level, offset=1):
-    """
-    @brief  Returns a tupel with the costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  current_level INTEGER The current level of the item
-    @param  offset INTEGER The offset from the current level
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Returns a tupel with the costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param current_level: The current level of the item
+    :type current_level: int
+    :param offset: The offset from the current level
+    :type offset: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 1.6
     """
@@ -86,11 +99,13 @@ def costs_onepointsix(base_cost, current_level, offset=1):
 
 
 def costs_onepointsix_total(base_cost, level):
-    """
-    @brief  Generic functiont to calculate the total costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  level INTEGER The level to be calculated
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Generic functiont to calculate the total costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param level: The current level of the item
+    :type level: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 1.6
     """
@@ -98,12 +113,15 @@ def costs_onepointsix_total(base_cost, level):
 
 
 def costs_onepointeight(base_cost, current_level, offset=1):
-    """
-    @brief  Returns a tupel with the costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  current_level INTEGER The current level of the item
-    @param  offset INTEGER The offset from the current level
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Returns a tupel with the costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param current_level: The current level of the item
+    :type current_level: int
+    :param offset: The offset from the current level
+    :type offset: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 1.8
     """
@@ -111,11 +129,13 @@ def costs_onepointeight(base_cost, current_level, offset=1):
 
 
 def costs_onepointeight_total(base_cost, level):
-    """
-    @brief  Generic functiont to calculate the total costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  level INTEGER The level to be calculated
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Generic functiont to calculate the total costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param level: The current level of the item
+    :type level: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 1.8
     """
@@ -123,12 +143,15 @@ def costs_onepointeight_total(base_cost, level):
 
 
 def costs_two(base_cost, current_level, offset=1):
-    """
-    @brief  Returns a tupel with the costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  current_level INTEGER The current level of the item
-    @param  offset INTEGER The offset from the current level
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Returns a tupel with the costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param current_level: The current level of the item
+    :type current_level: int
+    :param offset: The offset from the current level
+    :type offset: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 2.0
     """
@@ -136,11 +159,13 @@ def costs_two(base_cost, current_level, offset=1):
 
 
 def costs_two_total(base_cost, level):
-    """
-    @brief  Generic functiont to calculate the total costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  level INTEGER The level to be calculated
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Generic functiont to calculate the total costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param level: The current level of the item
+    :type level: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 2.0
     """
@@ -148,12 +173,15 @@ def costs_two_total(base_cost, level):
 
 
 def costs_twopointthree(base_cost, current_level, offset=1):
-    """
-    @brief  Returns a tupel with the costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  current_level INTEGER The current level of the item
-    @param  offset INTEGER The offset from the current level
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Returns a tupel with the costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param current_level: The current level of the item
+    :type current_level: int
+    :param offset: The offset from the current level
+    :type offset: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 2.3
     """
@@ -161,11 +189,13 @@ def costs_twopointthree(base_cost, current_level, offset=1):
 
 
 def costs_twopointthree_total(base_cost, level):
-    """
-    @brief  Generic functiont to calculate the total costs of a given level
-    @param  base_cost TUPEL The base costs of the item
-    @param  level INTEGER The level to be calculated
-    @retval TUPEL The costs in metal, crystal and deuterium
+    """Generic functiont to calculate the total costs of a given level
+
+    :param base_cost: The base costs of the item
+    :type base_cost: tupel
+    :param level: The current level of the item
+    :type level: int
+    :returns: tupel --  The costs in metal, crystal and deuterium
 
     This function is used for buildings/researches with a base factor of 2.3
     """

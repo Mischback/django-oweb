@@ -2,6 +2,7 @@ Code Documentation
 ******************
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   admin
+    admin
+    lib_costs
