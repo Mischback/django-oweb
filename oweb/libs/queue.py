@@ -7,9 +7,13 @@ from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_onepoin
 
 
 def get_mse(ressources, trade):
-    """
-    @brief  Returns the equivalent of a given ressource tupel
-    @param  ressources TUPEL
+    """Returns the equivalent of a given ressource tupel
+
+    :param ressources: A ressource tuple
+    :type ressources: tuple
+    :param trade: A tuple with the account's trading rates
+    :type trade: tuple
+    :returns: int -- ressources in MSE
     """
     mse = ressources[0]
     mse = mse + (trade[0] / float(trade[1]) * ressources[1])
@@ -24,7 +28,37 @@ def queue_item(id, name, level,
     required_energy, required_sats,
     planet
     ):
-    """
+    """Returns a queue item, which is a tuple of related values in a specific order
+    
+    :param id: The ID of this item
+    :type id: int
+    :param name: The name of this item
+    :type name: string
+    :param level: The level of this item
+    :type level: int
+    :param next_cost: The ressource tuple with the items costs
+    :type next_cost: tuple
+    :param next_prod: This items production in MSE
+    :type next_prod: int
+    :param this_prod: Production of the items current level in MSE
+    :type this_prod: int
+    :param trade: A tuple with the account's trading rates
+    :type trade: tuple
+    :param this_capacity: The current capacity of the planet. Do not have to be set for researches.
+    :type this_capacity: int
+    :param next_capacity: The capacity, if Robotics of Nanites are build up
+    :type next_capacity: int
+    :param next_cap_cost: The costs for the build up in MSE
+    :type next_cap_cost: int
+    :param next_cap_time: The time to build up the Robotics/Nanites
+    :type next_cap_time: int
+    :param required_energy: The required energy of this item
+    :type required_energy: int
+    :param required_sats: The number of satellites needed to even the energy need
+    :type required_sats: int
+    :param planet: The planet of this item (can be used to assign a Research, too)
+    :type planet: Planet object
+    :returns: tuple -- A queue item
     """
     # init some vars... 
     # This catches some issues with Plasma research
@@ -90,7 +124,36 @@ def get_planet_queue(planet,
     station15=None,
     civil212=None,
     research113=None):
-    """
+    """Returns the queue for a given planet
+
+    :param planet: The planet in question
+    :type planet: Planet object
+    :param speed: The account's speed (Default: None)
+    :type speed: int
+    :param trade: The account's trading rates (Default: None)
+    :type trade: tuple
+    :param supply1: This planet's metal mine (default: None)
+    :type supply1: Supply1 object
+    :param supply2: This planet's crystal mine (default: None)
+    :type supply2: Supply2 object
+    :param supply3: This planet's deuterium synthesizer (default: None)
+    :type supply3: Supply3 object
+    :param supply4: This planet's solar plant (default: None)
+    :type supply4: Supply4 object
+    :param supply12: This planet's fusion plant (default: None)
+    :type supply12: Supply12 object
+    :param station14: This planet's robotics factory (default: None)
+    :type station14: Station14 object
+    :param station15: This planet's nanite factory (default: None)
+    :type station15: Station15 object
+    :param civil212: This planet's solar satellites (default: None)
+    :type civil212: Civil212 object
+    :param research113: This account's energy technology (default: None)
+    :type research113: Research113 object
+    :returns: list -- The build queue of a planet
+
+    Most of the parameters of this function are optional, but necessary. If
+    they are not specified while calling this function, they will be fetched.
     """
     # Metal
     if not supply1:
@@ -273,7 +336,15 @@ def get_planet_queue(planet,
 
 
 def get_plasma_queue(account, research122=None, production=(0, 0, 0, 0)):
-    """
+    """Returns the queue of plasma technology
+
+    :param account: The account in question
+    :type account: Account object
+    :param research122: The Plasma Technology (default: None)
+    :type research122: Research122 object
+    :param production: The current production (default: (0, 0, 0, 0))
+    :type production: tuple
+    :returns: list -- the plasma queue
     """
     if not research122:
         research122 = get_object_or_404(Research122, account=account.id)
