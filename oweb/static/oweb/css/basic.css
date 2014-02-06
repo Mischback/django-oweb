@@ -216,3 +216,31 @@ table.empire td.section {
 table.empire tr.values > td:first-child {
     text-align: left;
 }
+
+table.tool_energy tr td {
+    text-align: right;
+}
+table.tool_energy th {
+    border-bottom: none;
+}
+table.tool_energy tr td.rotate {
+    -webkit-transform:  rotate(-90deg);
+    -moz-transform:     rotate(-90deg);
+    -o-transform:       rotate(-90deg);
+    transform:          rotate(-90deg);
+
+    -webkit-tranform-origin: 0% 0%;
+    -moz-tranform-origin: 0% 0%;
+    -o-tranform-origin: 0% 0%;
+    tranform-origin:    0% 0%;
+    width:              1em;
+    white-space:        nowrap;
+}
+table.tool_energy tr td.top_caption {
+    text-align:         center;    
+}
+table.tool_energy tr td.right_caption {
+    text-align:         left;
+    font-size:          0.8em;
+    color:              #666;
+}

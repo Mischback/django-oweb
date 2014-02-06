@@ -94,7 +94,7 @@ def tools_energy(req, account_id):
                 next_ratio
             ))
 
-        fusion_matrix.append((f, et_range))
+        fusion_matrix.append((int(f), et_range))
 
     return render(req, 'oweb/tools_energy.html',
         {
