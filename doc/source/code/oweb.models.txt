@@ -9,7 +9,7 @@ oweb.models.account module
 
 .. automodule:: oweb.models.account
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 oweb.models.building module
@@ -17,7 +17,7 @@ oweb.models.building module
 
 .. automodule:: oweb.models.building
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 oweb.models.defense module
@@ -25,7 +25,6 @@ oweb.models.defense module
 
 .. automodule:: oweb.models.defense
     :members:
-    :undoc-members:
     :show-inheritance:
 
 oweb.models.planet module
@@ -33,7 +32,6 @@ oweb.models.planet module
 
 .. automodule:: oweb.models.planet
     :members:
-    :undoc-members:
     :show-inheritance:
 
 oweb.models.research module

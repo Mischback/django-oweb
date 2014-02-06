@@ -1,6 +1,20 @@
-"""
-@file   building.py
-@brief  Contains all building related classes
+"""This module contains all building related classes.
+
+The module works this way: There is a base class for all buildings (:py:class:`Building`).
+Several classes are directly derived from :py:class:`Building`: :py:class:`Building_onepointfive`,
+:py:class:`Building_onepointsix`, :py:class:`Building_onepointeight` and
+:py:class:`Building_twopointthree`.
+
+These classes represent certain possibilities, how the costs of each level of a building may rise.
+I.e. the :py:class:`Supply1` is derived from :py:class:`Building_onepointfive`, which means, 
+that each level of a Metal Mine costs 1.5 * of the last costs.
+
+The classes implement the function ``_calc_next_cost()`` with their respective modifier. This means, 
+they are calling the right function from :py:mod:`oweb.libs.costs`.
+
+The *real* building classes are derived from these classes. The classes, that are directly
+derived from :py:class:`Building` have a cost modifier of 2.0. These *real* classes will also
+set the correct ``base_cost`` of the building.
 """
 
 # Django stuff
@@ -13,29 +27,25 @@ from oweb.libs.costs import costs_two, costs_two_total, costs_onepointfive, cost
 
 
 class Building(models.Model):
-    """
-    @class  Building
-    @brief  Base class for all buildings
-    """
+    """Base class for all buildings"""
 
-    """ @brief  meta variable to determine the "real" type of an instance """
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
+    """meta variable to determine the "real" type of an instance"""
 
-    """ @brief  The parent planet object """
     planet = models.ForeignKey(Planet)
+    """The parent planet object """
 
-    """ @brief  The name of the building """
     name = models.CharField(max_length=150)
+    """The name of the building """
 
-    """ @brief  Current level of the building """
     level = models.IntegerField(default=0)
+    """Current level of the building """
 
-    """ @brief  The base costs of the building """
     base_cost = (0, 0, 0, 0)
+    """The base costs of the building """
 
     def get_next_cost(self):
-        """
-        @brief  Returns a tupel with the costs of the next level
+        """Returns a tupel with the costs of the next level
 
         Please note, that the real calculation is done in the
         _calc_next_cost() function. This construct is necessary to access the
@@ -44,8 +54,7 @@ class Building(models.Model):
         return self.as_real_class()._calc_next_cost()
 
     def get_total_cost(self):
-        """
-        @brief  Returns a tupel with the total costs of the current level
+        """Returns a tupel with the total costs of the current level
 
         Please note, that the real calculation is done in the
         _calc_total_cost() function. This construct is necessary to access the
@@ -54,47 +63,37 @@ class Building(models.Model):
         return self.as_real_class()._calc_total_cost()
 
     def _calc_next_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
         return costs_two(self.base_cost, self.level)
 
     def _calc_total_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
         return costs_two_total(self.base_cost, self.level)
 
     def save(self, *args, **kwargs):
-        """
-        @brief  Overwrites the Models save()-method to store the "real" class
-        """
+        """Overwrites the Models save()-method to store the "real" class"""
         if not self.content_type:
             self.content_type = ContentType.objects.get_for_model(self.__class__)
         self.save_base()
 
     def as_real_class(self):
-        """
-        @brief  Access the "real" class methods
-        """
+        """Access the "real" class methods"""
         model = self.content_type.model_class()
         if model == Building:
             return self
         return model.objects.get(id=self.id)
 
     def __unicode__(self):
-        """
-        @brief  Returns a string containing the name
-        @retval STRING  A unicode string
-        """
         return '{0}: {1}'.format(self.name, self.level)
 
     class Meta:
@@ -102,9 +101,7 @@ class Building(models.Model):
 
 
 class Building_onepointfive(Building):
-    """
-    @class  Building_onepointfive
-    @brief  Calculates the costs for buildings with a modfier of 1.5
+    """Calculates the costs for buildings with a modfier of 1.5
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
@@ -116,10 +113,9 @@ class Building_onepointfive(Building):
     """
 
     def _calc_next_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -133,9 +129,7 @@ class Building_onepointfive(Building):
 
 
 class Building_onepointsix(Building):
-    """
-    @class  Building_onepointsix
-    @brief  Calculates the costs for buildings with a modfier of 1.5
+    """Calculates the costs for buildings with a modfier of 1.5
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
@@ -145,10 +139,9 @@ class Building_onepointsix(Building):
     """
 
     def _calc_next_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -162,9 +155,7 @@ class Building_onepointsix(Building):
 
 
 class Building_onepointeight(Building):
-    """
-    @class  Building_onepointeight
-    @brief  Calculates the costs for buildings with a modfier of 1.8
+    """Calculates the costs for buildings with a modfier of 1.8
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
@@ -174,10 +165,9 @@ class Building_onepointeight(Building):
     """
 
     def _calc_next_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -191,9 +181,7 @@ class Building_onepointeight(Building):
 
 
 class Building_twopointthree(Building):
-    """
-    @class  Building_twopointthree
-    @brief  Calculates the costs for buildings with a modfier of 2.3
+    """Calculates the costs for buildings with a modfier of 2.3
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
@@ -205,10 +193,9 @@ class Building_twopointthree(Building):
     """
 
     def _calc_next_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -222,10 +209,7 @@ class Building_twopointthree(Building):
 
 
 class Supply1(Building_onepointfive):
-    """
-    @class  Supply1
-    @brief  Building __Metallmine__
-    """
+    """Building **Metal Mine**"""
     base_cost = (60, 15, 0, 0)
     performance = models.FloatField(default=1.0)
 
@@ -238,10 +222,7 @@ class Supply1(Building_onepointfive):
 
 
 class Supply2(Building_onepointsix):
-    """
-    @class  Supply2
-    @brief  Building __Kristallmine__
-    """
+    """Building **Crystal Mine**"""
     base_cost = (48, 24, 0, 0)
     performance = models.FloatField(default=1.0)
 
@@ -254,10 +235,7 @@ class Supply2(Building_onepointsix):
 
 
 class Supply3(Building_onepointfive):
-    """
-    @class  Supply3
-    @brief  Building __Deuteriumsynthetisierer__
-    """
+    """Building **Deuterium Synthesizer**"""
     base_cost = (225, 75, 0, 0)
     performance = models.FloatField(default=1.0)
 
@@ -270,10 +248,7 @@ class Supply3(Building_onepointfive):
 
 
 class Supply4(Building_onepointfive):
-    """
-    @class  Supply4
-    @brief  Building __Solarkraftwerk__
-    """
+    """Building **Solar Plant**"""
     base_cost = (75, 30, 0, 0)
     performance = models.FloatField(default=1.0)
 
@@ -286,10 +261,7 @@ class Supply4(Building_onepointfive):
 
 
 class Supply12(Building_onepointeight):
-    """
-    @class  Supply12
-    @brief  Building __Fusionskraftwerk__
-    """
+    """Building **Fusion Reactor**"""
     base_cost = (900, 360, 180, 0)
     performance = models.FloatField(default=1.0)
 
@@ -302,10 +274,7 @@ class Supply12(Building_onepointeight):
 
 
 class Supply22(Building):
-    """
-    @class  Supply22
-    @brief  Building __Metallspeicher__
-    """
+    """Building **Metal Storage**"""
     base_cost = (1000, 0, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -317,10 +286,7 @@ class Supply22(Building):
 
 
 class Supply23(Building):
-    """
-    @class  Supply23
-    @brief  Building __Kristallspeicher__
-    """
+    """Building **Crystal Storage**"""
     base_cost = (1000, 500, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -332,10 +298,7 @@ class Supply23(Building):
 
 
 class Supply24(Building):
-    """
-    @class  Supply24
-    @brief  Building __Deuteriumtank__
-    """
+    """Building **Deuterium Tank**"""
     base_cost = (1000, 1000, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -347,10 +310,7 @@ class Supply24(Building):
 
 
 class Supply25(Building_twopointthree):
-    """
-    @class  Supply25
-    @brief  Building __Metallversteck__
-    """
+    """Building **Shielded Metal Den**"""
     base_cost = (2645, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -362,10 +322,7 @@ class Supply25(Building_twopointthree):
 
 
 class Supply26(Building_twopointthree):
-    """
-    @class  Supply26
-    @brief  Building __Kristallversteck__
-    """
+    """Building **Underground Crystal Den**"""
     base_cost = (2645, 1322, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -377,10 +334,7 @@ class Supply26(Building_twopointthree):
 
 
 class Supply27(Building_twopointthree):
-    """
-    @class  Supply27
-    @brief  Building __Deuteriumversteck__
-    """
+    """Building **Seabed Deuterium Den**"""
     base_cost = (2645, 2645, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -392,10 +346,7 @@ class Supply27(Building_twopointthree):
 
 
 class Station14(Building):
-    """
-    @class  Station14
-    @brief  Building __Roboterfabrik__
-    """
+    """Building **Robotics Factory**"""
     base_cost = (400, 120, 200, 0)
 
     def __init__(self, *args, **kwargs):
@@ -407,10 +358,7 @@ class Station14(Building):
 
 
 class Station15(Building):
-    """
-    @class  Station15
-    @brief  Building __Nanitenfabrik__
-    """
+    """Building **Nanite Factory**"""
     base_cost = (1000000, 500000, 100000, 0)
 
     def __init__(self, *args, **kwargs):
@@ -422,10 +370,7 @@ class Station15(Building):
 
 
 class Station21(Building):
-    """
-    @class  Station21
-    @brief  Building __Raumschiffwerft__
-    """
+    """Building **Shipyard**"""
     base_cost = (400, 200, 100)
 
     def __init__(self, *args, **kwargs):
@@ -437,10 +382,7 @@ class Station21(Building):
 
 
 class Station31(Building):
-    """
-    @class  Station31
-    @brief  Building __Forschungslabor__
-    """
+    """Building **Research Lab**"""
     base_cost = (200, 400, 200, 0)
 
     def __init__(self, *args, **kwargs):
@@ -452,10 +394,7 @@ class Station31(Building):
 
 
 class Station33(Building):
-    """
-    @class  Station33
-    @brief  Building __Terraformer__
-    """
+    """Building **Terraformer**"""
     base_cost = (0, 50000, 100000, 1000)
 
     def __init__(self, *args, **kwargs):
@@ -463,13 +402,12 @@ class Station33(Building):
         Building.__init__(self, *args, **kwargs)
 
     def _calc_next_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
         This building is the only one, which requires a certain amount of
-        energy.
+        energy, therefore this method is implemented here.
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
 
@@ -486,10 +424,7 @@ class Station33(Building):
 
 
 class Station34(Building):
-    """
-    @class  Station34
-    @brief  Building __Allianzdepot__
-    """
+    """Building **Alliace Depot**"""
     base_cost = (20000, 40000, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -501,10 +436,7 @@ class Station34(Building):
 
 
 class Station44(Building):
-    """
-    @class  Station44
-    @brief  Building __Raketensilo__
-    """
+    """Building **Missile Silo**"""
     base_cost = (20000, 20000, 1000, 0)
 
     def __init__(self, *args, **kwargs):

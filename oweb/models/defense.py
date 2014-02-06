@@ -1,7 +1,4 @@
-"""
-@file   defense.py
-@brief  Contains all defense related classes
-"""
+"""Contains all defense related classes"""
 
 # Django stuff
 from django.db import models
@@ -13,43 +10,38 @@ from oweb.models import Planet
 
 class Defense(models.Model):
 
-    """ @brief  meta variable to determine the "real" type of an instance """
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
+    """meta variable to determine the "real" type of an instance """
 
-    """ @brief  The parent planet object """
     planet = models.ForeignKey(Planet)
+    """The parent planet object """
 
     name = models.CharField(max_length=150)
+    """The name of this defense device"""
 
     count = models.IntegerField(default=0)
+    """How many of this defense devices are present on this planet"""
 
     cost = (0, 0, 0)
+    """The costs per piece"""
 
     def get_cost(self):
         return self.cost
 
     def save(self, *args, **kwargs):
-        """
-        @brief  Overwrites the Models save()-method to store the "real" class
-        """
+        """Overwrites the Models save()-method to store the *real* class"""
         if not self.content_type:
             self.content_type = ContentType.objects.get_for_model(self.__class__)
         self.save_base()
 
     def as_real_class(self):
-        """
-        @brief  Access the "real" class methods
-        """
+        """Access the "real" class methods"""
         model = self.content_type.model_class()
         if model == Defense:
             return self
         return model.objects.get(id=self.id)
 
     def __unicode__(self):
-        """
-        @brief  Returns a string containing the name
-        @retval STRING  A unicode string
-        """
         return '{0}: {1}'.format(self.name, self.count)
 
     class Meta:
@@ -57,6 +49,7 @@ class Defense(models.Model):
 
 
 class Defense401(Defense):
+    """Defense **Rocket Launcher***"""
     cost = (2000, 0, 0)
 
     def __init__(self, *args, **kwargs):
@@ -68,6 +61,7 @@ class Defense401(Defense):
 
 
 class Defense402(Defense):
+    """Defense **Light Laser**"""
     cost = (1500, 500, 0)
 
     def __init__(self, *args, **kwargs):
@@ -79,6 +73,7 @@ class Defense402(Defense):
 
 
 class Defense403(Defense):
+    """Defense **Heavy Laser**"""
     cost = (6000, 2000, 0)
 
     def __init__(self, *args, **kwargs):
@@ -90,6 +85,7 @@ class Defense403(Defense):
 
 
 class Defense404(Defense):
+    """Defense **Gauss Cannon**"""
     cost = (20000, 15000, 2000)
 
     def __init__(self, *args, **kwargs):
@@ -101,6 +97,7 @@ class Defense404(Defense):
 
 
 class Defense405(Defense):
+    """Defense **Ion Cannon**"""
     cost = (2000, 6000, 0)
 
     def __init__(self, *args, **kwargs):
@@ -112,6 +109,7 @@ class Defense405(Defense):
 
 
 class Defense406(Defense):
+    """Defense **Plasma Turret**"""
     cost = (50000, 50000, 30000)
 
     def __init__(self, *args, **kwargs):
@@ -123,6 +121,7 @@ class Defense406(Defense):
 
 
 class Defense407(Defense):
+    """Defense **Small Shield Dome**"""
     cost = (10000, 10000, 0)
 
     def __init__(self, *args, **kwargs):
@@ -134,6 +133,7 @@ class Defense407(Defense):
 
 
 class Defense408(Defense):
+    """Defense **Large Shield Dome**"""
     cost = (50000, 50000, 0)
 
     def __init__(self, *args, **kwargs):
@@ -145,6 +145,7 @@ class Defense408(Defense):
 
 
 class Defense502(Defense):
+    """Defense **Anti-Ballistic Missiles**"""
     cost = (8000, 0, 2000)
 
     def __init__(self, *args, **kwargs):
@@ -156,6 +157,7 @@ class Defense502(Defense):
 
 
 class Defense503(Defense):
+    """Defense **Interplanetary Missiles**"""
     cost = (12500, 2500, 10000)
 
     def __init__(self, *args, **kwargs):
