@@ -36,6 +36,10 @@ urlpatterns = patterns('oweb.views',
         'planet_buildings', name='planet_buildings'),
     url(r'^planet/(?P<planet_id>\d+)/defense$',
         'planet_defense', name='planet_defense'),
+
+    # tools.py
+    url(r'^tools/(?P<account_id>\d+)/energy$',
+        'tools_energy', name="tools_energy"),
 )
 
 urlpatterns += patterns('',
