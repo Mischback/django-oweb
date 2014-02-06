@@ -10,5 +10,36 @@
         <h1>Tools - Energy</h1>
     </header>
 
+        <table class="item_listing tool_energy">
+            <tr>
+                <td />
+                <td />
+                <td class="top_caption" colspan="5">Energytechnology</td>
+            </tr>
+            <tr>
+                <td class="rotate" rowspan="6">Fusion Plant</td>
+                <td />
+    {% for line in fusion_matrix.0.1 %}
+                <th>{{ line.0 }}</th>
+    {% endfor %}
+            </tr>
+    {% for fm in fusion_matrix %}
+            <tr>
+                <th>{{ fm.0 }}</th>
+            {% for line in fm.1 %}
+                <td>
+                {{ line.1|number_beautify }}<br />
+                    <span class="production_gain">+ {{ line.2|number_beautify }}</span><br />
+                {{ line.4|number_beautify }}
+                </td>
+            {% endfor %}
+                <td class="right_caption">
+                    total production<br />
+                    production gain<br />
+                    mse / gain
+                </td>
+            </tr>
+    {% endfor %}
+        </table>
 </section>
 {% endblock %}
