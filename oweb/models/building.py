@@ -1,4 +1,21 @@
-"""This module contains all building related classes"""
+"""This module contains all building related classes.
+
+The module works this way: There is a base class for all buildings (:py:class:`Building`).
+Several classes are directly derived from :py:class:`Building`: :py:class:`Building_onepointfive`,
+:py:class:`Building_onepointsix`, :py:class:`Building_onepointeight` and
+:py:class:`Building_twopointthree`.
+
+These classes represent certain possibilities, how the costs of each level of a building may rise.
+I.e. the :py:class:`Supply1` is derived from :py:class:`Building_onepointfive`, which means, 
+that each level of a Metal Mine costs 1.5 * of the last costs.
+
+The classes implement the function ``_calc_next_cost()`` with their respective modifier. This means, 
+they are calling the right function from :py:mod:`oweb.libs.costs`.
+
+The *real* building classes are derived from these classes. The classes, that are directly
+derived from :py:class:`Building` have a cost modifier of 2.0. These *real* classes will also
+set the correct ``base_cost`` of the building.
+"""
 
 # Django stuff
 from django.db import models
@@ -48,7 +65,7 @@ class Building(models.Model):
     def _calc_next_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -57,7 +74,7 @@ class Building(models.Model):
     def _calc_total_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should __not__ be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -386,11 +403,10 @@ class Station33(Building):
         Building.__init__(self, *args, **kwargs)
 
     def _calc_next_cost(self):
-        """
-        @brief  Calculates the cost of the next level of the building
+        """Calculates the cost of the next level of the building
 
         This building is the only one, which requires a certain amount of
-        energy.
+        energy, therefore this method is implemented here.
 
         This function should **not** be called directly! Use get_next_cost()
         instead, as it will make sure to call the correct calculation
