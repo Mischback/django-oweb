@@ -39,6 +39,12 @@
     <li><a href="{% url 'oweb:planet_create' account.id %}">create planet</a></li>
             </ul>
         </li>
+        <li>
+            <a href="#">Tools</a>
+            <ul>
+                <li><a href="{% url 'oweb:tools_energy' account.id %}">Energy</a>
+            </ul>
+        </li>
     </ul>
 </nav>
 {% block oweb_account %}{% endblock %}
