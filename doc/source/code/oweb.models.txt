@@ -16,7 +16,6 @@ oweb.models.building module
 
 .. automodule:: oweb.models.building
     :members:
-    :undoc-members:
     :show-inheritance:
 
 oweb.models.defense module
