@@ -94,7 +94,6 @@ class Building(models.Model):
         return model.objects.get(id=self.id)
 
     def __unicode__(self):
-        """Returns a string containing the name"""
         return '{0}: {1}'.format(self.name, self.level)
 
     class Meta:

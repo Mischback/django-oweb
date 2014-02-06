@@ -32,7 +32,6 @@ oweb.models.planet module
 
 .. automodule:: oweb.models.planet
     :members:
-    :undoc-members:
     :show-inheritance:
 
 oweb.models.research module
