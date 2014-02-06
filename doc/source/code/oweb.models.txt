@@ -9,7 +9,6 @@ oweb.models.account module
 
 .. automodule:: oweb.models.account
     :members:
-    :undoc-members:
     :show-inheritance:
 
 oweb.models.building module
