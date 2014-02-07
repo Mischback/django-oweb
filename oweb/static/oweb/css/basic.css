@@ -218,6 +218,7 @@ table.empire tr.values > td:first-child {
 }
 
 table.tool_energy tr td {
+    padding-top: 0.5em;
     text-align: right;
 }
 table.tool_energy th {
@@ -242,5 +243,6 @@ table.tool_energy tr td.top_caption {
 table.tool_energy tr td.right_caption {
     text-align:         left;
     font-size:          0.8em;
+    line-height:        1.5em;
     color:              #666;
 }
