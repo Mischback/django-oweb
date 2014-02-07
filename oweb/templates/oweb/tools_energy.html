@@ -12,7 +12,9 @@
 
         <table class="item_listing tool_energy">
             <tr>
-                <td />
+                <td>
+                    <a href="{% url 'oweb:tools_energy' account.id %}">reset</a>
+                </td>
                 <td />
                 <td class="top_caption" colspan="5">Energytechnology</td>
             </tr>
@@ -20,12 +22,20 @@
                 <td class="rotate" rowspan="6">Fusion Plant</td>
                 <td />
     {% for line in fusion_matrix.0.1 %}
-                <th>{{ line.0 }}</th>
+                <th>
+                    <a href="{% url 'oweb:tools_energy_draft' account.id line.0 fusion_level %}">
+                        {{ line.0 }}
+                    </a>
+                </th>
     {% endfor %}
             </tr>
     {% for fm in fusion_matrix %}
             <tr>
-                <th>{{ fm.0 }}</th>
+                <th>
+                    <a href="{% url 'oweb:tools_energy_draft' account.id energy_level fm.0 %}">
+                        {{ fm.0 }}
+                    </a>
+                </th>
             {% for line in fm.1 %}
                 <td>
                 {{ line.1|number_beautify }}<br />

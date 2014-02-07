@@ -40,6 +40,8 @@ urlpatterns = patterns('oweb.views',
     # tools.py
     url(r'^tools/(?P<account_id>\d+)/energy$',
         'tools_energy', name="tools_energy"),
+    url(r'^tools/(?P<account_id>\d+)/energy/(?P<energy_level>\d+)/(?P<fusion_level>\d+)$',
+        'tools_energy', name="tools_energy_draft"),
 )
 
 urlpatterns += patterns('',
