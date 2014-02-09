@@ -11,8 +11,32 @@
     </header>
 
     <section>
-        <header>Meta</header>
-        {{ planet.coord }} | {{ planet_fields }} occupied | {{ planet.min_temp }} °C
+        <section>
+            <header>Meta</header>
+            {{ planet.coord }} | {{ planet_fields }} occupied | {{ planet.min_temp }} °C
+        </section>
+
+        <section>
+            <header>Points</header>
+            <table>
+                <tr>
+                    <td>Total:</td>
+                    <td>{{ points.0 }}</td>
+                </tr>
+                <tr>
+                    <td>Buildings:</td>
+                    <td>{{ points.1 }}</td>
+                </tr>
+                <tr>
+                    <td>Production:</td>
+                    <td>{{ points.2 }}</td>
+                </tr>
+                <tr>
+                    <td>other buildings:</td>
+                    <td>{{ points.3 }}</td>
+                </tr>
+            </table>
+        </section>
     </section>
 
     <section>
