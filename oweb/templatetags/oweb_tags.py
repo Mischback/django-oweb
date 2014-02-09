@@ -15,3 +15,7 @@ def daily_production(value):
     """
     """
     return value * 24
+
+@register.filter
+def points(value):
+    return value / 1000
