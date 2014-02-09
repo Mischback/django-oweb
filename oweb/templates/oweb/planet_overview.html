@@ -18,26 +18,26 @@
 
         <section>
             <header>Points</header>
-            <table>
-                <tr>
+            <table class="points">
+                <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                     <td>Total:</td>
-                    <td>{{ points.0|points|number_beautify }}</td>
+                    <td class="value">{{ points.0|points|number_beautify }}</td>
                 </tr>
-                <tr>
+                <tr class="{% cycle rowcycle %}">
                     <td>Buildings:</td>
-                    <td>{{ points.1|points|number_beautify }}</td>
+                    <td class="value">{{ points.1|points|number_beautify }}</td>
                 </tr>
-                <tr>
+                <tr class="{% cycle rowcycle %}">
                     <td>Production:</td>
-                    <td>{{ points.2|points|number_beautify }}</td>
+                    <td class="value">{{ points.2|points|number_beautify }}</td>
                 </tr>
-                <tr>
+                <tr class="{% cycle rowcycle %}">
                     <td>other buildings:</td>
-                    <td>{{ points.3|points|number_beautify }}</td>
+                    <td class="value">{{ points.3|points|number_beautify }}</td>
                 </tr>
-                <tr>
+                <tr class="{% cycle rowcycle %}">
                     <td>Defense:</td>
-                    <td>{{ points.4|points|number_beautify }}</td>
+                    <td class="value">{{ points.4|points|number_beautify }}</td>
                 </tr>
             </table>
         </section>
