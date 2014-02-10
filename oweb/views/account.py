@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404, redirect, rende
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
-from oweb.libs.points import get_planet_points
+from oweb.libs.points import get_planet_points, get_ship_points
 
 def account_overview(req, account_id):
     """
@@ -43,7 +43,7 @@ def account_overview(req, account_id):
     other_points = 0
     defense_points = 0
     research_points = 0
-    ship_points = 0
+    ship_points = get_ship_points(account)
 
     for p in planets:
         # production
@@ -63,7 +63,7 @@ def account_overview(req, account_id):
     queue.sort()
     queue = queue[:20]
     # points
-    total_points = production_points + other_points + defense_points + research_points + ship_points
+    total_points = production_points + other_points + defense_points + research_points + ship_points[0]
     points = {}
     points['total'] = total_points
     try:
@@ -83,7 +83,7 @@ def account_overview(req, account_id):
     except ZeroDivisionError:
         points['research'] = (research_points, 0)
     try:
-        points['ships'] = (ship_points, ship_points / float(total_points) * 100)
+        points['ships'] = (ship_points[0], ship_points[0] / float(total_points) * 100)
     except ZeroDivisionError:
         points['ships'] = (ship_points, 0)
 
