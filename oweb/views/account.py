@@ -33,19 +33,59 @@ def account_overview(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
+    # production
     production = []
+    # queue
     queue = []
-    points = []
-    for p in planets:
-        production.append(get_planet_production(p, account.speed))
-        queue += get_planet_queue(p)[:5]
-        points.append(get_planet_points(p))
+    # points
+    total_points = 0
+    production_points = 0
+    other_points = 0
+    defense_points = 0
+    research_points = 0
+    ship_points = 0
 
+    for p in planets:
+        # production
+        production.append(get_planet_production(p, account.speed))
+        # queue
+        queue += get_planet_queue(p)[:5]
+        # points
+        this_planet_points = get_planet_points(p)
+        production_points += this_planet_points[1]
+        other_points += this_planet_points[2]
+        defense_points += this_planet_points[3]
+
+    # production
     production = tuple(sum(x) for x in zip(*production))
+    # queue
     queue += get_plasma_queue(account, production=production)
     queue.sort()
     queue = queue[:20]
-    points = tuple(sum(x) for x in zip(*points))
+    # points
+    total_points = production_points + other_points + defense_points + research_points + ship_points
+    points = {}
+    points['total'] = total_points
+    try:
+        points['production'] = (production_points, production_points / float(total_points) * 100)
+    except ZeroDivisionError:
+        points['production'] = (production_points, 0)
+    try:
+        points['other'] = (other_points, other_points / float(total_points) * 100)
+    except ZeroDivisionError:
+        points['other'] = (other_points, 0)
+    try:
+        points['defense'] = (defense_points, defense_points / float(total_points) * 100)
+    except ZeroDivisionError:
+        points['defense'] = (defense_points, 0)
+    try:
+        points['research'] = (research_points, research_points / float(total_points) * 100)
+    except ZeroDivisionError:
+        points['research'] = (research_points, 0)
+    try:
+        points['ships'] = (ship_points, ship_points / float(total_points) * 100)
+    except ZeroDivisionError:
+        points['ships'] = (ship_points, 0)
 
     return render(req, 'oweb/account_overview.html', 
         {

@@ -15,19 +15,32 @@
         <table class="points">
             <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
                 <td>Total:</td>
-                <td class="value">{{ points.0|points|number_beautify }}</td>
+                <td class="value">{{ points.total|points|number_beautify }}</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Production:</td>
-                <td class="value">{{ points.1|points|number_beautify }}</td>
+                <td class="value">{{ points.production.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.production.1|floatformat:2 }}%</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
-                <td>other buildings:</td>
-                <td class="value">{{ points.2|points|number_beautify }}</td>
+                <td>Other:</td>
+                <td class="value">{{ points.other.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.other.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Research:</td>
+                <td class="value">{{ points.research.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.research.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Ships:</td>
+                <td class="value">{{ points.ships.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.ships.1|floatformat:2 }}%</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
                 <td>Defense:</td>
-                <td class="value">{{ points.3|points|number_beautify }}</td>
+                <td class="value">{{ points.defense.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.defense.1|floatformat:2 }}%</td>
             </tr>
         </table>
     </section>

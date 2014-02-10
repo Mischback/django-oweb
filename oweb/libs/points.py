@@ -29,4 +29,4 @@ def get_planet_points(planet_id):
 
     planet_points = production_points + other_points + defense_points
 
-    return (planet_points, production_points, other_points, defense_points)
+    return planet_points, production_points, other_points, defense_points

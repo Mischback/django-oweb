@@ -196,7 +196,8 @@ table.production td.value {
     text-align: right;
 }
 
-table.points td.value {
+table.points td.value,
+table.points td.fraction {
     text-align: right;
 }
 
