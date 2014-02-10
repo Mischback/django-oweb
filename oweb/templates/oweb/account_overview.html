@@ -11,6 +11,74 @@
     </header>
 
     <section>
+        <header>Points</header>
+        <table class="points">
+            <tr class="headline">
+                <td>&nbsp;</td>
+                <th>Points</th>
+                <th>Fraction</th>
+            </tr>
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                <td>Total:</td>
+                <td class="value">{{ points.total|points|number_beautify }}</td>
+            </tr>
+            <tr class="cat_headline">
+                <th colspan="3">Categories</th>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Production:</td>
+                <td class="value">{{ points.production.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.production.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Other:</td>
+                <td class="value">{{ points.other.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.other.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Research:</td>
+                <td class="value">{{ points.research.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.research.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Ships:</td>
+                <td class="value">{{ points.ships.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.ships.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Defense:</td>
+                <td class="value">{{ points.defense.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.defense.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="cat_headline">
+                <th colspan="3">Planets</th>
+            </tr>
+    {% for p in points.planets %}
+            <tr class="{% cycle rowcycle %}">
+                <td><a href="{% url 'oweb:planet_overview' p.0.id %}">{{ p.0.name }}</a></td>
+                <td class="value">{{ p.1.0|points|number_beautify }}</td>
+                <td class="fraction">{{ p.2|floatformat:2 }}%</td>
+            </tr>
+    {% endfor %}
+            <tr class="cat_headline">
+                <th colspan="3">OGame</th>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Economy:</td>
+                <td class="value">{{ points.ogame.0|points|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Military:</td>
+                <td class="value">{{ points.ogame.1|points|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Research:</td>
+                <td class="value">{{ points.ogame.2|points|number_beautify }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
         <header>Production</header>
         <table class="production">
             <tr>

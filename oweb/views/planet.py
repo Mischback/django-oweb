@@ -9,6 +9,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404, redirect, rende
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research113, Research122
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue
+from oweb.libs.points import get_planet_points
 
 
 def planet_overview(req, planet_id):
@@ -41,6 +42,7 @@ def planet_overview(req, planet_id):
 
     production = get_planet_production(planet, planet.account.speed)
     queue = get_planet_queue(planet)
+    points = get_planet_points(planet)
 
     return render(req, 'oweb/planet_overview.html',
         {
@@ -50,6 +52,7 @@ def planet_overview(req, planet_id):
             'planet_fields': planet_fields,
             'production': production,
             'queue': queue,
+            'points': points,
         }
     )
 

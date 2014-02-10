@@ -196,6 +196,17 @@ table.production td.value {
     text-align: right;
 }
 
+table.points tr.headline th {
+    font-size: 0.7em;
+}
+table.points tr.cat_headline th {
+    padding: 1em 0 0.5em 0;
+}
+table.points td.value,
+table.points td.fraction {
+    text-align: right;
+}
+
 table.empire td {
     text-align: center;
     font-size: 0.75em;

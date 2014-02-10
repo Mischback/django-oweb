@@ -11,8 +11,32 @@
     </header>
 
     <section>
-        <header>Meta</header>
-        {{ planet.coord }} | {{ planet_fields }} occupied | {{ planet.min_temp }} °C
+        <section>
+            <header>Meta</header>
+            {{ planet.coord }} | {{ planet_fields }} occupied | {{ planet.min_temp }} °C
+        </section>
+
+        <section>
+            <header>Points</header>
+            <table class="points">
+                <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                    <td>Total:</td>
+                    <td class="value">{{ points.0|points|number_beautify }}</td>
+                </tr>
+                <tr class="{% cycle rowcycle %}">
+                    <td>Production:</td>
+                    <td class="value">{{ points.1|points|number_beautify }}</td>
+                </tr>
+                <tr class="{% cycle rowcycle %}">
+                    <td>other buildings:</td>
+                    <td class="value">{{ points.2|points|number_beautify }}</td>
+                </tr>
+                <tr class="{% cycle rowcycle %}">
+                    <td>Defense:</td>
+                    <td class="value">{{ points.3|points|number_beautify }}</td>
+                </tr>
+            </table>
+        </section>
     </section>
 
     <section>
