@@ -138,10 +138,51 @@ def account_empire(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
+    tmp_meta = []
+    tmp_buildings = []
+    tmp_defense = []
+    tmp_defense_points = []
+    tmp_building_points = []
+    for p in planets:
+        tmp_planet = []
+        tmp_planet.append(('planet', p.id, p.name))
+        tmp_planet.append(('plain', p.coord))
+        tmp_planet.append(('plain', p.min_temp))
+        tmp_meta.append(tmp_planet)
+
+        tmp_buildings.append(get_list_or_404(Building, planet=p))
+        tmp_defense.append(get_list_or_404(Defense, planet=p))
+
+        tmp_points = get_planet_points(p)
+        tmp_building_points.append(('plain', tmp_points[1] + tmp_points[2]))
+        tmp_defense_points.append(('plain', tmp_points[3]))
+
+    tmp_meta.insert(0, [('caption', 'Planet'), ('caption', 'Coordinates'), ('caption', 'Temperature')])
+    tmp_meta = zip(*tmp_meta)
+
+    foo = []
+    for i in tmp_buildings[0]:
+        foo.append(('caption', i.name))
+    tmp_buildings.insert(0, foo)
+    tmp_buildings = zip(*tmp_buildings)
+
+    foo = []
+    for i in tmp_defense[0]:
+        foo.append(('caption', i.name))
+    tmp_defense.insert(0, foo)
+    tmp_defense = zip(*tmp_defense)
+
+    empire = [
+        ('Meta', tmp_meta),
+        ('Buildings', tmp_buildings, 'building'),
+        ('Defense', tmp_defense, 'defense')
+    ]
+
     return render(req, 'oweb/account_empire.html', 
         {
             'account': account,
             'planets': planets,
+            'empire': empire,
         }
     )
 

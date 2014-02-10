@@ -11,6 +11,26 @@
     </header>
     <section>
         <table class="empire">
+    {% for s in empire %}
+            <tr>
+                <td>{{ s.0 }}</td>
+            </tr>
+        {% for o in s.1 %}
+            <tr>
+            {% for i in o %}
+                {% if i.0 == 'caption' %}
+                <th>{{ i.1 }}</th>
+                {% elif i.0 == 'plain' %}
+                <td>{{ i.1 }}</td>
+                {% elif i.0 == 'planet' %}
+                <td><a href="{% url 'oweb:planet_overview' i.1 %}">{{ i.2 }}</a></td>
+                {% else %}
+                <td class="form">{% include 'oweb/includes/item_form.html' with item=i item_type=s.2 %}</td>
+                {% endif %}
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    {% endfor %}
         </table>
     </section>
 </section>

@@ -207,25 +207,12 @@ table.points td.fraction {
     text-align: right;
 }
 
-table.empire td {
-    text-align: center;
-    font-size: 0.75em;
-}
-table.empire td.form form {
-    display: inline-block;
-}
-table.empire input {
-    width: 3em;
-    text-align: center;
-}
-table.empire td.section {
-    padding: 0.5em 0.5em 0.25em 0;
-    font-family:        'FjallaOne', sans-serif;
-    font-size: 1rem;
+table.empire td,
+table.empire th {
+    padding: 0;
+    font-weight: normal;
     text-align: left;
-}
-table.empire tr.values > td:first-child {
-    text-align: left;
+    border: 1px solid #333;
 }
 
 table.tool_energy tr td {
