@@ -24,20 +24,16 @@
                     <td class="value">{{ points.0|points|number_beautify }}</td>
                 </tr>
                 <tr class="{% cycle rowcycle %}">
-                    <td>Buildings:</td>
+                    <td>Production:</td>
                     <td class="value">{{ points.1|points|number_beautify }}</td>
                 </tr>
                 <tr class="{% cycle rowcycle %}">
-                    <td>Production:</td>
+                    <td>other buildings:</td>
                     <td class="value">{{ points.2|points|number_beautify }}</td>
                 </tr>
                 <tr class="{% cycle rowcycle %}">
-                    <td>other buildings:</td>
-                    <td class="value">{{ points.3|points|number_beautify }}</td>
-                </tr>
-                <tr class="{% cycle rowcycle %}">
                     <td>Defense:</td>
-                    <td class="value">{{ points.4|points|number_beautify }}</td>
+                    <td class="value">{{ points.3|points|number_beautify }}</td>
                 </tr>
             </table>
         </section>
