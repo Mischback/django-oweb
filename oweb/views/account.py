@@ -87,7 +87,7 @@ def account_overview(req, account_id):
     try:
         points['ships'] = (ship_points[0], ship_points[0] / float(total_points) * 100)
     except ZeroDivisionError:
-        points['ships'] = (ship_points, 0)
+        points['ships'] = (ship_points[0], 0)
 
     total_planet_points = []
     planet_points.sort(reverse=True)
