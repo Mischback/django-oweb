@@ -128,7 +128,7 @@ def account_empire(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
         raise Http404
     except IndexError:
@@ -138,54 +138,10 @@ def account_empire(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
-    # build a list of planet ids
-    planet_ids = planets.values_list('id', flat=True)
-
-    # fetch buildings and defense
-    buildings = Building.objects.filter(planet_id__in=planet_ids)
-    defense = Defense.objects.filter(planet_id__in=planet_ids)
-    sats = Civil212.objects.filter(planet_id__in=planet_ids)
-
-    meta_list = []
-    building_list = []
-    defense_list = []
-
-    m =['Name', 'Coords', 'Temperature']
-    meta_list.append(izip_longest([], m, fillvalue='plain'))
-    b = buildings.filter(planet_id=planets[0].id).values_list('name', flat=True)
-    s = sats.filter(planet_id=planets[0].id).values_list('name', flat=True)
-    building_list.append(izip_longest([], chain(b, s), fillvalue='plain'))
-    d = defense.filter(planet_id=planets[0].id).values_list('name', flat=True)
-    defense_list.append(izip_longest([], d, fillvalue='plain'))
-    for p in planets:
-        # buildings
-        b = buildings.filter(planet_id=p.id)
-        s = sats.filter(planet_id=p.id)
-        this_buildings = izip_longest([], b, fillvalue='building')
-        this_buildings = chain(this_buildings, izip_longest([], s, fillvalue='ship'))
-        building_list.append(this_buildings)
-
-        # defense
-        d = defense.filter(planet_id=p.id)
-        this_def = izip_longest([], d, fillvalue='defense')
-        defense_list.append(this_def)
-
-        # planet meta information
-        m = [p.name, p.coord, p.min_temp]
-        this_meta = izip_longest([], m, fillvalue='plain')
-        meta_list.append(this_meta)
-
-    empire = [
-        ['Meta', zip(*meta_list)],
-        ['Buildings', zip(*building_list)],
-        ['Defense', zip(*defense_list)],
-    ]
-
     return render(req, 'oweb/account_empire.html', 
         {
             'account': account,
             'planets': planets,
-            'empire': empire,
         }
     )
 
