@@ -17,12 +17,18 @@
             </tr>
             <tbody>
         {% for o in s.1 %}
-            <tr>
+            <tr class="{% cycle 'even' 'uneven' %}">
             {% for i in o %}
                 {% if i.0 == 'caption' %}
                 <th class="line_caption">{{ i.1 }}</th>
                 {% elif i.0 == 'plain' %}
                 <td>{{ i.1 }}</td>
+                {% elif i.0 == 'coord' %}
+                <td class="coords">{{ i.1 }}</td>
+                {% elif i.0 == 'temp' %}
+                <td class="temperature">{{ i.1 }}</td>
+                {% elif i.0 == 'points' %}
+                <td>{{ i.1|points|number_beautify }}</td>
                 {% elif i.0 == 'planet' %}
                 <th><a href="{% url 'oweb:planet_overview' i.1 %}">{{ i.2 }}</a></th>
                 {% else %}

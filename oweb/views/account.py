@@ -144,20 +144,26 @@ def account_empire(req, account_id):
     tmp_defense_points = []
     tmp_building_points = []
     for p in planets:
+        tmp_points = get_planet_points(p)
+        tmp_building_points.append(('plain', tmp_points[1] + tmp_points[2]))
+        tmp_defense_points.append(('plain', tmp_points[3]))
+
         tmp_planet = []
         tmp_planet.append(('planet', p.id, p.name))
-        tmp_planet.append(('plain', p.coord))
-        tmp_planet.append(('plain', p.min_temp))
+        tmp_planet.append(('coord', p.coord))
+        tmp_planet.append(('temp', p.min_temp))
+        tmp_planet.append(('points', tmp_points[0]))
         tmp_meta.append(tmp_planet)
 
         tmp_buildings.append(get_list_or_404(Building, planet=p))
         tmp_defense.append(get_list_or_404(Defense, planet=p))
 
-        tmp_points = get_planet_points(p)
-        tmp_building_points.append(('plain', tmp_points[1] + tmp_points[2]))
-        tmp_defense_points.append(('plain', tmp_points[3]))
-
-    tmp_meta.insert(0, [('caption', 'Planet'), ('caption', 'Coordinates'), ('caption', 'Temperature')])
+    tmp_meta.insert(0, [
+        ('caption', 'Planet'),
+        ('caption', 'Coordinates'),
+        ('caption', 'Temperature'),
+        ('caption', 'Points')
+    ])
     tmp_meta = zip(*tmp_meta)
 
     foo = []

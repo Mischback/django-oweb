@@ -121,7 +121,8 @@ table {
 table td {
     padding: 0 0.5em 0.1em 0.5em;
 }
-table tr.uneven td {
+table tr.uneven td,
+table tr.uneven th {
     background-color: #0e0e20;
 }
 
@@ -252,4 +253,13 @@ table.empire td.form form {
 table.empire td.form input {
     width: 3em;
     text-align: center;
+}
+table.empire td.temperature:after {
+    content: ' °C';
+}
+table.empire td.coords:before {
+    content: '[';
+}
+table.empire td.coords:after {
+    content: ']';
 }
