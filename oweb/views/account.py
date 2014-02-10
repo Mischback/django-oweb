@@ -44,6 +44,7 @@ def account_overview(req, account_id):
     defense_points = 0
     research_points = get_research_points(account)
     ship_points = get_ship_points(account)
+    planet_points = []
 
     for p in planets:
         # production
@@ -55,6 +56,7 @@ def account_overview(req, account_id):
         production_points += this_planet_points[1]
         other_points += this_planet_points[2]
         defense_points += this_planet_points[3]
+        planet_points.append((this_planet_points, p))
 
     # production
     production = tuple(sum(x) for x in zip(*production))
@@ -86,6 +88,16 @@ def account_overview(req, account_id):
         points['ships'] = (ship_points[0], ship_points[0] / float(total_points) * 100)
     except ZeroDivisionError:
         points['ships'] = (ship_points, 0)
+
+    total_planet_points = []
+    planet_points.sort(reverse=True)
+    for p in planet_points:
+        try:
+            total_planet_points.append((p[1], p[0], p[0][0] / float(total_points) * 100))
+        except ZeroDivisionError:
+            total_planet_points.append((p[1], p[0], 0))
+
+    points['planets'] = total_planet_points
 
     return render(req, 'oweb/account_overview.html', 
         {

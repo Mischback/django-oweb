@@ -42,6 +42,13 @@
                 <td class="value">{{ points.defense.0|points|number_beautify }}</td>
                 <td class="fraction">{{ points.defense.1|floatformat:2 }}%</td>
             </tr>
+    {% for p in points.planets %}
+            <tr class="{% cycle rowcycle %}">
+                <td><a href="{% url 'oweb:planet_overview' p.0.id %}">{{ p.0.name }}</a></td>
+                <td class="value">{{ p.1.0|points|number_beautify }}</td>
+                <td class="fraction">{{ p.2|floatformat:2 }}%</td>
+            </tr>
+    {% endfor %}
         </table>
     </section>
 
