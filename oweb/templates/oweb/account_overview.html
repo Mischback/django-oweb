@@ -60,6 +60,21 @@
                 <td class="fraction">{{ p.2|floatformat:2 }}%</td>
             </tr>
     {% endfor %}
+            <tr class="cat_headline">
+                <th colspan="3">OGame</th>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Economy:</td>
+                <td class="value">{{ points.ogame.0|points|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Military:</td>
+                <td class="value">{{ points.ogame.1|points|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Research:</td>
+                <td class="value">{{ points.ogame.2|points|number_beautify }}</td>
+            </tr>
         </table>
     </section>
 

@@ -99,6 +99,12 @@ def account_overview(req, account_id):
 
     points['planets'] = total_planet_points
 
+    points['ogame'] = (
+        production_points + other_points + defense_points + (ship_points[1] / 2),
+        ship_points[2] + defense_points + (ship_points[1] / 2),
+        research_points
+    )
+
     return render(req, 'oweb/account_overview.html', 
         {
             'account': account,
