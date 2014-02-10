@@ -1,0 +1,17 @@
+{% extends 'oweb/base.html' %}
+
+{% load sekizai_tags staticfiles %}
+
+{% block oweb_base %}
+{% addtoblock "css" %}
+<link href="{% static 'oweb/css/fonts.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'oweb/css/basic.css' %}" rel="stylesheet" type="text/css" />
+{% endaddtoblock %}
+<div id="oweb_layout">
+    <header class="page_header">
+        <div class="logo">OWeb</div>
+        {% if account %}{{ account }} - <a href="{% url 'oweb:app_logout' %}">logout</a>{% endif %}
+    </header>
+{% block oweb_layout %}{% endblock %}
+</div>
+{% endblock %}

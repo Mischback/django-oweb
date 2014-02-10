@@ -1,0 +1,55 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}Tools - Energy | OWeb{% endblock %}
+
+{% load oweb_tags %}
+
+{% block oweb_account %}
+<section class="tools_energy">
+    <header>
+        <h1>Tools - Energy</h1>
+    </header>
+
+        <table class="item_listing tool_energy">
+            <tr>
+                <td>
+                    <a href="{% url 'oweb:tools_energy' account.id %}">reset</a>
+                </td>
+                <td />
+                <td class="top_caption" colspan="5">Energytechnology</td>
+            </tr>
+            <tr>
+                <td class="rotate" rowspan="6">Fusion Plant</td>
+                <td />
+    {% for line in fusion_matrix.0.1 %}
+                <th>
+                    <a href="{% url 'oweb:tools_energy_draft' account.id line.0 fusion_level %}">
+                        {{ line.0 }}
+                    </a>
+                </th>
+    {% endfor %}
+            </tr>
+    {% for fm in fusion_matrix %}
+            <tr>
+                <th>
+                    <a href="{% url 'oweb:tools_energy_draft' account.id energy_level fm.0 %}">
+                        {{ fm.0 }}
+                    </a>
+                </th>
+            {% for line in fm.1 %}
+                <td>
+                {{ line.1|number_beautify }}<br />
+                    <span class="production_gain">+ {{ line.2|number_beautify }}</span><br />
+                {{ line.4|number_beautify }}
+                </td>
+            {% endfor %}
+                <td class="right_caption">
+                    total production<br />
+                    production gain<br />
+                    mse / gain
+                </td>
+            </tr>
+    {% endfor %}
+        </table>
+</section>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}{{ planet.name }} - Overview | OWeb{% endblock %}
+
+{% load oweb_tags %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>{{ planet.name }} - Overview</h1>
+    </header>
+
+    <section>
+        <section>
+            <header>Meta</header>
+            {{ planet.coord }} | {{ planet_fields }} occupied | {{ planet.min_temp }} °C
+        </section>
+
+        <section>
+            <header>Points</header>
+            <table class="points">
+                <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                    <td>Total:</td>
+                    <td class="value">{{ points.0|points|number_beautify }}</td>
+                </tr>
+                <tr class="{% cycle rowcycle %}">
+                    <td>Production:</td>
+                    <td class="value">{{ points.1|points|number_beautify }}</td>
+                </tr>
+                <tr class="{% cycle rowcycle %}">
+                    <td>other buildings:</td>
+                    <td class="value">{{ points.2|points|number_beautify }}</td>
+                </tr>
+                <tr class="{% cycle rowcycle %}">
+                    <td>Defense:</td>
+                    <td class="value">{{ points.3|points|number_beautify }}</td>
+                </tr>
+            </table>
+        </section>
+    </section>
+
+    <section>
+        <header>Production</header>
+        <table class="production">
+            <tr>
+                <th>&nbsp;</th>
+                <th>1h</th>
+                <th>24h</th>
+            </tr>
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                <td>Metal:</td>
+                <td class="value">{{ production.0|number_beautify }}</td>
+                <td class="value">{{ production.0|daily_production|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Crystal:</td>
+                <td class="value">{{ production.1|number_beautify }}</td>
+                <td class="value">{{ production.1|daily_production|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Deuterium:</td>
+                <td class="value">{{ production.2|number_beautify }}</td>
+                <td class="value">{{ production.2|daily_production|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Energy:</td>
+                <td class="value">{{ production.3|number_beautify }}</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <header>Queue</header>
+    {% if queue %}
+        <table class="queue">
+        {% for q in queue %}
+            {% with q.4 as detail %}
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                <td class="counter">{{ forloop.counter }}.</td>
+                <td class="detail">
+                    {{ detail.name }} {{ detail.level }}
+                    {% if q.3 > 0 %}<span class="capacity">C</span>{% endif %}
+                    {% if q.1 > 0 %}<span class="energy">E</span>{% endif %}
+                </td>
+                <td class="commit">
+                    <form action="{% url 'oweb:item_update' %}" method="post">
+                        {% csrf_token %}
+                        <input value="building" name="item_type" type="hidden" />
+                        <input value="{{ detail.id }}" name="item_id" type="hidden" />
+                        <input value="{{ detail.level }}" name="item_level" type="hidden" />
+                        <button type="submit">+</button>
+                    </form>
+                </td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        </table>
+    {% endif %}
+    </section>
+</section>
+{% endblock %}

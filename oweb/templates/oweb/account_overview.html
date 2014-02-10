@@ -1,0 +1,141 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}Account - Overview | OWeb{% endblock %}
+
+{% load oweb_tags %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>Account - Overview</h1>
+    </header>
+
+    <section>
+        <header>Points</header>
+        <table class="points">
+            <tr class="headline">
+                <td>&nbsp;</td>
+                <th>Points</th>
+                <th>Fraction</th>
+            </tr>
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                <td>Total:</td>
+                <td class="value">{{ points.total|points|number_beautify }}</td>
+            </tr>
+            <tr class="cat_headline">
+                <th colspan="3">Categories</th>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Production:</td>
+                <td class="value">{{ points.production.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.production.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Other:</td>
+                <td class="value">{{ points.other.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.other.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Research:</td>
+                <td class="value">{{ points.research.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.research.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Ships:</td>
+                <td class="value">{{ points.ships.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.ships.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Defense:</td>
+                <td class="value">{{ points.defense.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.defense.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="cat_headline">
+                <th colspan="3">Planets</th>
+            </tr>
+    {% for p in points.planets %}
+            <tr class="{% cycle rowcycle %}">
+                <td><a href="{% url 'oweb:planet_overview' p.0.id %}">{{ p.0.name }}</a></td>
+                <td class="value">{{ p.1.0|points|number_beautify }}</td>
+                <td class="fraction">{{ p.2|floatformat:2 }}%</td>
+            </tr>
+    {% endfor %}
+            <tr class="cat_headline">
+                <th colspan="3">OGame</th>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Economy:</td>
+                <td class="value">{{ points.ogame.0|points|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Military:</td>
+                <td class="value">{{ points.ogame.1|points|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Research:</td>
+                <td class="value">{{ points.ogame.2|points|number_beautify }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <header>Production</header>
+        <table class="production">
+            <tr>
+                <th>&nbsp;</th>
+                <th>1h</th>
+                <th>24h</th>
+            </tr>
+            <tr class="{% cycle 'even' 'uneven' as rowcycle %}">
+                <td>Metal:</td>
+                <td class="value">{{ production.0|number_beautify }}</td>
+                <td class="value">{{ production.0|daily_production|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Crystal:</td>
+                <td class="value">{{ production.1|number_beautify }}</td>
+                <td class="value">{{ production.1|daily_production|number_beautify }}</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
+                <td>Deuterium:</td>
+                <td class="value">{{ production.2|number_beautify }}</td>
+                <td class="value">{{ production.2|daily_production|number_beautify }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <header>Queue</header>
+    {% if queue %}
+        <table class="queue">
+        {% for q in queue %}
+            {% with q.4 as detail %}
+            <tr class="{% cycle 'even' 'uneven' %}">
+                <td class="counter">{{ forloop.counter }}.</td>
+                <td class="detail">
+                {% if detail.planet == account %}
+                    <a href="{% url 'oweb:account_research' account.id %}">Research</a>:
+                {% else %}
+                    <a href="{% url 'oweb:planet_buildings' detail.planet.id %}">{{ detail.planet.name }}</a>:
+                {% endif %}
+                    {{ detail.name }} {{ detail.level }}
+                    {% if q.3 > 0 %}<span class="capacity">C</span>{% endif %}
+                    {% if q.1 > 0 %}<span class="energy">E</span>{% endif %}
+                </td>
+                <td class="commit">
+                    <form action="{% url 'oweb:item_update' %}" method="post">
+                        {% csrf_token %}
+                        <input value="building" name="item_type" type="hidden" />
+                        <input value="{{ detail.id }}" name="item_id" type="hidden" />
+                        <input value="{{ detail.level }}" name="item_level" type="hidden" />
+                        <button type="submit">+</button>
+                    </form>
+                </td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        </table>
+    {% endif %}
+    </section>
+</section>
+{% endblock %}

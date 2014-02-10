@@ -1,0 +1,31 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}{{ planet.name }} - Buildings | OWeb{% endblock %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>{{ planet.name }} - Buildings</h1>
+    </header>
+    <section>
+{% if buildings %}
+    <table class="item_listing building_listing">
+        <tr>
+            <th>Name</th>
+            <th>Level</th>
+        </tr>
+    {% for b in buildings %}
+        <tr class="{% cycle 'even' 'uneven' %}">
+            <td>{{ b.name }}</td>
+            <td class="form">{% include 'oweb/includes/item_form.html' with item=b item_type='building' %}</td>
+        </tr>
+    {% endfor %}
+        <tr class="{% cycle 'even' 'uneven' %}">
+            <td>{{ solarsat.name }}</td>
+            <td class="form">{% include 'oweb/includes/item_form.html' with item=solarsat item_type='ship' %}</td>
+        </tr>
+    </table>
+{% endif %}
+    </section>
+</section>
+{% endblock %}
