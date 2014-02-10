@@ -4,6 +4,7 @@ from django.shortcuts import get_list_or_404
 from oweb.models.building import Building, Supply1, Supply2, Supply3, Supply4, Supply12
 from oweb.models.defense import Defense
 from oweb.models.ship import Ship, Civil202, Civil203, Civil208, Civil210, Civil212
+from oweb.models.research import Research
 
 def get_planet_points(planet):
     buildings = get_list_or_404(Building, planet=planet)
@@ -51,3 +52,15 @@ def get_ship_points(account):
     ship_points = civil_points + military_points
 
     return ship_points, civil_points, military_points
+
+
+def get_research_points(account):
+    research = get_list_or_404(Research, account=account)
+
+    research_points = 0
+
+    for r in research:
+        this_research_cost = r.get_total_cost()
+        research_points += this_research_cost[0] + this_research_cost[1] + this_research_cost[2]
+
+    return research_points
