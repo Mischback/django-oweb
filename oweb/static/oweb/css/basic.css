@@ -207,14 +207,6 @@ table.points td.fraction {
     text-align: right;
 }
 
-table.empire td,
-table.empire th {
-    padding: 0;
-    font-weight: normal;
-    text-align: left;
-    border: 1px solid #333;
-}
-
 table.tool_energy tr td {
     padding-top: 0.5em;
     text-align: right;
@@ -243,4 +235,21 @@ table.tool_energy tr td.right_caption {
     font-size:          0.8em;
     line-height:        1.5em;
     color:              #666;
+}
+
+table.empire {
+    font-size: 0.8em;
+}
+table.empire td {
+    text-align: center;
+}
+table.empire th.line_caption {
+    text-align: left;
+}
+table.empire td.form form {
+    display: inline-block;
+}
+table.empire td.form input {
+    width: 3em;
+    text-align: center;
 }
