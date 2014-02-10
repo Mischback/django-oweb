@@ -1,0 +1,10 @@
+beta 1 (10.02.2014)
+* inital release
+* basically the app is working
+    * create new Account objects
+    * modify Account objects, including Research, Ships
+    * create Planet objects
+    * modify Planet objects, including Buildings, Defense
+    * Queue working
+    * Point statistics working
+* started to document all stuff (will be finished in future release)
