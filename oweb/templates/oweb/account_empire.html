@@ -12,10 +12,10 @@
     <section>
         <table class="empire">
     {% for s in empire %}
-            <tr>
-                <td>{{ s.0 }}</td>
-            </tr>
             <tbody>
+                <tr>
+                    <th class="cat_caption">{{ s.0 }}</th>
+                </tr>
         {% for o in s.1 %}
             <tr class="{% cycle 'even' 'uneven' %}">
             {% for i in o %}

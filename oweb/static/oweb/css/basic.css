@@ -244,8 +244,15 @@ table.empire {
 table.empire td {
     text-align: center;
 }
+table.empire th.cat_caption {
+    text-align: left;
+    padding: 0.5em 0 0.25em 0;
+}
 table.empire th.line_caption {
     text-align: left;
+    font-weight: normal;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 table.empire td.form form {
     display: inline-block;
