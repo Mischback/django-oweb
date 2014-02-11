@@ -83,6 +83,7 @@ def planet_settings(req, planet_id):
             'account': planet.account,
             'planet': planet,
             'planets': planets,
+            'planets_url': 'oweb:planet_settings',
         }
     )
 
@@ -115,6 +116,7 @@ def planet_buildings(req, planet_id):
             'account': planet.account,
             'planet': planet,
             'planets': planets,
+            'planets_url': 'oweb:planet_buildings',
             'buildings': buildings,
             'solarsat': solarsat,
             'True': True,
@@ -151,6 +153,7 @@ def planet_defense(req, planet_id):
             'account': planet.account,
             'planet': planet,
             'planets': planets,
+            'planets_url': 'oweb:planet_defense',
             'defense': defense,
         }
     )

@@ -34,7 +34,11 @@
                 <a href="#">Planets</a>
             <ul>
 {% for p in planets %}
-    <li><a href="{% url 'oweb:planet_overview' p.id %}">{{ p }}</a></li>
+    {% if planets_url %}
+                <li><a href="{% url planets_url p.id %}">{{ p }}</a></li>
+    {% else %}
+                <li><a href="{% url 'oweb:planet_overview' p.id %}">{{ p }}</a></li>
+    {% endif %}
 {% endfor %}
     <li><a href="{% url 'oweb:planet_create' account.id %}">create planet</a></li>
             </ul>
