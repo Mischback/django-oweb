@@ -155,8 +155,19 @@ def account_empire(req, account_id):
         tmp_planet.append(('points', tmp_points[0]))
         tmp_meta.append(tmp_planet)
 
-        tmp_buildings.append(get_list_or_404(Building, planet=p))
-        tmp_defense.append(get_list_or_404(Defense, planet=p))
+        b_list = list(izip_longest(
+            [],
+            get_list_or_404(Building, planet=p),
+            fillvalue='building'))
+        b_list.append(('ship', get_object_or_404(Civil212, planet=p)))
+        tmp_buildings.append(b_list)
+
+        d_list = list(izip_longest(
+            [],
+            get_list_or_404(Defense, planet=p),
+            fillvalue='defense'
+        ))
+        tmp_defense.append(d_list)
 
     tmp_meta.insert(0, [
         ('caption', 'Planet'),
@@ -166,22 +177,16 @@ def account_empire(req, account_id):
     ])
     tmp_meta = zip(*tmp_meta)
 
-    foo = []
-    for i in tmp_buildings[0]:
-        foo.append(('caption', i.name))
-    tmp_buildings.insert(0, foo)
+    tmp_buildings.insert(0, [('caption', i[1].name) for i in b_list])
     tmp_buildings = zip(*tmp_buildings)
 
-    foo = []
-    for i in tmp_defense[0]:
-        foo.append(('caption', i.name))
-    tmp_defense.insert(0, foo)
+    tmp_defense.insert(0, [('caption', i[1].name) for i in d_list])
     tmp_defense = zip(*tmp_defense)
 
     empire = [
         ('Meta', tmp_meta),
-        ('Buildings', tmp_buildings, 'building'),
-        ('Defense', tmp_defense, 'defense')
+        ('Buildings', tmp_buildings),
+        ('Defense', tmp_defense)
     ]
 
     return render(req, 'oweb/account_empire.html', 
