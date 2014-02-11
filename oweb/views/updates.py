@@ -1,7 +1,10 @@
+# Python imports
+from datetime import datetime
+import hashlib
 # Django imports
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 # app imports
 from oweb.models import Account, Building, Defense, Planet, Research, Ship
 
@@ -134,3 +137,29 @@ def planet_create(req, account_id):
     planet.save()
 
     return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet.id,)))
+
+
+def planet_delete(req, account_id, planet_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    planet = Planet.objects.select_related('account').get(pk=planet_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == planet.account.owner_id:
+        raise Http404
+
+    if 'confirm' == req.POST.get('confirm_planet_deletion'):
+        planet.delete()
+        return redirect(reverse('oweb:account_overview', args=account_id))
+
+    return render(req, 'oweb/planet_delete.html',
+        {
+            'account': planet.account,
+            'planet_del': planet,
+        }
+    )

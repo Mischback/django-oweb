@@ -27,5 +27,9 @@
             <button type="submit">update</button>
         </form>
     </section>
+
+    <section>
+        <a href="{% url 'oweb:planet_delete' account.id planet.id %}">delete this planet</a>
+    </section>
 </section>
 {% endblock %}
