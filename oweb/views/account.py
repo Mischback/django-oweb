@@ -128,7 +128,7 @@ def account_empire(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
         raise Http404
     except IndexError:
@@ -138,47 +138,55 @@ def account_empire(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
-    # build a list of planet ids
-    planet_ids = planets.values_list('id', flat=True)
-
-    # fetch buildings and defense
-    buildings = Building.objects.filter(planet_id__in=planet_ids)
-    defense = Defense.objects.filter(planet_id__in=planet_ids)
-    sats = Civil212.objects.filter(planet_id__in=planet_ids)
-
-    meta_list = []
-    building_list = []
-    defense_list = []
-
-    m =['Name', 'Coords', 'Temperature']
-    meta_list.append(izip_longest([], m, fillvalue='plain'))
-    b = buildings.filter(planet_id=planets[0].id).values_list('name', flat=True)
-    s = sats.filter(planet_id=planets[0].id).values_list('name', flat=True)
-    building_list.append(izip_longest([], chain(b, s), fillvalue='plain'))
-    d = defense.filter(planet_id=planets[0].id).values_list('name', flat=True)
-    defense_list.append(izip_longest([], d, fillvalue='plain'))
+    tmp_meta = []
+    tmp_buildings = []
+    tmp_defense = []
+    tmp_defense_points = []
+    tmp_building_points = []
     for p in planets:
-        # buildings
-        b = buildings.filter(planet_id=p.id)
-        s = sats.filter(planet_id=p.id)
-        this_buildings = izip_longest([], b, fillvalue='building')
-        this_buildings = chain(this_buildings, izip_longest([], s, fillvalue='ship'))
-        building_list.append(this_buildings)
+        tmp_points = get_planet_points(p)
+        tmp_building_points.append(('plain', tmp_points[1] + tmp_points[2]))
+        tmp_defense_points.append(('plain', tmp_points[3]))
 
-        # defense
-        d = defense.filter(planet_id=p.id)
-        this_def = izip_longest([], d, fillvalue='defense')
-        defense_list.append(this_def)
+        tmp_planet = []
+        tmp_planet.append(('planet', p.id, p.name))
+        tmp_planet.append(('coord', p.coord))
+        tmp_planet.append(('temp', p.min_temp))
+        tmp_planet.append(('points', tmp_points[0]))
+        tmp_meta.append(tmp_planet)
 
-        # planet meta information
-        m = [p.name, p.coord, p.min_temp]
-        this_meta = izip_longest([], m, fillvalue='plain')
-        meta_list.append(this_meta)
+        b_list = list(izip_longest(
+            [],
+            get_list_or_404(Building, planet=p),
+            fillvalue='building'))
+        b_list.append(('ship', get_object_or_404(Civil212, planet=p)))
+        tmp_buildings.append(b_list)
+
+        d_list = list(izip_longest(
+            [],
+            get_list_or_404(Defense, planet=p),
+            fillvalue='defense'
+        ))
+        tmp_defense.append(d_list)
+
+    tmp_meta.insert(0, [
+        ('caption', 'Planet'),
+        ('caption', 'Coordinates'),
+        ('caption', 'Temperature'),
+        ('caption', 'Points')
+    ])
+    tmp_meta = zip(*tmp_meta)
+
+    tmp_buildings.insert(0, [('caption', i[1].name) for i in b_list])
+    tmp_buildings = zip(*tmp_buildings)
+
+    tmp_defense.insert(0, [('caption', i[1].name) for i in d_list])
+    tmp_defense = zip(*tmp_defense)
 
     empire = [
-        ['Meta', zip(*meta_list)],
-        ['Buildings', zip(*building_list)],
-        ['Defense', zip(*defense_list)],
+        ('Meta', tmp_meta),
+        ('Buildings', tmp_buildings),
+        ('Defense', tmp_defense)
     ]
 
     return render(req, 'oweb/account_empire.html', 
