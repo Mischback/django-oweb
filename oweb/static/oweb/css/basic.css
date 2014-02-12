@@ -135,7 +135,8 @@ section.oweb_home ul {
 
 
 /* ***** LOGIN ***** */
-section.oweb_login header {
+section.oweb_login header,
+section.oweb_confirmation header {
     margin-bottom: 1rem;
 }
 
