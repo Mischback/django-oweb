@@ -23,3 +23,16 @@ class Planet(models.Model):
 
     class Meta:
         app_label = 'oweb'
+
+
+class Moon(models.Model):
+    """Represents a moon"""
+
+    planet = models.ForeignKey(Planet)
+    """A ForeignKey to the :py:class:`oweb.models.planet.Planet`"""
+
+    def __unicode__(self):
+        return '{0}'.format(self.name)
+
+    class Meta:
+        app_label = 'oweb'
