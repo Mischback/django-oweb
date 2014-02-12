@@ -163,3 +163,28 @@ def planet_delete(req, account_id, planet_id):
             'planet_del': planet,
         }
     )
+
+
+def account_delete(req, account_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    account = get_object_or_404(Account, pk=account_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == account.owner_id:
+        raise Http404
+
+    if 'confirm' == req.POST.get('confirm_account_deletion'):
+        account.delete()
+        return redirect(reverse('oweb:home'))
+
+    return render(req, 'oweb/account_delete.html',
+        {
+            'account': account,
+        }
+    )

@@ -48,5 +48,9 @@
             <button type="submit">update</button>
         </section>
     </form>
+
+    <section>
+        <a href="{% url 'oweb:account_delete' account.id %}">delete this account</a>
+    </section>
 </section>
 {% endblock %}

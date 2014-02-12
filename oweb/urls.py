@@ -16,6 +16,8 @@ urlpatterns = patterns('oweb.views',
         'planet_create', name='planet_create'),
     url(r'^delete/(?P<account_id>\d+)/(?P<planet_id>\d+)$',
         'planet_delete', name='planet_delete'),
+    url(r'^delete/(?P<account_id>\d+)$',
+        'account_delete', name='account_delete'),
 
     # account.py
     url(r'^(?P<account_id>\d+)$',
