@@ -1,5 +1,6 @@
 # Django imports
-from django.shortcuts import get_list_or_404, render
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_list_or_404, render, redirect
 # app imports
 from oweb.models import Account
 

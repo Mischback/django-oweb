@@ -1,0 +1,15 @@
+{% extends 'oweb/layout.html' %}
+
+{% block html_title %}Login | OWeb{% endblock %}
+
+{% block oweb_layout %}
+<section class="oweb_confirmation">
+    <header>Confirmation</header>
+    <p>Do you really want to delete the planet {{ planet_del.name }} [{{ planet_del.coord}}]?</p>
+    <form method="post">
+        <input value="confirm" name="confirm_planet_deletion" type="hidden" />
+        {% csrf_token %}
+        <button type="submit">Yes, I really want to delete this planet</button>
+    </form>
+</section>
+{% endblock %}
