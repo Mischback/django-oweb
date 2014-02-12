@@ -459,6 +459,18 @@ class Station42(Building):
         app_label = 'oweb'
 
 
+class Station43(Building):
+    """Building **Jump Gate**"""
+    base_cost = (2000000, 4000000, 2000000, 0)
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('name').default = 'Jump Gate'
+        Building.__init__(self, *args, **kwargs)
+
+    class Meta:
+        app_label = 'oweb'
+
+
 class Station44(Building):
     """Building **Missile Silo**"""
     base_cost = (20000, 20000, 1000, 0)
