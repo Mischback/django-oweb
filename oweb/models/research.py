@@ -1,3 +1,4 @@
+"""This module contains all research related classes."""
 # Python imports
 from math import floor
 # Django imports
