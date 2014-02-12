@@ -1,13 +1,8 @@
-"""
-@file   ship.py
-@brief  Contains all ship related classes
-"""
-
-# Django stuff
+"""Contains all ship related classes"""
+# Django imports
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-
-# Advisor stuff
+# app imports
 from oweb.models import Account, Planet
 
 
