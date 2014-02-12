@@ -39,7 +39,6 @@ oweb.models.research module
 
 .. automodule:: oweb.models.research
     :members:
-    :undoc-members:
     :show-inheritance:
 
 oweb.models.ship module
