@@ -29,7 +29,8 @@
     </section>
 
     <section>
-        <a href="{% url 'oweb:planet_delete' account.id planet.id %}">delete this planet</a>
+        <p><a href="{% url 'oweb:moon_create' planet.id %}">create moon</a></p>
+        <p><a href="{% url 'oweb:planet_delete' account.id planet.id %}">delete this planet</a></p>
     </section>
 </section>
 {% endblock %}

@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 # app imports
-from oweb.models import Account, Building, Defense, Planet, Research, Ship
+from oweb.models import Account, Building, Defense, Planet, Research, Ship, Moon
 
 def item_update(req):
     """todo Documentation still missing!"""
@@ -188,3 +188,27 @@ def account_delete(req, account_id):
             'account': account,
         }
     )
+
+
+def moon_create(req, planet_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    planet = get_object_or_404(Planet, pk=planet_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == planet.account.owner_id:
+        raise Http404
+
+    tmp_name = hashlib.md5(str(datetime.now))
+    Moon.objects.create(planet=planet, name=tmp_name, coord=planet.coord)
+
+    moon = get_object_or_404(Moon, name=tmp_name)
+    moon.name = 'Moon'
+    moon.save()
+
+    return HttpResponseRedirect(reverse('oweb:moon_settings', args=moon.id))
