@@ -36,6 +36,8 @@
                         <li><a href="{% url 'oweb:moon_settings' moon.id %}">Settings</a></li>
                     </ul>
                 </li>
+    {% else %}
+                <li><a href="{% url 'oweb:moon_create' planet.id %}">create moon</a></li>
     {% endif %}
                 <li><a href="{% url 'oweb:planet_settings' planet.id %}">Settings</a></li>
             </ul>

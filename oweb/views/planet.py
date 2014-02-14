@@ -31,6 +31,10 @@ def planet_overview(req, planet_id):
     if not req.user.id == planet.account.owner_id:
         raise Http404
 
+    try:
+        moon = Moon.objects.get(planet=planet.id)
+    except Moon.DoesNotExist:
+        moon = None
     planets = Planet.objects.filter(account_id=planet.account.id)
     plasma = get_object_or_404(Research122, account=planet.account.id)
     energy = get_object_or_404(Research113, account=planet.account.id)
@@ -48,6 +52,7 @@ def planet_overview(req, planet_id):
         {
             'account': planet.account,
             'planet': planet,
+            'moon': moon,
             'planets': planets,
             'planet_fields': planet_fields,
             'production': production,
@@ -76,12 +81,17 @@ def planet_settings(req, planet_id):
     if not req.user.id == planet.account.owner_id:
         raise Http404
 
+    try:
+        moon = Moon.objects.get(planet=planet.id)
+    except Moon.DoesNotExist:
+        moon = None
     planets = Planet.objects.filter(account_id=planet.account.id)
 
     return render(req, 'oweb/planet_settings.html',
         {
             'account': planet.account,
             'planet': planet,
+            'moon': moon,
             'planets': planets,
             'planets_url': 'oweb:planet_settings',
         }
@@ -108,6 +118,10 @@ def planet_buildings(req, planet_id):
     if not req.user.id == planet.account.owner_id:
         raise Http404
 
+    try:
+        moon = Moon.objects.get(planet=planet.id)
+    except Moon.DoesNotExist:
+        moon = None
     planets = Planet.objects.filter(account_id=planet.account.id)
     solarsat = get_object_or_404(Civil212, astro_object=planet_id)
 
@@ -115,6 +129,7 @@ def planet_buildings(req, planet_id):
         {
             'account': planet.account,
             'planet': planet,
+            'moon': moon,
             'planets': planets,
             'planets_url': 'oweb:planet_buildings',
             'buildings': buildings,
@@ -145,12 +160,17 @@ def planet_defense(req, planet_id):
     if not req.user.id == planet.account.owner_id:
         raise Http404
 
+    try:
+        moon = Moon.objects.get(planet=planet.id)
+    except Moon.DoesNotExist:
+        moon = None
     planets = Planet.objects.filter(account_id=planet.account.id)
 
     return render(req, 'oweb/planet_defense.html',
         {
             'account': planet.account,
             'planet': planet,
+            'moon': moon,
             'planets': planets,
             'planets_url': 'oweb:planet_defense',
             'defense': defense,
