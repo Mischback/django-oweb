@@ -190,6 +190,7 @@ def moon_settings(req, moon_id):
     return render(req, 'oweb/moon_settings.html',
         {
             'account': moon.planet.account,
+            'planet': moon.planet,
             'moon': moon,
         }
     )

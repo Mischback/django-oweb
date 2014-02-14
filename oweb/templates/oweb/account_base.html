@@ -2,16 +2,16 @@
 
 {% block oweb_layout %}
 <nav>
-    <ul>
+    <ul class="l0">
         <li>
             <a href="{% url 'oweb:home' %}">Home</a>
-            <ul>
+            <ul class="l1">
                 <li><a href="{% url 'oweb:app_logout' %}">logout</a></li>
             </ul>
         </li>
         <li>
             <a href="{% url 'oweb:account_overview' account.id %}">Account</a>
-            <ul>
+            <ul class="l1">
                 <li><a href="{% url 'oweb:account_overview' account.id %}">Overview</a></li>
                 <li><a href="{% url 'oweb:account_empire' account.id %}">Empire</a></li>
                 <li><a href="{% url 'oweb:account_research' account.id %}">Research</a></li>
@@ -22,17 +22,28 @@
 {% if planet %}
         <li>
             <a href="{% url 'oweb:planet_overview' planet.id %}">Planet</a>
-            <ul>
+            <ul class="l1">
                 <li><a href="{% url 'oweb:planet_overview' planet.id %}">Overview</a></li>
                 <li><a href="{% url 'oweb:planet_buildings' planet.id %}">Buildings</a></li>
                 <li><a href="{% url 'oweb:planet_defense' planet.id %}">Defense</a></li>
+    {% if moon %}
+                <li>
+                    <a href="#">Moon</a>
+                    <ul class="l2">
+                        <li><a href="{% url 'oweb:moon_overview' moon.id %}">Overview</a></li>
+                        <li><a href="{% url 'oweb:moon_buildings' moon.id %}">Buildings</a></li>
+                        <li><a href="{% url 'oweb:moon_defense' moon.id %}">Defense</a></li>
+                        <li><a href="{% url 'oweb:moon_settings' moon.id %}">Settings</a></li>
+                    </ul>
+                </li>
+    {% endif %}
                 <li><a href="{% url 'oweb:planet_settings' planet.id %}">Settings</a></li>
             </ul>
         </li>
 {% endif %}
             <li>
                 <a href="#">Planets</a>
-            <ul>
+            <ul class="l1">
 {% for p in planets %}
     {% if planets_url %}
                 <li><a href="{% url planets_url p.id %}">{{ p }}</a></li>
@@ -45,7 +56,7 @@
         </li>
         <li>
             <a href="#">Tools</a>
-            <ul>
+            <ul class="l1">
                 <li><a href="{% url 'oweb:tools_energy' account.id %}">Energy</a>
             </ul>
         </li>
