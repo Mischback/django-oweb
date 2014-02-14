@@ -31,10 +31,10 @@ def item_update(req):
         account = obj.account
     elif 'building' == item_type:
         obj = Building.objects.select_related('planet__account').get(pk=item_id)
-        account = obj.planet.account
+        account = obj.astro_object.as_real_class().account
     elif 'defense' == item_type:
         obj = Defense.objects.select_related('planet__account').get(pk=item_id)
-        account = obj.planet.account
+        account = obj.astro_object.as_real_class().account
     else:
         raise Http404
 
