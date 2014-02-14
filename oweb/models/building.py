@@ -22,7 +22,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
 # Advisor stuff
-from oweb.models.planet import Planet, Moon
+from oweb.models.planet import AstronomicalObject
 from oweb.libs.costs import costs_two, costs_two_total, costs_onepointfive, costs_onepointfive_total, costs_onepointsix, costs_onepointsix_total, costs_onepointeight, costs_onepointeight_total, costs_twopointthree, costs_twopointthree_total
 
 
@@ -32,7 +32,7 @@ class Building(models.Model):
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
     """meta variable to determine the "real" type of an instance"""
 
-    planet = models.ForeignKey(Planet)
+    planet = models.ForeignKey(AstronomicalObject)
     """The parent planet object """
 
     name = models.CharField(max_length=150)
@@ -285,16 +285,6 @@ class Supply22(Building):
         app_label = 'oweb'
 
 
-class Supply22Moon(Supply22):
-    """Building **Metal Storage**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
-
-    class Meta:
-        app_label = 'oweb'
-
-
 class Supply23(Building):
     """Building **Crystal Storage**"""
     base_cost = (1000, 500, 0, 0)
@@ -302,16 +292,6 @@ class Supply23(Building):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('name').default = 'Crystal Storage'
         Building.__init__(self, *args, **kwargs)
-
-    class Meta:
-        app_label = 'oweb'
-
-
-class Supply23Moon(Supply23):
-    """Building **Crystal Storage**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
 
     class Meta:
         app_label = 'oweb'
@@ -329,16 +309,6 @@ class Supply24(Building):
         app_label = 'oweb'
 
 
-class Supply24Moon(Supply24):
-    """Building **Deuterium Tank**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
-
-    class Meta:
-        app_label = 'oweb'
-
-
 class Supply25(Building_twopointthree):
     """Building **Shielded Metal Den**"""
     base_cost = (2645, 0, 0)
@@ -346,16 +316,6 @@ class Supply25(Building_twopointthree):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('name').default = 'Shielded Metal Den'
         Building_twopointthree.__init__(self, *args, **kwargs)
-
-    class Meta:
-        app_label = 'oweb'
-
-
-class Supply25Moon(Supply25):
-    """Building **Shielded Metal Den**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
 
     class Meta:
         app_label = 'oweb'
@@ -373,16 +333,6 @@ class Supply26(Building_twopointthree):
         app_label = 'oweb'
 
 
-class Supply26Moon(Supply26):
-    """Building **Underground Crystal Den**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
-
-    class Meta:
-        app_label = 'oweb'
-
-
 class Supply27(Building_twopointthree):
     """Building **Seabed Deuterium Den**"""
     base_cost = (2645, 2645, 0, 0)
@@ -395,16 +345,6 @@ class Supply27(Building_twopointthree):
         app_label = 'oweb'
 
 
-class Supply27Moon(Supply27):
-    """Building **Seabed Deuterium Den**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
-
-    class Meta:
-        app_label = 'oweb'
-
-
 class Station14(Building):
     """Building **Robotics Factory**"""
     base_cost = (400, 120, 200, 0)
@@ -412,16 +352,6 @@ class Station14(Building):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('name').default = 'Robotics Factory'
         Building.__init__(self, *args, **kwargs)
-
-    class Meta:
-        app_label = 'oweb'
-
-
-class Station14Moon(Station14):
-    """Building **Robotics Factory**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
 
     class Meta:
         app_label = 'oweb'
@@ -446,16 +376,6 @@ class Station21(Building):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('name').default = 'Shipyard'
         Building.__init__(self, *args, **kwargs)
-
-    class Meta:
-        app_label = 'oweb'
-
-
-class Station21Moon(Station21):
-    """Building **Shipyard**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
 
     class Meta:
         app_label = 'oweb'
@@ -517,10 +437,6 @@ class Station34(Building):
 
 class Station41(Building):
     """Building **Lunar Base**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
-
     base_cost = (20000, 40000, 20000, 0)
 
     def __init__(self, *args, **kwargs):
@@ -533,10 +449,6 @@ class Station41(Building):
 
 class Station42(Building):
     """Building **Sensor Phalanx**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
-
     base_cost = (20000, 40000, 20000, 0)
 
     def __init__(self, *args, **kwargs):
@@ -549,10 +461,6 @@ class Station42(Building):
 
 class Station43(Building):
     """Building **Jump Gate**"""
-
-    planet = models.ForeignKey(Moon)
-    """The parent moon object"""
-
     base_cost = (2000000, 4000000, 2000000, 0)
 
     def __init__(self, *args, **kwargs):

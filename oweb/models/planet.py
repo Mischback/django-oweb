@@ -3,18 +3,25 @@ from django.db import models
 # app imports
 from oweb.models import Account
 
-class Planet(models.Model):
+class AstronomicalObject(models.Model):
+
+    name = models.CharField(max_length=100, default='Colony')
+    """The name of this planet"""
+    coord = models.CharField(max_length=15, default='0:000:00')
+    """The coordinates of this planet"""
+
+    def __unicode__(self):
+        return '{0}'.format(self.name)
+
+    class Meta:
+        app_label = 'oweb'
+
+
+class Planet(AstronomicalObject):
     """Represents a planet"""
 
     account = models.ForeignKey(Account)
     """A ForeignKey to the :py:class:`oweb.models.account.Account`"""
-
-    name = models.CharField(max_length=100, default='Colony')
-    """The name of this planet"""
-
-    coord = models.CharField(max_length=15, default='0:000:00')
-    """The coordinates of this planet"""
-
     min_temp = models.IntegerField(default=0)
     """The minimal temperature of this planet"""
 
@@ -25,7 +32,7 @@ class Planet(models.Model):
         app_label = 'oweb'
 
 
-class Moon(models.Model):
+class Moon(AstronomicalObject):
     """Represents a moon"""
 
     planet = models.ForeignKey(Planet)
