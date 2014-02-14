@@ -1,7 +1,7 @@
 # Django imports
 from django.db.models import signals
 # app imports
-from oweb.models import Account, Planet
+from oweb.models import Account, Planet, Moon
 from oweb.models.research import *
 from oweb.models.ship import *
 from oweb.models.building import *
@@ -85,6 +85,34 @@ def callback_create_planet(sender, instance, created, **kwargs):
         Defense503.objects.create(astro_object=instance)
 
 
+def callback_create_moon(sender, instance, created, **kwargs):
+    if created:
+        Supply22.objects.create(astro_object=instance)
+        Supply23.objects.create(astro_object=instance)
+        Supply24.objects.create(astro_object=instance)
+        Supply25.objects.create(astro_object=instance)
+        Supply26.objects.create(astro_object=instance)
+        Supply27.objects.create(astro_object=instance)
+        Station14.objects.create(astro_object=instance)
+        Station21.objects.create(astro_object=instance)
+        Station41.objects.create(astro_object=instance)
+        Station42.objects.create(astro_object=instance)
+        Station43.objects.create(astro_object=instance)
+
+        Civil212.objects.create(account=instance.planet.account, astro_object=instance)
+
+        Defense401.objects.create(astro_object=instance)
+        Defense402.objects.create(astro_object=instance)
+        Defense403.objects.create(astro_object=instance)
+        Defense404.objects.create(astro_object=instance)
+        Defense405.objects.create(astro_object=instance)
+        Defense406.objects.create(astro_object=instance)
+        Defense407.objects.create(astro_object=instance)
+        Defense408.objects.create(astro_object=instance)
+        Defense502.objects.create(astro_object=instance)
+        Defense503.objects.create(astro_object=instance)
+
+
 # Register the callbacks
 signals.post_save.connect(callback_create_account,
     sender=Account,
@@ -95,3 +123,8 @@ signals.post_save.connect(callback_create_planet,
     sender=Planet,
     weak=False,
     dispatch_uid='models.callback_create_planet')
+
+signals.post_save.connect(callback_create_moon,
+    sender=Moon,
+    weak=False,
+    dispatch_uid='models.callback_create_moon')

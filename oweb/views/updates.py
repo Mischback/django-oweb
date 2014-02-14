@@ -24,16 +24,19 @@ def item_update(req):
         raise Http404
 
     if 'research' == item_type:
-        obj = Research.objects.select_related('account').get(pk=item_id)
+        obj = Research.objects.get(pk=item_id)
         account = obj.account
     elif 'ship' == item_type:
-        obj = Ship.objects.select_related('account').get(pk=item_id)
+        obj = Ship.objects.get(pk=item_id)
         account = obj.account
     elif 'building' == item_type:
-        obj = Building.objects.select_related('planet__account').get(pk=item_id)
+        obj = Building.objects.get(pk=item_id)
         account = obj.astro_object.as_real_class().account
+    elif 'moon_building' == item_type:
+        obj = Building.objects.get(pk=item_id)
+        account = obj.astro_object.as_real_class().planet.account
     elif 'defense' == item_type:
-        obj = Defense.objects.select_related('planet__account').get(pk=item_id)
+        obj = Defense.objects.get(pk=item_id)
         account = obj.astro_object.as_real_class().account
     else:
         raise Http404
