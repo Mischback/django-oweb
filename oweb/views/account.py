@@ -23,7 +23,7 @@ def account_overview(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
         raise Http404
     except IndexError:

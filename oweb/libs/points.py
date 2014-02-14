@@ -7,8 +7,8 @@ from oweb.models.ship import Ship, Civil202, Civil203, Civil208, Civil210, Civil
 from oweb.models.research import Research
 
 def get_planet_points(planet):
-    buildings = get_list_or_404(Building, planet=planet)
-    defense = get_list_or_404(Defense, planet=planet)
+    buildings = get_list_or_404(Building, astro_object=planet)
+    defense = get_list_or_404(Defense, astro_object=planet)
 
     other_points = 0
     production_points = 0
