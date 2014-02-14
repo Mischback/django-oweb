@@ -204,11 +204,14 @@ def moon_create(req, planet_id):
     if not req.user.id == planet.account.owner_id:
         raise Http404
 
-    tmp_name = hashlib.md5(str(datetime.now))
-    Moon.objects.create(planet=planet, name=tmp_name, coord=planet.coord)
+    try:
+        moon = Moon.objects.get(planet=planet)
+    except Moon.DoesNotExist:
+        tmp_name = hashlib.md5(str(datetime.now))
+        Moon.objects.create(planet=planet, name=tmp_name, coord=planet.coord)
 
-    moon = get_object_or_404(Moon, name=tmp_name)
-    moon.name = 'Moon'
-    moon.save()
+        moon = get_object_or_404(Moon, name=tmp_name)
+        moon.name = 'Moon'
+        moon.save()
 
     return HttpResponseRedirect(reverse('oweb:moon_settings', args=(moon.id,)))
