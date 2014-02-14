@@ -34,7 +34,7 @@ def planet_overview(req, planet_id):
     planets = Planet.objects.filter(account_id=planet.account.id)
     plasma = get_object_or_404(Research122, account=planet.account.id)
     energy = get_object_or_404(Research113, account=planet.account.id)
-    buildings = get_list_or_404(Building, planet=planet_id)
+    buildings = get_list_or_404(Building, astro_object=planet_id)
 
     planet_fields = 0
     for b in buildings:
