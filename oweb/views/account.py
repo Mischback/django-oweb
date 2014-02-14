@@ -28,6 +28,8 @@ def account_overview(req, account_id):
         raise Http404
     except IndexError:
         raise Http404
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
