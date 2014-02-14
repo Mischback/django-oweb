@@ -13,7 +13,8 @@ def home(req):
         return redirect(reverse('oweb:app_login'))
 
     # get all accounts of this user
-    accounts = get_list_or_404(Account, owner_id=req.user.id)
+    accounts = Account.objects.filter(owner_id=req.user.id)
+
     # render the template
     return render(req, 'oweb/home.html', 
         {'accounts': accounts}
