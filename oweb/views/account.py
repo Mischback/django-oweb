@@ -157,14 +157,14 @@ def account_empire(req, account_id):
 
         b_list = list(izip_longest(
             [],
-            get_list_or_404(Building, planet=p),
+            get_list_or_404(Building, astro_object=p),
             fillvalue='building'))
-        b_list.append(('ship', get_object_or_404(Civil212, planet=p)))
+        b_list.append(('ship', get_object_or_404(Civil212, astro_object=p)))
         tmp_buildings.append(b_list)
 
         d_list = list(izip_longest(
             [],
-            get_list_or_404(Defense, planet=p),
+            get_list_or_404(Defense, astro_object=p),
             fillvalue='defense'
         ))
         tmp_defense.append(d_list)
