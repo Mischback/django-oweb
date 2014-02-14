@@ -109,8 +109,6 @@ def callback_create_moon(sender, instance, created, **kwargs):
         Defense406.objects.create(astro_object=instance)
         Defense407.objects.create(astro_object=instance)
         Defense408.objects.create(astro_object=instance)
-        Defense502.objects.create(astro_object=instance)
-        Defense503.objects.create(astro_object=instance)
 
 
 # Register the callbacks

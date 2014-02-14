@@ -1,0 +1,27 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}{{ moon.name }} - Defense | OWeb{% endblock %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>{{ moon.name }} - Defense</h1>
+    </header>
+    <section>
+{% if defense %}
+    <table class="item_listing defense_listing">
+        <tr>
+            <th>Name</th>
+            <th>Level</th>
+        </tr>
+    {% for d in defense %}
+        <tr class="{% cycle 'even' 'uneven' %}">
+            <td>{{ d.name }}</td>
+            <td class="form">{% include 'oweb/includes/item_form.html' with item=d item_type='moon_defense' %}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+    </section>
+</section>
+{% endblock %}

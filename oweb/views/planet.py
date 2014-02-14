@@ -220,7 +220,38 @@ def moon_buildings(req, moon_id):
 
 
 def moon_defense(req, moon_id):
-    raise RuntimeError('Defense')
+    """
+    """
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    # fetch the account and the current planet
+    try:
+        defense = Defense.objects.select_related('astro_object', 'astro_object__planet').filter(astro_object=moon_id)
+        moon = defense.first().astro_object.as_real_class()
+    except Moon.DoesNotExist:
+        raise Http404
+    except AttributeError:
+        raise Http404
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == moon.planet.account.owner_id:
+        raise Http404
+
+    planets = Planet.objects.filter(account_id=moon.planet.account.id)
+
+    return render(req, 'oweb/moon_defense.html',
+        {
+            'account': moon.planet.account,
+            'planet': moon.planet,
+            'moon': moon,
+            'planets': planets,
+            'defense': defense,
+        }
+    )
 
 
 def moon_settings(req, moon_id):

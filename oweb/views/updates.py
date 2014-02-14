@@ -38,6 +38,9 @@ def item_update(req):
     elif 'defense' == item_type:
         obj = Defense.objects.get(pk=item_id)
         account = obj.astro_object.as_real_class().account
+    elif 'moon_defense' == item_type:
+        obj = Defense.objects.get(pk=item_id)
+        account = obj.astro_object.as_real_class().planet.account
     else:
         raise Http404
 
