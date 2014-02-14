@@ -6,7 +6,8 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect, render, get_list_or_404, get_object_or_404
 # app imports
-from oweb.models.building import Planet, Supply12
+from oweb.models.planet import Planet
+from oweb.models.building import Supply12
 from oweb.models.research import Research113
 from oweb.libs.production import get_fusion_production
 from oweb.libs.costs import costs_onepointeight_total, costs_two_total
