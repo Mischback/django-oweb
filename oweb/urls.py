@@ -43,6 +43,15 @@ urlpatterns = patterns('oweb.views',
     url(r'^planet/(?P<planet_id>\d+)/defense$',
         'planet_defense', name='planet_defense'),
 
+    url(r'^moon/(?P<moon_id>\d+)$',
+        'moon_overview', name='moon_overview'),
+    url(r'^moon/(?P<moon_id>\d+)/settings$',
+        'moon_settings', name='moon_settings'),
+    url(r'^moon/(?P<moon_id>\d+)/buildings$',
+        'moon_buildings', name='moon_buildings'),
+    url(r'^moon/(?P<moon_id>\d+)/defense$',
+        'moon_defense', name='moon_defense'),
+
     # tools.py
     url(r'^tools/(?P<account_id>\d+)/energy$',
         'tools_energy', name="tools_energy"),
