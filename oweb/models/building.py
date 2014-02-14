@@ -32,8 +32,8 @@ class Building(models.Model):
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
     """meta variable to determine the "real" type of an instance"""
 
-    planet = models.ForeignKey(AstronomicalObject)
-    """The parent planet object """
+    astro_object = models.ForeignKey(AstronomicalObject)
+    """The parent planet or moon object """
 
     name = models.CharField(max_length=150)
     """The name of the building """

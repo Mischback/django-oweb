@@ -5,7 +5,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
 # Advisor stuff
-from oweb.models import Planet
+from oweb.models.planet import AstronomicalObject
 
 
 class Defense(models.Model):
@@ -13,8 +13,8 @@ class Defense(models.Model):
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
     """meta variable to determine the "real" type of an instance """
 
-    planet = models.ForeignKey(Planet)
-    """The parent planet object """
+    astro_object = models.ForeignKey(AstronomicalObject)
+    """The parent planet or moon object """
 
     name = models.CharField(max_length=150)
     """The name of this defense device"""
