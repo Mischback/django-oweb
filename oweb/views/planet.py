@@ -207,10 +207,13 @@ def moon_settings(req, moon_id):
     if not req.user.id == moon.planet.account.owner_id:
         raise Http404
 
+    planets = Planet.objects.filter(account_id=moon.planet.account.id)
+
     return render(req, 'oweb/moon_settings.html',
         {
             'account': moon.planet.account,
             'planet': moon.planet,
             'moon': moon,
+            'planets': planets,
         }
     )
