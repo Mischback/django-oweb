@@ -215,3 +215,57 @@ def moon_create(req, planet_id):
         moon.save()
 
     return HttpResponseRedirect(reverse('oweb:moon_settings', args=(moon.id,)))
+
+
+def moon_settings_commit(req, moon_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    # fetch the account and the current planet
+    try:
+        moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
+    except Moon.DoesNotExist:
+        raise Http404
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == moon.planet.account.owner_id:
+        raise Http404
+
+    moon.name = req.POST['moon_name']
+    moon.save()
+
+    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+
+
+def moon_delete(req, moon_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    try:
+        moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
+    except Moon.DoesNotExist:
+        raise Http404
+
+    planet = moon.planet
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == moon.planet.account.owner_id:
+        raise Http404
+
+    if 'confirm' == req.POST.get('confirm_moon_deletion'):
+        moon.delete()
+        return redirect(reverse('oweb:planet_overview', args=(planet.id,)))
+
+    return render(req, 'oweb/moon_delete.html',
+        {
+            'moon': moon
+        }
+    )

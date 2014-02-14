@@ -20,6 +20,10 @@ urlpatterns = patterns('oweb.views',
         'account_delete', name='account_delete'),
     url(r'^planet/(?P<planet_id>\d+)/moon$',
         'moon_create', name='moon_create'),
+    url(r'^moon/(?P<moon_id>\d+)/settings/commit$',
+        'moon_settings_commit', name='moon_settings_commit'),
+    url(r'^delete/moon/(?P<moon_id>\d+)$',
+        'moon_delete', name='moon_delete'),
 
     # account.py
     url(r'^(?P<account_id>\d+)$',
