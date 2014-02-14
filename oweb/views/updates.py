@@ -211,4 +211,4 @@ def moon_create(req, planet_id):
     moon.name = 'Moon'
     moon.save()
 
-    return HttpResponseRedirect(reverse('oweb:moon_settings', args=moon.id))
+    return HttpResponseRedirect(reverse('oweb:moon_settings', args=(moon.id,)))
