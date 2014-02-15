@@ -35,7 +35,7 @@ def tools_energy(req, account_id, energy_level=None, fusion_level=None):
     planet_ids = planets.values_list('id', flat=True)
 
     if not fusion_level:
-        fusion_list = get_list_or_404(Supply12, planet_id__in=planet_ids)
+        fusion_list = get_list_or_404(Supply12, astro_object_id__in=planet_ids)
         # determine the average fusion reactor and maximum fusion reactor
         max_fusion = 0
         average_fusion = 0
