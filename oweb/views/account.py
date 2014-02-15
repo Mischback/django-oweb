@@ -1,12 +1,12 @@
 # Python imports
-from itertools import chain, izip_longest
+from itertools import chain, izip_longest, repeat
 # Django imports
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
 # app imports
-from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship
+from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship, Moon
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
 from oweb.libs.points import get_planet_points, get_ship_points, get_research_points
@@ -143,6 +143,7 @@ def account_empire(req, account_id):
     tmp_meta = []
     tmp_buildings = []
     tmp_defense = []
+    tmp_moon = []
     tmp_defense_points = []
     tmp_building_points = []
     for p in planets:
@@ -171,6 +172,21 @@ def account_empire(req, account_id):
         ))
         tmp_defense.append(d_list)
 
+        try:
+            moon = Moon.objects.get(planet=p)
+            m_b_list = list(izip_longest(
+                [],
+                get_list_or_404(Building, astro_object=moon),
+                fillvalue='moon_building'))
+            m_d_list = list(izip_longest(
+                [],
+                get_list_or_404(Defense, astro_object=moon),
+                fillvalue='moon_defense'))
+            moon_list = m_b_list + m_d_list
+            tmp_moon.append(moon_list)
+        except Moon.DoesNotExist:
+            tmp_moon.append([])
+
     tmp_meta.insert(0, [
         ('caption', 'Planet'),
         ('caption', 'Coordinates'),
@@ -185,10 +201,23 @@ def account_empire(req, account_id):
     tmp_defense.insert(0, [('caption', i[1].name) for i in d_list])
     tmp_defense = zip(*tmp_defense)
 
+    tmp_moon2 = []
+    moon_len = len(moon_list)
+    for i in tmp_moon:
+        if len(i) < moon_len:
+            tmp_moon2.append(list(repeat(('no_moon', 0), moon_len)))
+        else:
+            tmp_moon2.append(i)
+
+    tmp_moon2.insert(0, [('caption', i[1].name) for i in moon_list])
+    tmp_moon2 = zip(*tmp_moon2)
+
+
     empire = [
         ('Meta', tmp_meta),
         ('Buildings', tmp_buildings),
-        ('Defense', tmp_defense)
+        ('Defense', tmp_defense),
+        ('Moon', tmp_moon2),
     ]
 
     return render(req, 'oweb/account_empire.html', 

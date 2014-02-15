@@ -31,8 +31,10 @@
                 <td>{{ i.1|points|number_beautify }}</td>
                 {% elif i.0 == 'planet' %}
                 <th><a href="{% url 'oweb:planet_overview' i.1 %}">{{ i.2 }}</a></th>
-                {% elif i.0 == 'building' or i.0 == 'defense' or i.0 == 'ship' %}
+                {% elif i.0 == 'building' or i.0 == 'defense' or i.0 == 'ship' or i.0 == 'moon_building' or i.0 == 'moon_defense' %}
                 <td class="form">{% include 'oweb/includes/item_form.html' with item=i.1 item_type=i.0 %}</td>
+                {% else %}
+                <td></td>
                 {% endif %}
             {% endfor %}
             </tr>
