@@ -38,7 +38,7 @@ class Planet(AstronomicalObject):
 
     account = models.ForeignKey(Account)
     """A ForeignKey to the :py:class:`oweb.models.account.Account`"""
-    min_temp = models.IntegerField(default=0)
+    max_temp = models.IntegerField(default=0)
     """The minimal temperature of this planet"""
 
     def __unicode__(self):
