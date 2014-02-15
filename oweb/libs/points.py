@@ -30,8 +30,6 @@ def get_planet_points(planet):
 
         defense_points += this_defense_points
 
-    planet_points = production_points + other_points + defense_points
-
     try:
         moon = Moon.objects.get(planet=planet)
         moon_points, moon_buildings, moon_defense = get_moon_points(moon)
@@ -39,6 +37,8 @@ def get_planet_points(planet):
         moon_points = 0
         moon_buildings = 0
         moon_defense = 0
+
+    planet_points = production_points + other_points + defense_points + moon_points
 
     return planet_points, production_points, other_points, defense_points, moon_points, moon_buildings, moon_defense
 

@@ -44,6 +44,7 @@ def account_overview(req, account_id):
     production_points = 0
     other_points = 0
     defense_points = 0
+    moon_points = 0
     research_points = get_research_points(account)
     ship_points = get_ship_points(account)
     planet_points = []
@@ -58,6 +59,8 @@ def account_overview(req, account_id):
         production_points += this_planet_points[1]
         other_points += this_planet_points[2]
         defense_points += this_planet_points[3]
+        defense_points += this_planet_points[6]
+        moon_points += this_planet_points[5]
         planet_points.append((this_planet_points, p))
 
     # production
@@ -67,7 +70,7 @@ def account_overview(req, account_id):
     queue.sort()
     queue = queue[:20]
     # points
-    total_points = production_points + other_points + defense_points + research_points + ship_points[0]
+    total_points = production_points + other_points + defense_points + moon_points + research_points + ship_points[0]
     points = {}
     points['total'] = total_points
     try:
@@ -82,6 +85,10 @@ def account_overview(req, account_id):
         points['defense'] = (defense_points, defense_points / float(total_points) * 100)
     except ZeroDivisionError:
         points['defense'] = (defense_points, 0)
+    try:
+        points['moons'] = (moon_points, moon_points / float(total_points) * 100)
+    except ZeroDivisionError:
+        points['moons'] = (moon_points, 0)
     try:
         points['research'] = (research_points, research_points / float(total_points) * 100)
     except ZeroDivisionError:

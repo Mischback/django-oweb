@@ -36,6 +36,11 @@
                 <td class="fraction">{{ points.other.1|floatformat:2 }}%</td>
             </tr>
             <tr class="{% cycle rowcycle %}">
+                <td>Moons:</td>
+                <td class="value">{{ points.moons.0|points|number_beautify }}</td>
+                <td class="fraction">{{ points.moons.1|floatformat:2 }}%</td>
+            </tr>
+            <tr class="{% cycle rowcycle %}">
                 <td>Research:</td>
                 <td class="value">{{ points.research.0|points|number_beautify }}</td>
                 <td class="fraction">{{ points.research.1|floatformat:2 }}%</td>
