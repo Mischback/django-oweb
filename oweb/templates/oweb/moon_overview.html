@@ -1,0 +1,21 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}{{ moon.name }} - Overview | OWeb{% endblock %}
+
+{% load oweb_tags %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>{{ moon.name }} - Overview</h1>
+    </header>
+
+    <section>
+        <section>
+            <header>Meta</header>
+            {{ moon.coord }} | {{ moon_fields.0 }}/{{ moon_fields.1 }} occupied
+        </section>
+
+    </section>
+</section>
+{% endblock %}

@@ -2,7 +2,7 @@
     {% csrf_token %}
     <input value="{{ item_type }}" name="item_type" type="hidden" />
     <input value="{{ item.id }}" name="item_id" type="hidden" />
-{% if item_type == 'ship' or item_type == 'defense' %}
+{% if item_type == 'ship' or item_type == 'defense' or item_type == 'moon_defense' %}
     <input value="{{ item.count|add:'-1' }}" name="item_level" type="hidden" />
 {% else %}
     <input value="{{ item.level|add:'-1' }}" name="item_level" type="hidden" />
@@ -13,7 +13,7 @@
     {% csrf_token %}
     <input value="{{ item_type }}" name="item_type" type="hidden" />
     <input value="{{ item.id }}" name="item_id" type="hidden" />
-{% if item_type == 'ship' or item_type == 'defense' %}
+{% if item_type == 'ship' or item_type == 'defense' or item_type == 'moon_defense' %}
     <input value="{{ item.count }}" name="item_level" type="text" />
 {% else %}
     <input value="{{ item.level }}" name="item_level" type="text" />
@@ -23,7 +23,7 @@
     {% csrf_token %}
     <input value="{{ item_type }}" name="item_type" type="hidden" />
     <input value="{{ item.id }}" name="item_id" type="hidden" />
-{% if item_type == 'ship' or item_type == 'defense' %}
+{% if item_type == 'ship' or item_type == 'defense' or item_type == 'moon_defense' %}
     <input value="{{ item.count|add:'1' }}" name="item_level" type="hidden" />
 {% else %}
     <input value="{{ item.level|add:'1' }}" name="item_level" type="hidden" />

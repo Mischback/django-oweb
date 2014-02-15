@@ -1,0 +1,31 @@
+{% extends 'oweb/account_base.html' %}
+
+{% block html_title %}{{ moon.name }} - Settings | OWeb{% endblock %}
+
+{% block oweb_account %}
+<section class="account_overview">
+    <header>
+        <h1>{{ moon.name }} - Settings</h1>
+    </header>
+    <section>
+        <form action="{% url 'oweb:moon_settings_commit' moon.id %}" method="post">
+            {% csrf_token %}
+            <table class="meta_information">
+                <tr>
+                    <td>Name:</td>
+                    <td><input value="{{ moon.name }}" name="moon_name" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Coords:</td>
+                    <td><input value="{{ moon.coord }}" name="moon_coord" type="text" readonly="readonly" /></td>
+                </tr>
+            </table>
+            <button type="submit">update</button>
+        </form>
+    </section>
+
+    <section>
+        <p><a href="{% url 'oweb:moon_delete' moon.id %}">delete this moon</a></p>
+    </section>
+</section>
+{% endblock %}

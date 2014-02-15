@@ -223,21 +223,21 @@ def get_planet_production(planet, speed,
     # get production of the mines
     # Metal
     if not supply1:
-        supply1 = get_object_or_404(Supply1, planet=planet.id)
+        supply1 = get_object_or_404(Supply1, astro_object=planet.id)
     metal_prod = get_metal_production(supply1.level,
         performance=supply1.performance,
         speed=speed)
 
     # Crystal
     if not supply2:
-        supply2 = get_object_or_404(Supply2, planet=planet.id)
+        supply2 = get_object_or_404(Supply2, astro_object=planet.id)
     crystal_prod = get_crystal_production(supply2.level,
         performance=supply2.performance,
         speed=speed)
 
     # Deut
     if not supply3:
-        supply3 = get_object_or_404(Supply3, planet=planet.id)
+        supply3 = get_object_or_404(Supply3, astro_object=planet.id)
     deut_prod = get_deuterium_production(supply3.level,
         temp=planet.min_temp + 40,
         performance=supply3.performance,
@@ -245,11 +245,11 @@ def get_planet_production(planet, speed,
 
     # get energy production
     if not supply4:
-        supply4 = get_object_or_404(Supply4, planet=planet.id)
+        supply4 = get_object_or_404(Supply4, astro_object=planet.id)
     if not supply12:
-        supply12 = get_object_or_404(Supply12, planet=planet.id)
+        supply12 = get_object_or_404(Supply12, astro_object=planet.id)
     if not civil212:
-        civil212 = get_object_or_404(Civil212, planet=planet.id)
+        civil212 = get_object_or_404(Civil212, astro_object=planet.id)
     if not research113:
         research113 = get_object_or_404(Research113, account=planet.account.id)
     solar_prod, fusion_prod, sat_prod = get_energy_production(
@@ -294,8 +294,8 @@ def get_planet_capacity(planet, speed=None):
     if not speed:
         speed = planet.account.speed
 
-    robo = get_object_or_404(Station14, planet=planet.id)
-    nani = get_object_or_404(Station15, planet=planet.id)
+    robo = get_object_or_404(Station14, astro_object=planet.id)
+    nani = get_object_or_404(Station15, astro_object=planet.id)
 
     return get_capacity(robo.level, nani.level, speed)
 

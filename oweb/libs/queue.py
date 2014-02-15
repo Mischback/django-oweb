@@ -157,28 +157,28 @@ def get_planet_queue(planet,
     """
     # Metal
     if not supply1:
-        supply1 = get_object_or_404(Supply1, planet=planet.id)
+        supply1 = get_object_or_404(Supply1, astro_object=planet.id)
     # Crystal
     if not supply2:
-        supply2 = get_object_or_404(Supply2, planet=planet.id)
+        supply2 = get_object_or_404(Supply2, astro_object=planet.id)
     # Deut
     if not supply3:
-        supply3 = get_object_or_404(Supply3, planet=planet.id)
+        supply3 = get_object_or_404(Supply3, astro_object=planet.id)
     # Solar
     if not supply4:
-        supply4 = get_object_or_404(Supply4, planet=planet.id)
+        supply4 = get_object_or_404(Supply4, astro_object=planet.id)
     # Fusion
     if not supply12:
-        supply12 = get_object_or_404(Supply12, planet=planet.id)
+        supply12 = get_object_or_404(Supply12, astro_object=planet.id)
     # Robo
     if not station14:
-        station14 = get_object_or_404(Station14, planet=planet.id)
+        station14 = get_object_or_404(Station14, astro_object=planet.id)
     # Nani
     if not station15:
-        station15 = get_object_or_404(Station15, planet=planet.id)
+        station15 = get_object_or_404(Station15, astro_object=planet.id)
     # Sat
     if not civil212:
-        civil212 = get_object_or_404(Civil212, planet=planet.id)
+        civil212 = get_object_or_404(Civil212, astro_object=planet.id)
     # Energy
     if not research113:
         research113 = get_object_or_404(Research113, account=planet.account.id)

@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 # app imports
-from oweb.models import Account, Building, Defense, Planet, Research, Ship
+from oweb.models import Account, Building, Defense, Planet, Research, Ship, Moon
 
 def item_update(req):
     """todo Documentation still missing!"""
@@ -24,17 +24,23 @@ def item_update(req):
         raise Http404
 
     if 'research' == item_type:
-        obj = Research.objects.select_related('account').get(pk=item_id)
+        obj = Research.objects.get(pk=item_id)
         account = obj.account
     elif 'ship' == item_type:
-        obj = Ship.objects.select_related('account').get(pk=item_id)
+        obj = Ship.objects.get(pk=item_id)
         account = obj.account
     elif 'building' == item_type:
-        obj = Building.objects.select_related('planet__account').get(pk=item_id)
-        account = obj.planet.account
+        obj = Building.objects.get(pk=item_id)
+        account = obj.astro_object.as_real_class().account
+    elif 'moon_building' == item_type:
+        obj = Building.objects.get(pk=item_id)
+        account = obj.astro_object.as_real_class().planet.account
     elif 'defense' == item_type:
-        obj = Defense.objects.select_related('planet__account').get(pk=item_id)
-        account = obj.planet.account
+        obj = Defense.objects.get(pk=item_id)
+        account = obj.astro_object.as_real_class().account
+    elif 'moon_defense' == item_type:
+        obj = Defense.objects.get(pk=item_id)
+        account = obj.astro_object.as_real_class().planet.account
     else:
         raise Http404
 
@@ -186,5 +192,86 @@ def account_delete(req, account_id):
     return render(req, 'oweb/account_delete.html',
         {
             'account': account,
+        }
+    )
+
+
+def moon_create(req, planet_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    planet = get_object_or_404(Planet, pk=planet_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == planet.account.owner_id:
+        raise Http404
+
+    try:
+        moon = Moon.objects.get(planet=planet)
+    except Moon.DoesNotExist:
+        tmp_name = hashlib.md5(str(datetime.now))
+        Moon.objects.create(planet=planet, name=tmp_name, coord=planet.coord)
+
+        moon = get_object_or_404(Moon, name=tmp_name)
+        moon.name = 'Moon'
+        moon.save()
+
+    return HttpResponseRedirect(reverse('oweb:moon_settings', args=(moon.id,)))
+
+
+def moon_settings_commit(req, moon_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    # fetch the account and the current planet
+    try:
+        moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
+    except Moon.DoesNotExist:
+        raise Http404
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == moon.planet.account.owner_id:
+        raise Http404
+
+    moon.name = req.POST['moon_name']
+    moon.save()
+
+    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+
+
+def moon_delete(req, moon_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    try:
+        moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
+    except Moon.DoesNotExist:
+        raise Http404
+
+    planet = moon.planet
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == moon.planet.account.owner_id:
+        raise Http404
+
+    if 'confirm' == req.POST.get('confirm_moon_deletion'):
+        moon.delete()
+        return redirect(reverse('oweb:planet_overview', args=(planet.id,)))
+
+    return render(req, 'oweb/moon_delete.html',
+        {
+            'moon': moon
         }
     )

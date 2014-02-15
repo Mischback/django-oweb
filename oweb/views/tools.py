@@ -6,7 +6,8 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect, render, get_list_or_404, get_object_or_404
 # app imports
-from oweb.models.building import Planet, Supply12
+from oweb.models.planet import Planet
+from oweb.models.building import Supply12
 from oweb.models.research import Research113
 from oweb.libs.production import get_fusion_production
 from oweb.libs.costs import costs_onepointeight_total, costs_two_total
@@ -34,7 +35,7 @@ def tools_energy(req, account_id, energy_level=None, fusion_level=None):
     planet_ids = planets.values_list('id', flat=True)
 
     if not fusion_level:
-        fusion_list = get_list_or_404(Supply12, planet_id__in=planet_ids)
+        fusion_list = get_list_or_404(Supply12, astro_object_id__in=planet_ids)
         # determine the average fusion reactor and maximum fusion reactor
         max_fusion = 0
         average_fusion = 0

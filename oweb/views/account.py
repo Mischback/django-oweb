@@ -1,12 +1,12 @@
 # Python imports
-from itertools import chain, izip_longest
+from itertools import chain, izip_longest, repeat
 # Django imports
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
 # app imports
-from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship
+from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship, Moon
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
 from oweb.libs.points import get_planet_points, get_ship_points, get_research_points
@@ -23,11 +23,13 @@ def account_overview(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
         raise Http404
     except IndexError:
         raise Http404
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
@@ -42,6 +44,7 @@ def account_overview(req, account_id):
     production_points = 0
     other_points = 0
     defense_points = 0
+    moon_points = 0
     research_points = get_research_points(account)
     ship_points = get_ship_points(account)
     planet_points = []
@@ -56,6 +59,8 @@ def account_overview(req, account_id):
         production_points += this_planet_points[1]
         other_points += this_planet_points[2]
         defense_points += this_planet_points[3]
+        defense_points += this_planet_points[6]
+        moon_points += this_planet_points[5]
         planet_points.append((this_planet_points, p))
 
     # production
@@ -65,7 +70,7 @@ def account_overview(req, account_id):
     queue.sort()
     queue = queue[:20]
     # points
-    total_points = production_points + other_points + defense_points + research_points + ship_points[0]
+    total_points = production_points + other_points + defense_points + moon_points + research_points + ship_points[0]
     points = {}
     points['total'] = total_points
     try:
@@ -80,6 +85,10 @@ def account_overview(req, account_id):
         points['defense'] = (defense_points, defense_points / float(total_points) * 100)
     except ZeroDivisionError:
         points['defense'] = (defense_points, 0)
+    try:
+        points['moons'] = (moon_points, moon_points / float(total_points) * 100)
+    except ZeroDivisionError:
+        points['moons'] = (moon_points, 0)
     try:
         points['research'] = (research_points, research_points / float(total_points) * 100)
     except ZeroDivisionError:
@@ -141,8 +150,10 @@ def account_empire(req, account_id):
     tmp_meta = []
     tmp_buildings = []
     tmp_defense = []
+    tmp_moon = []
     tmp_defense_points = []
     tmp_building_points = []
+    moon_list = None
     for p in planets:
         tmp_points = get_planet_points(p)
         tmp_building_points.append(('plain', tmp_points[1] + tmp_points[2]))
@@ -157,17 +168,32 @@ def account_empire(req, account_id):
 
         b_list = list(izip_longest(
             [],
-            get_list_or_404(Building, planet=p),
+            get_list_or_404(Building, astro_object=p),
             fillvalue='building'))
-        b_list.append(('ship', get_object_or_404(Civil212, planet=p)))
+        b_list.append(('ship', get_object_or_404(Civil212, astro_object=p)))
         tmp_buildings.append(b_list)
 
         d_list = list(izip_longest(
             [],
-            get_list_or_404(Defense, planet=p),
+            get_list_or_404(Defense, astro_object=p),
             fillvalue='defense'
         ))
         tmp_defense.append(d_list)
+
+        try:
+            moon = Moon.objects.get(planet=p)
+            m_b_list = list(izip_longest(
+                [],
+                get_list_or_404(Building, astro_object=moon),
+                fillvalue='moon_building'))
+            m_d_list = list(izip_longest(
+                [],
+                get_list_or_404(Defense, astro_object=moon),
+                fillvalue='moon_defense'))
+            moon_list = m_b_list + m_d_list
+            tmp_moon.append(moon_list)
+        except Moon.DoesNotExist:
+            tmp_moon.append([])
 
     tmp_meta.insert(0, [
         ('caption', 'Planet'),
@@ -183,10 +209,25 @@ def account_empire(req, account_id):
     tmp_defense.insert(0, [('caption', i[1].name) for i in d_list])
     tmp_defense = zip(*tmp_defense)
 
+    if moon_list:
+        tmp_moon2 = tmp_moon
+        tmp_moon = []
+        moon_len = len(moon_list)
+        for i in tmp_moon2:
+            if len(i) < moon_len:
+                tmp_moon.append(list(repeat(('no_moon', 0), moon_len)))
+            else:
+                tmp_moon.append(i)
+
+        tmp_moon.insert(0, [('caption', i[1].name) for i in moon_list])
+        tmp_moon = zip(*tmp_moon)
+
+
     empire = [
         ('Meta', tmp_meta),
         ('Buildings', tmp_buildings),
-        ('Defense', tmp_defense)
+        ('Defense', tmp_defense),
+        ('Moon', tmp_moon),
     ]
 
     return render(req, 'oweb/account_empire.html', 

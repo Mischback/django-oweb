@@ -18,6 +18,12 @@ urlpatterns = patterns('oweb.views',
         'planet_delete', name='planet_delete'),
     url(r'^delete/(?P<account_id>\d+)$',
         'account_delete', name='account_delete'),
+    url(r'^planet/(?P<planet_id>\d+)/moon$',
+        'moon_create', name='moon_create'),
+    url(r'^moon/(?P<moon_id>\d+)/settings/commit$',
+        'moon_settings_commit', name='moon_settings_commit'),
+    url(r'^delete/moon/(?P<moon_id>\d+)$',
+        'moon_delete', name='moon_delete'),
 
     # account.py
     url(r'^(?P<account_id>\d+)$',
@@ -40,6 +46,15 @@ urlpatterns = patterns('oweb.views',
         'planet_buildings', name='planet_buildings'),
     url(r'^planet/(?P<planet_id>\d+)/defense$',
         'planet_defense', name='planet_defense'),
+
+    url(r'^moon/(?P<moon_id>\d+)$',
+        'moon_overview', name='moon_overview'),
+    url(r'^moon/(?P<moon_id>\d+)/settings$',
+        'moon_settings', name='moon_settings'),
+    url(r'^moon/(?P<moon_id>\d+)/buildings$',
+        'moon_buildings', name='moon_buildings'),
+    url(r'^moon/(?P<moon_id>\d+)/defense$',
+        'moon_defense', name='moon_defense'),
 
     # tools.py
     url(r'^tools/(?P<account_id>\d+)/energy$',

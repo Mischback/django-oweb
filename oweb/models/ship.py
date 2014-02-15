@@ -8,7 +8,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
 # Advisor stuff
-from oweb.models import Account, Planet
+from oweb.models import Account, AstronomicalObject
 
 
 class Ship(models.Model):
@@ -255,7 +255,7 @@ class Civil212(Ship):
     @class  Civil210
     @brief  __Solarsatellit__
     """
-    planet = models.ForeignKey(Planet)
+    astro_object = models.ForeignKey(AstronomicalObject)
     cost = (0, 2000, 500)
 
     def __init__(self, *args, **kwargs):

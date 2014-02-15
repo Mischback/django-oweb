@@ -28,13 +28,23 @@
                     <td class="value">{{ points.1|points|number_beautify }}</td>
                 </tr>
                 <tr class="{% cycle rowcycle %}">
-                    <td>other buildings:</td>
+                    <td>Other Buildings:</td>
                     <td class="value">{{ points.2|points|number_beautify }}</td>
                 </tr>
                 <tr class="{% cycle rowcycle %}">
                     <td>Defense:</td>
                     <td class="value">{{ points.3|points|number_beautify }}</td>
                 </tr>
+    {% if moon %}
+                <tr class="{% cycle rowcycle %}">
+                    <td>Moon Buildings:</td>
+                    <td class="value">{{ points.5|points|number_beautify }}</td>
+                </tr>
+                <tr class="{% cycle rowcycle %}">
+                    <td>Moon Defense:</td>
+                    <td class="value">{{ points.6|points|number_beautify }}</td>
+                </tr>
+    {% endif %}
             </table>
         </section>
     </section>

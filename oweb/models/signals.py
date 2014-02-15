@@ -1,7 +1,7 @@
 # Django imports
 from django.db.models import signals
 # app imports
-from oweb.models import Account, Planet
+from oweb.models import Account, Planet, Moon
 from oweb.models.research import *
 from oweb.models.ship import *
 from oweb.models.building import *
@@ -52,37 +52,72 @@ def callback_create_planet(sender, instance, created, **kwargs):
     Basically this function adds buildings to the planet
     """
     if created:
-        Supply1.objects.create(planet=instance)
-        Supply2.objects.create(planet=instance)
-        Supply3.objects.create(planet=instance)
-        Supply4.objects.create(planet=instance)
-        Supply12.objects.create(planet=instance)
-        Supply22.objects.create(planet=instance)
-        Supply23.objects.create(planet=instance)
-        Supply24.objects.create(planet=instance)
-        Supply25.objects.create(planet=instance)
-        Supply26.objects.create(planet=instance)
-        Supply27.objects.create(planet=instance)
-        Station14.objects.create(planet=instance)
-        Station15.objects.create(planet=instance)
-        Station21.objects.create(planet=instance)
-        Station31.objects.create(planet=instance)
-        Station33.objects.create(planet=instance)
-        Station34.objects.create(planet=instance)
-        Station44.objects.create(planet=instance)
+        Supply1.objects.create(astro_object=instance)
+        Supply2.objects.create(astro_object=instance)
+        Supply3.objects.create(astro_object=instance)
+        Supply4.objects.create(astro_object=instance)
+        Supply12.objects.create(astro_object=instance)
+        Supply22.objects.create(astro_object=instance)
+        Supply23.objects.create(astro_object=instance)
+        Supply24.objects.create(astro_object=instance)
+        Supply25.objects.create(astro_object=instance)
+        Supply26.objects.create(astro_object=instance)
+        Supply27.objects.create(astro_object=instance)
+        Station14.objects.create(astro_object=instance)
+        Station15.objects.create(astro_object=instance)
+        Station21.objects.create(astro_object=instance)
+        Station31.objects.create(astro_object=instance)
+        Station33.objects.create(astro_object=instance)
+        Station34.objects.create(astro_object=instance)
+        Station44.objects.create(astro_object=instance)
 
-        Civil212.objects.create(account=instance.account, planet=instance)
+        Civil212.objects.create(account=instance.account, astro_object=instance)
 
-        Defense401.objects.create(planet=instance)
-        Defense402.objects.create(planet=instance)
-        Defense403.objects.create(planet=instance)
-        Defense404.objects.create(planet=instance)
-        Defense405.objects.create(planet=instance)
-        Defense406.objects.create(planet=instance)
-        Defense407.objects.create(planet=instance)
-        Defense408.objects.create(planet=instance)
-        Defense502.objects.create(planet=instance)
-        Defense503.objects.create(planet=instance)
+        Defense401.objects.create(astro_object=instance)
+        Defense402.objects.create(astro_object=instance)
+        Defense403.objects.create(astro_object=instance)
+        Defense404.objects.create(astro_object=instance)
+        Defense405.objects.create(astro_object=instance)
+        Defense406.objects.create(astro_object=instance)
+        Defense407.objects.create(astro_object=instance)
+        Defense408.objects.create(astro_object=instance)
+        Defense502.objects.create(astro_object=instance)
+        Defense503.objects.create(astro_object=instance)
+
+
+def callback_create_moon(sender, instance, created, **kwargs):
+    if created:
+        Supply22.objects.create(astro_object=instance)
+        Supply23.objects.create(astro_object=instance)
+        Supply24.objects.create(astro_object=instance)
+        Supply25.objects.create(astro_object=instance)
+        Supply26.objects.create(astro_object=instance)
+        Supply27.objects.create(astro_object=instance)
+        Station14.objects.create(astro_object=instance)
+        Station21.objects.create(astro_object=instance)
+        Station41.objects.create(astro_object=instance)
+        Station42.objects.create(astro_object=instance)
+        Station43.objects.create(astro_object=instance)
+
+        Civil212.objects.create(account=instance.planet.account, astro_object=instance)
+
+        Defense401.objects.create(astro_object=instance)
+        Defense402.objects.create(astro_object=instance)
+        Defense403.objects.create(astro_object=instance)
+        Defense404.objects.create(astro_object=instance)
+        Defense405.objects.create(astro_object=instance)
+        Defense406.objects.create(astro_object=instance)
+        Defense407.objects.create(astro_object=instance)
+        Defense408.objects.create(astro_object=instance)
+
+
+def callback_update_moon_coord(sender, instance, **kwargs):
+    try:
+        moon = Moon.objects.get(planet=instance)
+        moon.coord = instance.coord
+        moon.save()
+    except Moon.DoesNotExist:
+        pass
 
 
 # Register the callbacks
@@ -95,3 +130,13 @@ signals.post_save.connect(callback_create_planet,
     sender=Planet,
     weak=False,
     dispatch_uid='models.callback_create_planet')
+
+signals.post_save.connect(callback_update_moon_coord,
+    sender=Planet,
+    weak=False,
+    dispatch_uid='models.callback_update_moon_coord')
+
+signals.post_save.connect(callback_create_moon,
+    sender=Moon,
+    weak=False,
+    dispatch_uid='models.callback_create_moon')
