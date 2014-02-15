@@ -115,7 +115,7 @@ def planet_settings_commit(req, planet_id):
 
     planet.name = req.POST['planet_name']
     planet.coord = req.POST['planet_coord']
-    planet.min_temp = req.POST['planet_min_temp']
+    planet.max_temp = req.POST['planet_max_temp']
     planet.save()
 
     return HttpResponseRedirect(req.META['HTTP_REFERER'])

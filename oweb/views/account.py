@@ -162,7 +162,7 @@ def account_empire(req, account_id):
         tmp_planet = []
         tmp_planet.append(('planet', p.id, p.name))
         tmp_planet.append(('coord', p.coord))
-        tmp_planet.append(('temp', p.min_temp))
+        tmp_planet.append(('temp', p.max_temp))
         tmp_planet.append(('points', tmp_points[0]))
         tmp_meta.append(tmp_planet)
 

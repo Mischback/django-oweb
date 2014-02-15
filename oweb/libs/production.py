@@ -239,7 +239,7 @@ def get_planet_production(planet, speed,
     if not supply3:
         supply3 = get_object_or_404(Supply3, astro_object=planet.id)
     deut_prod = get_deuterium_production(supply3.level,
-        temp=planet.min_temp + 40,
+        temp=planet.max_temp,
         performance=supply3.performance,
         speed=speed)
 
@@ -256,7 +256,7 @@ def get_planet_production(planet, speed,
         supply4.level, supply12.level, civil212.count,
         solar_perf=supply4.performance,
         fusion_perf=supply12.performance,
-        temp=planet.min_temp + 40,
+        temp=planet.max_temp,
         speed=speed,
         energy=research113.level)
 

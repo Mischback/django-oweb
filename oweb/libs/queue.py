@@ -202,7 +202,7 @@ def get_planet_queue(planet,
         trade
     )
     # calculate current deuterium production
-    this_deut_prod = get_deuterium_production(supply3.level, temp=planet.min_temp + 40, speed=speed)
+    this_deut_prod = get_deuterium_production(supply3.level, temp=planet.max_temp, speed=speed)
     this_deut_prod_mse = get_mse(
         this_deut_prod,
         trade
@@ -213,7 +213,7 @@ def get_planet_queue(planet,
         supply4.level,
         supply12.level,
         civil212.count,
-        temp=planet.min_temp + 40,
+        temp=planet.max_temp,
         energy=research113.level,
         max_performance=True)
     planet_energy = tuple(sum(x) for x in zip(sol, fus, sat))[3]
@@ -222,7 +222,7 @@ def get_planet_queue(planet,
     planet_energy += this_deut_prod[3]
 
     # how much can one sat produce?
-    sat_prod = get_sat_production(1, temp=planet.min_temp + 40)[3]
+    sat_prod = get_sat_production(1, temp=planet.max_temp)[3]
 
     # calculate current capacity (ress per hour)
     this_capacity = get_capacity(station14.level, station15.level, speed)
@@ -303,7 +303,7 @@ def get_planet_queue(planet,
         # cost of this level
         next_cost = costs_onepointfive(supply3.base_cost, supply3.level, offset=i)
         # production of this level
-        next_deut_prod = get_deuterium_production(supply3.level + i, temp=planet.min_temp + 40, speed=speed)
+        next_deut_prod = get_deuterium_production(supply3.level + i, temp=planet.max_temp, speed=speed)
         next_deut_prod_mse = get_mse(
             next_deut_prod,
             trade
