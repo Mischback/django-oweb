@@ -146,6 +146,7 @@ def account_empire(req, account_id):
     tmp_moon = []
     tmp_defense_points = []
     tmp_building_points = []
+    moon_list = None
     for p in planets:
         tmp_points = get_planet_points(p)
         tmp_building_points.append(('plain', tmp_points[1] + tmp_points[2]))
@@ -201,23 +202,25 @@ def account_empire(req, account_id):
     tmp_defense.insert(0, [('caption', i[1].name) for i in d_list])
     tmp_defense = zip(*tmp_defense)
 
-    tmp_moon2 = []
-    moon_len = len(moon_list)
-    for i in tmp_moon:
-        if len(i) < moon_len:
-            tmp_moon2.append(list(repeat(('no_moon', 0), moon_len)))
-        else:
-            tmp_moon2.append(i)
+    if moon_list:
+        tmp_moon2 = tmp_moon
+        tmp_moon = []
+        moon_len = len(moon_list)
+        for i in tmp_moon2:
+            if len(i) < moon_len:
+                tmp_moon.append(list(repeat(('no_moon', 0), moon_len)))
+            else:
+                tmp_moon.append(i)
 
-    tmp_moon2.insert(0, [('caption', i[1].name) for i in moon_list])
-    tmp_moon2 = zip(*tmp_moon2)
+        tmp_moon.insert(0, [('caption', i[1].name) for i in moon_list])
+        tmp_moon = zip(*tmp_moon)
 
 
     empire = [
         ('Meta', tmp_meta),
         ('Buildings', tmp_buildings),
         ('Defense', tmp_defense),
-        ('Moon', tmp_moon2),
+        ('Moon', tmp_moon),
     ]
 
     return render(req, 'oweb/account_empire.html', 
