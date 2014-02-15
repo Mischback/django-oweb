@@ -111,6 +111,15 @@ def callback_create_moon(sender, instance, created, **kwargs):
         Defense408.objects.create(astro_object=instance)
 
 
+def callback_update_moon_coord(sender, instance, **kwargs):
+    try:
+        moon = Moon.objects.get(planet=instance)
+        moon.coord = instance.coord
+        moon.save()
+    except Moon.DoesNotExist:
+        pass
+
+
 # Register the callbacks
 signals.post_save.connect(callback_create_account,
     sender=Account,
@@ -121,6 +130,11 @@ signals.post_save.connect(callback_create_planet,
     sender=Planet,
     weak=False,
     dispatch_uid='models.callback_create_planet')
+
+signals.post_save.connect(callback_update_moon_coord,
+    sender=Planet,
+    weak=False,
+    dispatch_uid='models.callback_update_moon_coord')
 
 signals.post_save.connect(callback_create_moon,
     sender=Moon,
