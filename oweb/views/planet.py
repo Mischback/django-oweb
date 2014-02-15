@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 # app imports
-from oweb.models import Account, Building, Civil212, Defense, Planet, Research113, Research122, Moon
+from oweb.models import Account, Building, Civil212, Defense, Planet, Research113, Research122, Moon, Station41
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue
 from oweb.libs.points import get_planet_points
@@ -197,11 +197,20 @@ def moon_overview(req, moon_id):
 
     planets = Planet.objects.filter(account_id=moon.planet.account.id)
 
+    buildings = Building.objects.filter(astro_object=moon_id)
+    moon_fields = 0
+    for b in buildings:
+        moon_fields += b.level
+
+    base = Station41.objects.get(astro_object=moon_id)
+    moon_fields = (moon_fields, base.level * 3 + 1)
+
     return render(req, 'oweb/moon_overview.html',
         {
             'account': moon.planet.account,
             'planet': moon.planet,
             'moon': moon,
+            'moon_fields': moon_fields,
             'planets': planets,
         }
     )
