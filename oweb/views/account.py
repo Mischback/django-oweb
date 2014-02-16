@@ -6,6 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
 # app imports
+from oweb.exceptions import OWebDoesNotExist
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship, Moon
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
@@ -25,9 +26,7 @@ def account_overview(req, account_id):
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
         account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
     except AttributeError:
         return redirect(reverse('oweb:account_delete', args=account_id))
 
