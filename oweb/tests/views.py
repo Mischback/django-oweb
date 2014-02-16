@@ -15,23 +15,34 @@ class OWebViewLoginRequiredTests(OWebViewTests):
     this implementations are provided.
     """
 
-    def test_home2login(self):
+    def test_home(self):
         r = self.client.get(reverse('oweb:home'))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
-    def test_update2login(self):
+    def test_update(self):
         r = self.client.get(reverse('oweb:item_update'))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
-    def test_create_account2login(self):
+    def test_create_account(self):
         r = self.client.get(reverse('oweb:create_account'))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+
+    def test_account_settings_commit(self):
+        # TODO Needs data fixture, because it needs a valid account_id for reverse
+        # r = self.client.get(reverse('oweb:accunt_settings_commit'))
+        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+        self.assertEqual(True, True)
 
 
 class OWebViewAccountOwnerTests(OWebViewTests):
     """Tests if the account owner is checked"""
 
     def test_update(self):
+        """Can somebody update an item he doesn't posess?"""
+        # TODO insert real test here (should raise OWebAccountAccessViolation)
+        self.assertEqual(True, True)
+
+    def test_account_settings_commit(self):
         """Can somebody update an account he doesn't posess?"""
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
@@ -127,4 +138,9 @@ class OWebViewUpdatesTests(OWebViewTests):
     def test_update_create_account_redirect(self):
         """Does ``create_account()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to account_settings)
+        self.assertEqual(True, True)
+
+    def test_account_settings_commit_no_post(self):
+        """What does ``account_settings_commit()`` do, if no POST data is provided?"""
+        # TODO insert real test here (should raise OWebDoesNotExist)
         self.assertEqual(True, True)
