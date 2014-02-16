@@ -45,6 +45,12 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
         self.assertEqual(True, True)
 
+    def test_planet_delete(self):
+        # TODO Needs data fixture, because it needs a valid account_id and planet_id for reverse
+        # r = self.client.get(reverse('oweb:planet_delete'))
+        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+        self.assertEqual(True, True)
+
 
 class OWebViewAccountOwnerTests(OWebViewTests):
     """Tests if the account owner is checked"""
@@ -66,6 +72,11 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_planet_create(self):
         """Can somebody create a planet for an account he doesn't posess?"""
+        # TODO insert real test here (should raise OWebAccountAccessViolation)
+        self.assertEqual(True, True)
+
+    def test_planet_delete(self):
+        """Can somebody delete a planet for an account he doesn't posess?"""
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 
@@ -167,6 +178,11 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (should raise OWebDoesNotExist)
         self.assertEqual(True, True)
 
+    def test_account_settings_commit_post_tamper(self):
+        """What does happen, if somebody tampers POST data?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)
+
     def test_account_settings_commit_redirect(self):
         """Does ``account_settings_commit()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to account_settings)
@@ -177,6 +193,11 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (should raise OWebDoesNotExist)
         self.assertEqual(True, True)
 
+    def test_planet_settings_commit_post_tamper(self):
+        """What does happen, if somebody tampers POST data?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)
+
     def test_planet_settings_commit_redirect(self):
         """Does ``planet_settings_commit()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to planet_settings)
@@ -185,4 +206,19 @@ class OWebViewUpdatesTests(OWebViewTests):
     def test_planet_create_redirect(self):
         """Does ``planet_create()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to planet_settings of new planet)
+        self.assertEqual(True, True)
+
+    def test_planet_delete_get(self):
+        """Does a GET to ``planet_delete()`` show the confirmation template?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)
+
+    def test_planet_delete_redirect(self):
+        """Does ``planet_delete()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to account_overview)
+        self.assertEqual(True, True)
+
+    def test_planet_delete_post_tamper(self):
+        """What does happen, if somebody tampers POST data?"""
+        # TODO insert real test here
         self.assertEqual(True, True)
