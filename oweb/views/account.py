@@ -281,7 +281,7 @@ def account_research(req, account_id):
     # fetch the account and the list of planets
     try:
         research = Research.objects.select_related('account').filter(account=account_id)
-        account = planets.first().account
+        account = research.first().account
     except Planet.DoesNotExist:
         raise OWebDoesNotExist
     except AttributeError:
