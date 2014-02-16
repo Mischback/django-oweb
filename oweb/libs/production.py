@@ -14,7 +14,7 @@ a negative ``energy`` value and ``crystal`` and ``deut`` will be zero.
 from math import floor, ceil
 # app imports
 from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Civil212, Research113, Research122
-from oweb.models.shortcuts import get_object_or_404
+from oweb.libs.shortcuts import get_object_or_404
 
 def get_metal_production(level, performance=1.0, speed=1):
     """Returns the production of a metalmine with a given level
