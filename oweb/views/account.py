@@ -32,7 +32,7 @@ def account_overview(req, account_id):
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     # production
     production = []
