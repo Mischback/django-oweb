@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 # app imports
+from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation
 from oweb.models import Account, Building, Defense, Planet, Research, Ship, Moon
 from oweb.libs.shortcuts import get_object_or_404
 
