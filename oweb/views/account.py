@@ -251,15 +251,15 @@ def account_settings(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     return render(req, 'oweb/account_settings.html', 
         {
@@ -281,15 +281,15 @@ def account_research(req, account_id):
     # fetch the account and the list of planets
     try:
         research = Research.objects.select_related('account').filter(account=account_id)
-        account = research[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planets = get_list_or_404(Planet, account=account_id)
 
@@ -314,15 +314,15 @@ def account_ships(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     sat_id = ContentType.objects.get(model='civil212').id
 
