@@ -47,7 +47,7 @@ def item_update(req):
 
     # check, if the objects account is actually owned by the current user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     if not int(item_level) < 0:
         if isinstance(obj, Ship) or isinstance(obj, Defense):
@@ -108,11 +108,11 @@ def planet_settings_commit(req, planet_id):
     try:
         planet = Planet.objects.select_related('account').get(id=planet_id)
     except Planet.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planet.name = req.POST['planet_name']
     planet.coord = req.POST['planet_coord']
@@ -134,7 +134,7 @@ def planet_create(req, account_id):
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     tmp_name = hashlib.md5(str(datetime.now))
     Planet.objects.create(account=account, name=tmp_name)
@@ -158,7 +158,7 @@ def planet_delete(req, account_id, planet_id):
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     if 'confirm' == req.POST.get('confirm_planet_deletion'):
         planet.delete()
@@ -184,7 +184,7 @@ def account_delete(req, account_id):
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     if 'confirm' == req.POST.get('confirm_account_deletion'):
         account.delete()
@@ -209,7 +209,7 @@ def moon_create(req, planet_id):
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     try:
         moon = Moon.objects.get(planet=planet)
@@ -236,11 +236,11 @@ def moon_settings_commit(req, moon_id):
     try:
         moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
     except Moon.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == moon.planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     moon.name = req.POST['moon_name']
     moon.save()
@@ -259,13 +259,13 @@ def moon_delete(req, moon_id):
     try:
         moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
     except Moon.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
 
     planet = moon.planet
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == moon.planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     if 'confirm' == req.POST.get('confirm_moon_deletion'):
         moon.delete()
