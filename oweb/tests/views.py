@@ -29,7 +29,13 @@ class OWebViewLoginRequiredTests(OWebViewTests):
 
     def test_account_settings_commit(self):
         # TODO Needs data fixture, because it needs a valid account_id for reverse
-        # r = self.client.get(reverse('oweb:accunt_settings_commit'))
+        # r = self.client.get(reverse('oweb:account_settings_commit'))
+        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+        self.assertEqual(True, True)
+
+    def test_planet_settings_commit(self):
+        # TODO Needs data fixture, because it needs a valid planet_id for reverse
+        # r = self.client.get(reverse('oweb:planet_settings_update'))
         # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
         self.assertEqual(True, True)
 
@@ -47,6 +53,11 @@ class OWebViewAccountOwnerTests(OWebViewTests):
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 
+    def test_planet_settings_commit(self):
+        """Can somebody update a planet he doesn't posess?"""
+        # TODO insert real test here (should raise OWebAccountAccessViolation)
+        self.assertEqual(True, True)
+
 
 class OWebViewBasicTests(OWebViewTests):
     """Tests for views in views/basic.py"""
@@ -60,17 +71,17 @@ class OWebViewBasicTests(OWebViewTests):
 class OWebViewUpdatesTests(OWebViewTests):
     """Tests for views in views/updates.py"""
 
-    def test_update_no_post(self):
+    def test_item_update_no_post(self):
         """What does ``item_update()`` do, if no POST data is provided?"""
         # TODO insert real test here (should raise OWebDoesNotExist)
         self.assertEqual(True, True)
 
-    def test_update_redirect(self):
+    def test_item_update_redirect(self):
         """Does ``item_update()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to referer)
         self.assertEqual(True, True)
 
-    def test_update_research_update(self):
+    def test_item_update_research_update(self):
         """Does ``item_update()`` correctly update researches?
         
         Basically the Django ORM can be trusted, but since there is some logic
@@ -80,7 +91,7 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
-    def test_update_ship_update(self):
+    def test_item_update_ship_update(self):
         """Does ``item_update()`` correctly update ships?
         
         Basically the Django ORM can be trusted, but since there is some logic
@@ -90,7 +101,7 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
-    def test_update_building_update(self):
+    def test_item_update_building_update(self):
         """Does ``item_update()`` correctly update buildings?
         
         Basically the Django ORM can be trusted, but since there is some logic
@@ -100,7 +111,7 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
-    def test_update_moon_building_update(self):
+    def test_item_update_moon_building_update(self):
         """Does ``item_update()`` correctly update moon buildings?
         
         Basically the Django ORM can be trusted, but since there is some logic
@@ -110,7 +121,7 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
-    def test_update_defense_update(self):
+    def test_item_update_defense_update(self):
         """Does ``item_update()`` correctly update defense devices?
         
         Basically the Django ORM can be trusted, but since there is some logic
@@ -120,7 +131,7 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
-    def test_update_moon_defense_update(self):
+    def test_item_update_moon_defense_update(self):
         """Does ``item_update()`` correctly update moon defense devices?
         
         Basically the Django ORM can be trusted, but since there is some logic
@@ -130,12 +141,12 @@ class OWebViewUpdatesTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
-    def test_update_unknown_item_type(self):
+    def test_item_update_unknown_item_type(self):
         """Does ``item_update()`` correctly handle unknown item_types?"""
         # TODO insert real test here (should raise OWebDoesNotExist)
         self.assertEqual(True, True)
 
-    def test_update_create_account_redirect(self):
+    def test_create_account_redirect(self):
         """Does ``create_account()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to account_settings)
         self.assertEqual(True, True)
@@ -143,4 +154,19 @@ class OWebViewUpdatesTests(OWebViewTests):
     def test_account_settings_commit_no_post(self):
         """What does ``account_settings_commit()`` do, if no POST data is provided?"""
         # TODO insert real test here (should raise OWebDoesNotExist)
+        self.assertEqual(True, True)
+
+    def test_account_settings_commit_redirect(self):
+        """Does ``account_settings_commit()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to account_settings)
+        self.assertEqual(True, True)
+
+    def test_planet_settings_commit_no_post(self):
+        """What does ``planet_settings_commit()`` do, if no POST data is provided?"""
+        # TODO insert real test here (should raise OWebDoesNotExist)
+        self.assertEqual(True, True)
+
+    def test_planet_settings_commit_redirect(self):
+        """Does ``planet_settings_commit()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to account_settings)
         self.assertEqual(True, True)
