@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, redirect
 # app imports
 from oweb.models import Account, Building, Defense, Planet, Research, Ship
 
+
 def item_update(req):
     """Generic function to update items
 
