@@ -1,3 +1,4 @@
+"""Contains all views, that actually alters the database"""
 # Django imports
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
@@ -6,7 +7,10 @@ from django.shortcuts import get_object_or_404, redirect
 from oweb.models import Account, Building, Defense, Planet, Research, Ship
 
 def item_update(req):
-    """todo Documentation still missing!"""
+    """Generic function to update items
+
+    Items are :py:class:`Building`, :py:class:`Research`, :py:class:`Ship`
+    and :py:class:`Defense`"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -50,7 +54,7 @@ def item_update(req):
 
 
 def create_account(req):
-    """todo Documentation still missing!"""
+    """Creates an :py:class:`Account`"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -66,7 +70,7 @@ def create_account(req):
 
 
 def account_settings_commit(req, account_id):
-    """todo Documentation still missing!"""
+    """Commits the account's settings"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -87,7 +91,7 @@ def account_settings_commit(req, account_id):
 
 
 def planet_settings_commit(req, planet_id):
-    """todo Documentation still missing!"""
+    """Commits the planet's settings"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -113,7 +117,7 @@ def planet_settings_commit(req, planet_id):
 
 
 def planet_create(req, account_id):
-    """todo Documentation still missing!"""
+    """Creates a :py:class:`Planet`"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.

@@ -1,3 +1,4 @@
+"""Contains all account related views"""
 # Python imports
 from itertools import chain, izip_longest
 # Django imports
@@ -10,9 +11,9 @@ from oweb.models import Account, Building, Civil212, Defense, Planet, Research, 
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
 
+
 def account_overview(req, account_id):
-    """
-    """
+    """Provides the account overview"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -43,19 +44,18 @@ def account_overview(req, account_id):
     queue.sort()
     queue = queue[:20]
 
-    return render(req, 'oweb/account_overview.html', 
-        {
-            'account': account,
-            'planets': planets,
-            'production': production,
-            'queue': queue,
-        }
+    return render(req, 'oweb/account_overview.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                      'production': production,
+                      'queue': queue,
+                  }
     )
 
 
 def account_empire(req, account_id):
-    """
-    """
+    """Provides the empire view"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -87,7 +87,7 @@ def account_empire(req, account_id):
     building_list = []
     defense_list = []
 
-    m =['Name', 'Coords', 'Temperature']
+    m = ['Name', 'Coords', 'Temperature']
     meta_list.append(izip_longest([], m, fillvalue='plain'))
     b = buildings.filter(planet_id=planets[0].id).values_list('name', flat=True)
     s = sats.filter(planet_id=planets[0].id).values_list('name', flat=True)
@@ -118,18 +118,17 @@ def account_empire(req, account_id):
         ['Defense', zip(*defense_list)],
     ]
 
-    return render(req, 'oweb/account_empire.html', 
-        {
-            'account': account,
-            'planets': planets,
-            'empire': empire,
-        }
+    return render(req, 'oweb/account_empire.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                      'empire': empire,
+                  }
     )
 
 
 def account_settings(req, account_id):
-    """
-    """
+    """Provides the account settings"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -149,17 +148,16 @@ def account_settings(req, account_id):
     if not req.user.id == account.owner_id:
         raise Http404
 
-    return render(req, 'oweb/account_settings.html', 
-        {
-            'account': account,
-            'planets': planets,
-        }
+    return render(req, 'oweb/account_settings.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                  }
     )
 
 
 def account_research(req, account_id):
-    """
-    """
+    """Provides the research overview"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -181,18 +179,17 @@ def account_research(req, account_id):
 
     planets = get_list_or_404(Planet, account=account_id)
 
-    return render(req, 'oweb/account_research.html', 
-        {
-            'account': account,
-            'planets': planets,
-            'research': research,
-        }
+    return render(req, 'oweb/account_research.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                      'research': research,
+                  }
     )
 
 
 def account_ships(req, account_id):
-    """
-    """
+    """Provides the ship overview"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -216,10 +213,10 @@ def account_ships(req, account_id):
 
     ships = Ship.objects.filter(account_id=account_id).exclude(content_type_id=sat_id)
 
-    return render(req, 'oweb/account_ships.html', 
-        {
-            'account': account,
-            'planets': planets,
-            'ships': ships,
-        }
+    return render(req, 'oweb/account_ships.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                      'ships': ships,
+                  }
     )
