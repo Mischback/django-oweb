@@ -1,3 +1,4 @@
+"""Contains all planet related views"""
 # Python imports
 from datetime import datetime
 import hashlib
@@ -15,8 +16,7 @@ from oweb.libs.shortcuts import get_list_or_404, get_object_or_404
 
 
 def planet_overview(req, planet_id):
-    """
-    """
+    """Provides the planet overview"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -51,22 +51,21 @@ def planet_overview(req, planet_id):
     points = get_planet_points(planet)
 
     return render(req, 'oweb/planet_overview.html',
-        {
-            'account': planet.account,
-            'planet': planet,
-            'moon': moon,
-            'planets': planets,
-            'planet_fields': planet_fields,
-            'production': production,
-            'queue': queue,
-            'points': points,
-        }
+                  {
+                      'account': planet.account,
+                      'planet': planet,
+                      'moon': moon,
+                      'planets': planets,
+                      'planet_fields': planet_fields,
+                      'production': production,
+                      'queue': queue,
+                      'points': points,
+                  }
     )
 
 
 def planet_settings(req, planet_id):
-    """
-    """
+    """Provides the planet settings"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -90,19 +89,18 @@ def planet_settings(req, planet_id):
     planets = Planet.objects.filter(account_id=planet.account.id)
 
     return render(req, 'oweb/planet_settings.html',
-        {
-            'account': planet.account,
-            'planet': planet,
-            'moon': moon,
-            'planets': planets,
-            'planets_url': 'oweb:planet_settings',
-        }
+                  {
+                      'account': planet.account,
+                      'planet': planet,
+                      'moon': moon,
+                      'planets': planets,
+                      'planets_url': 'oweb:planet_settings',
+                  }
     )
 
 
 def planet_buildings(req, planet_id):
-    """
-    """
+    """Provides the planet buildings"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -128,23 +126,22 @@ def planet_buildings(req, planet_id):
     solarsat = get_object_or_404(Civil212, astro_object=planet_id)
 
     return render(req, 'oweb/planet_buildings.html',
-        {
-            'account': planet.account,
-            'planet': planet,
-            'moon': moon,
-            'planets': planets,
-            'planets_url': 'oweb:planet_buildings',
-            'buildings': buildings,
-            'solarsat': solarsat,
-            'True': True,
-            'False': False,
-        }
+                  {
+                      'account': planet.account,
+                      'planet': planet,
+                      'moon': moon,
+                      'planets': planets,
+                      'planets_url': 'oweb:planet_buildings',
+                      'buildings': buildings,
+                      'solarsat': solarsat,
+                      'True': True,
+                      'False': False,
+                  }
     )
 
 
 def planet_defense(req, planet_id):
-    """
-    """
+    """Provides the planet defense"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.

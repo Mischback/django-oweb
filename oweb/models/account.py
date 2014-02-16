@@ -30,21 +30,20 @@ class Account(models.Model):
     trade_metal = models.IntegerField(default=3)
     """The trading rate for metal
     
-    Of couse, this is no *rate* by itsself. The trading rate is calculated in
+    Of course, this is no *rate* by itself. The trading rate is calculated in
     combination with ``trade_crystal`` and ``trade_deut``"""
 
     trade_crystal = models.IntegerField(default=2)
     """The trading rate for crystal
     
-    Of couse, this is no *rate* by itsself. The trading rate is calculated in
+    Of course, this is no *rate* by itself. The trading rate is calculated in
     combination with ``trade_metal`` and ``trade_deut``"""
 
     trade_deut = models.IntegerField(default=1)
     """The trading rate for deuterium
     
-    Of couse, this is no *rate* by itsself. The trading rate is calculated in
+    Of course, this is no *rate* by itself. The trading rate is calculated in
     combination with ``trade_metal`` and ``trade_crystal``"""
-
 
     def __unicode__(self):
         return 'Account {0} ({1})'.format(self.username, self.universe)

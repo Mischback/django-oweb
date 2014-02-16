@@ -1,3 +1,4 @@
+"""Contains general views"""
 # Django imports
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
@@ -5,7 +6,7 @@ from django.shortcuts import render, redirect
 from oweb.models import Account
 
 def home(req):
-    """todo Documentation still missing!"""
+    """Provides the home view"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.

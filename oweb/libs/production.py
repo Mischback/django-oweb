@@ -13,11 +13,11 @@ a negative ``energy`` value and ``crystal`` and ``deut`` will be zero.
 # Python imports
 from math import floor, ceil
 # app imports
-from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Civil212, Research113, Research122
+from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Civil212, Research113, Research122, Station14, Station15
 from oweb.libs.shortcuts import get_object_or_404
 
 def get_metal_production(level, performance=1.0, speed=1):
-    """Returns the production of a metalmine with a given level
+    """Returns the production of a metal mine with a given level
 
     :param level: The level of the building
     :type level: int
@@ -30,11 +30,11 @@ def get_metal_production(level, performance=1.0, speed=1):
     production = floor(30 * level * 1.1 ** level * performance * speed)
     energy = ceil(10 * level * 1.1 ** level * performance)
 
-    return (production, 0, 0, -energy)
+    return production, 0, 0, -energy
 
 
 def get_crystal_production(level, performance=1.0, speed=1):
-    """Returns the production of a crystalmine with a given level
+    """Returns the production of a crystal mine with a given level
 
     :param level: The level of the building
     :type level: int
@@ -47,11 +47,11 @@ def get_crystal_production(level, performance=1.0, speed=1):
     production = floor(20 * level * 1.1 ** level * performance * speed)
     energy = ceil(10 * level * 1.1 ** level * performance)
 
-    return (0, production, 0, -energy)
+    return 0, production, 0, -energy
 
 
 def get_deuterium_production(level, temp=0, performance=1.0, speed=1):
-    """Returns the production of a crystalmine with a given level
+    """Returns the production of a crystal mine with a given level
 
     :param level: The level of the building
     :type level: int
@@ -66,7 +66,7 @@ def get_deuterium_production(level, temp=0, performance=1.0, speed=1):
     production = floor(10 * level * 1.1 ** level * (1.44 - 0.004 * temp) * performance * speed)
     energy = ceil(20 * level * 1.1 ** level * performance)
 
-    return (0, 0, production, -energy)
+    return 0, 0, production, -energy
 
 
 def get_solar_production(level, performance=1.0):
@@ -80,7 +80,7 @@ def get_solar_production(level, performance=1.0):
     """
     production = round(floor(20 * level * 1.1 ** level) * performance)
 
-    return (0, 0, 0, production)
+    return 0, 0, 0, production
 
 
 def get_fusion_production(level, performance=1.0, speed=1, energy=3):
@@ -99,7 +99,7 @@ def get_fusion_production(level, performance=1.0, speed=1, energy=3):
     production = round(floor(30 * level * (1.05 + energy * 0.01) ** level) * performance)
     consumption = ceil(10 * level * 1.1 ** level * performance) * speed
 
-    return (0, 0, -consumption, production)
+    return 0, 0, -consumption, production
 
 
 def get_sat_production(count, temp=0):
@@ -113,15 +113,15 @@ def get_sat_production(count, temp=0):
     """
     production = round(floor((temp + 140) / 6) * count)
 
-    return (0, 0, 0, production)
+    return 0, 0, 0, production
 
 
 def get_energy_production(solar_level, fusion_level, sat_count,
-    solar_perf=1.0, fusion_perf=1.0,
-    temp=0,
-    speed=1,
-    energy=3,
-    max_performance=False):
+                          solar_perf=1.0, fusion_perf=1.0,
+                          temp=0,
+                          speed=1,
+                          energy=3,
+                          max_performance=False):
     """Returns the energy productions of a given set of buildings and sats
 
     :param solar_level: The level of the solar plant
@@ -175,18 +175,18 @@ def get_plasma_bonus(plasma_level, metal, crystal):
     metalbonus = floor(metal * 0.01 * plasma_level)
     crystalbonus = floor(crystal * 0.0066 * plasma_level)
 
-    return (metalbonus, crystalbonus, 0, 0)
+    return metalbonus, crystalbonus, 0, 0
 
 
 def get_planet_production(planet, speed,
-    supply1=None,
-    supply2=None,
-    supply3=None, 
-    supply4=None,
-    supply12=None,
-    civil212=None,
-    research113=None,
-    research122=None):
+                          supply1=None,
+                          supply2=None,
+                          supply3=None,
+                          supply4=None,
+                          supply12=None,
+                          civil212=None,
+                          research113=None,
+                          research122=None):
     """Returns the total production of a Planet
 
     :param planet: The planet in question
@@ -213,34 +213,33 @@ def get_planet_production(planet, speed,
     Most of the parameters of this function are optional, but necessary. If
     they are not specified while calling this function, they will be fetched.
 
-    Performancewise it is useful to provide these values, because it will save
-    database queries. The queries made within this function are in no way
+    For the performance it is useful to provide these values, because it will
+    save database queries. The queries made within this function are in no way
     efficient. Every item is fetched on its own.
     """
-    prod = []
 
     # get production of the mines
     # Metal
     if not supply1:
         supply1 = get_object_or_404(Supply1, astro_object=planet.id)
     metal_prod = get_metal_production(supply1.level,
-        performance=supply1.performance,
-        speed=speed)
+                                      performance=supply1.performance,
+                                      speed=speed)
 
     # Crystal
     if not supply2:
         supply2 = get_object_or_404(Supply2, astro_object=planet.id)
     crystal_prod = get_crystal_production(supply2.level,
-        performance=supply2.performance,
-        speed=speed)
+                                          performance=supply2.performance,
+                                          speed=speed)
 
     # Deut
     if not supply3:
         supply3 = get_object_or_404(Supply3, astro_object=planet.id)
     deut_prod = get_deuterium_production(supply3.level,
-        temp=planet.max_temp,
-        performance=supply3.performance,
-        speed=speed)
+                                         temp=planet.max_temp,
+                                         performance=supply3.performance,
+                                         speed=speed)
 
     # get energy production
     if not supply4:
@@ -278,7 +277,7 @@ def get_planet_production(planet, speed,
 
 
 def get_planet_capacity(planet, speed=None):
-    """Returns the planet's capacity, which means: How many ressources can be used in one hour
+    """Returns the planet's capacity, which means: How many resources can be used in one hour
 
     :param planet: The planet in question
     :type planet: Planet object
@@ -288,7 +287,7 @@ def get_planet_capacity(planet, speed=None):
 
     This function will fetch the relevant objects (Nani and Robo) on its own.
 
-    Please note that the capacity is returned in total ressources, not MSE.
+    Please note that the capacity is returned in total resources, not MSE.
     """
     if not speed:
         speed = planet.account.speed
@@ -310,4 +309,4 @@ def get_capacity(robo, nani, speed):
     :type speed: int
     :returns: int -- The capacity of this combination
     """
-    return (2500 * speed * (1 + robo) * 2 ** nani)
+    return 2500 * speed * (1 + robo) * 2 ** nani

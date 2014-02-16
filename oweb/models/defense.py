@@ -3,12 +3,12 @@
 # Django stuff
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-
-# Advisor stuff
+# app stuff
 from oweb.models.planet import AstronomicalObject
 
 
 class Defense(models.Model):
+    """Base class for all defenses"""
 
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
     """meta variable to determine the "real" type of an instance """
@@ -26,16 +26,17 @@ class Defense(models.Model):
     """The costs per piece"""
 
     def get_cost(self):
+        """Returns the cost of this device"""
         return self.cost
 
     def save(self, *args, **kwargs):
-        """Overwrites the Models save()-method to store the *real* class"""
+        """Overwrites the Models ``save()``-method to store the *real* class"""
         if not self.content_type:
             self.content_type = ContentType.objects.get_for_model(self.__class__)
         self.save_base()
 
     def as_real_class(self):
-        """Access the "real" class methods"""
+        """Access the *real* class methods"""
         model = self.content_type.model_class()
         if model == Defense:
             return self

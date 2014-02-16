@@ -1,3 +1,5 @@
+"""Contains signals"""
+
 # Django imports
 from django.db.models import signals
 # app imports
@@ -7,9 +9,9 @@ from oweb.models.ship import *
 from oweb.models.building import *
 from oweb.models.defense import *
 
+
 def callback_create_account(sender, instance, created, **kwargs):
-    """
-    """
+    """Creates :py:class:`Research` and :py:class:`Ship` objects after account creation"""
     if created:
         Research106.objects.create(account=instance)
         Research108.objects.create(account=instance)
@@ -46,11 +48,8 @@ def callback_create_account(sender, instance, created, **kwargs):
 
 
 def callback_create_planet(sender, instance, created, **kwargs):
-    """
-    @brief  Callback function to be executed after Planet creation
-
-    Basically this function adds buildings to the planet
-    """
+    """Creates :py:class:`Building`, :py:class:`Defense` and
+    :py:class:`Civil212` objects after planet creation"""
     if created:
         Supply1.objects.create(astro_object=instance)
         Supply2.objects.create(astro_object=instance)
@@ -122,21 +121,21 @@ def callback_update_moon_coord(sender, instance, **kwargs):
 
 # Register the callbacks
 signals.post_save.connect(callback_create_account,
-    sender=Account,
-    weak=False,
-    dispatch_uid='models.callback_create_account')
+                          sender=Account,
+                          weak=False,
+                          dispatch_uid='models.callback_create_account')
 
 signals.post_save.connect(callback_create_planet,
-    sender=Planet,
-    weak=False,
-    dispatch_uid='models.callback_create_planet')
+                          sender=Planet,
+                          weak=False,
+                          dispatch_uid='models.callback_create_planet')
 
 signals.post_save.connect(callback_update_moon_coord,
-    sender=Planet,
-    weak=False,
-    dispatch_uid='models.callback_update_moon_coord')
+                          sender=Planet,
+                          weak=False,
+                          dispatch_uid='models.callback_update_moon_coord')
 
 signals.post_save.connect(callback_create_moon,
-    sender=Moon,
-    weak=False,
-    dispatch_uid='models.callback_create_moon')
+                          sender=Moon,
+                          weak=False,
+                          dispatch_uid='models.callback_create_moon')

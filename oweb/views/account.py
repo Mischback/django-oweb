@@ -1,3 +1,4 @@
+"""Contains all account related views"""
 # Python imports
 from itertools import chain, izip_longest, repeat
 # Django imports
@@ -13,9 +14,9 @@ from oweb.libs.queue import get_planet_queue, get_plasma_queue
 from oweb.libs.points import get_planet_points, get_ship_points, get_research_points
 from oweb.libs.shortcuts import get_object_or_404, get_list_or_404
 
+
 def account_overview(req, account_id):
-    """
-    """
+    """Provides the account overview"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -126,8 +127,7 @@ def account_overview(req, account_id):
 
 
 def account_empire(req, account_id):
-    """
-    """
+    """Provides the empire view"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -230,18 +230,17 @@ def account_empire(req, account_id):
         ('Moon', tmp_moon),
     ]
 
-    return render(req, 'oweb/account_empire.html', 
-        {
-            'account': account,
-            'planets': planets,
-            'empire': empire,
-        }
+    return render(req, 'oweb/account_empire.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                      'empire': empire,
+                  }
     )
 
 
 def account_settings(req, account_id):
-    """
-    """
+    """Provides the account settings"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -261,17 +260,16 @@ def account_settings(req, account_id):
     if not req.user.id == account.owner_id:
         raise OWebAccountAccessViolation
 
-    return render(req, 'oweb/account_settings.html', 
-        {
-            'account': account,
-            'planets': planets,
-        }
+    return render(req, 'oweb/account_settings.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                  }
     )
 
 
 def account_research(req, account_id):
-    """
-    """
+    """Provides the research overview"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -293,18 +291,17 @@ def account_research(req, account_id):
 
     planets = get_list_or_404(Planet, account=account_id)
 
-    return render(req, 'oweb/account_research.html', 
-        {
-            'account': account,
-            'planets': planets,
-            'research': research,
-        }
+    return render(req, 'oweb/account_research.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                      'research': research,
+                  }
     )
 
 
 def account_ships(req, account_id):
-    """
-    """
+    """Provides the ship overview"""
     # this is the non-decorator version of the login_required decorator
     # basically it checks, if the user is authenticated and redirects him, if
     # not. The decorator could not handle the reverse url-resolution.
@@ -328,10 +325,10 @@ def account_ships(req, account_id):
 
     ships = Ship.objects.filter(account_id=account_id).exclude(content_type_id=sat_id)
 
-    return render(req, 'oweb/account_ships.html', 
-        {
-            'account': account,
-            'planets': planets,
-            'ships': ships,
-        }
+    return render(req, 'oweb/account_ships.html',
+                  {
+                      'account': account,
+                      'planets': planets,
+                      'ships': ships,
+                  }
     )
