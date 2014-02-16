@@ -1,9 +1,8 @@
-# Django imports
-from django.shortcuts import get_object_or_404
 # app imports
 from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Station14, Station15, Civil212, Research113, Research122
 from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production, get_plasma_bonus, get_capacity, get_sat_production, get_energy_production
 from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_onepointeight, costs_two
+from oweb.libs.shortcuts import get_object_or_404
 
 
 def get_mse(ressources, trade):

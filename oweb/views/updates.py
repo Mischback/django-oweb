@@ -4,9 +4,10 @@ import hashlib
 # Django imports
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 # app imports
 from oweb.models import Account, Building, Defense, Planet, Research, Ship, Moon
+from oweb.libs.shortcuts import get_object_or_404
 
 def item_update(req):
     """todo Documentation still missing!"""

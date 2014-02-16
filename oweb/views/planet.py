@@ -4,12 +4,13 @@ import hashlib
 # Django imports
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 # app imports
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research113, Research122, Moon, Station41
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue
 from oweb.libs.points import get_planet_points
+from oweb.libs.shortcuts import get_list_or_404, get_object_or_404
 
 
 def planet_overview(req, planet_id):
