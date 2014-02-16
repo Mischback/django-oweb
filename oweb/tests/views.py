@@ -8,14 +8,23 @@ class OWebViewTests(TestCase):
 
 
 class OWebViewLoginRequiredTests(OWebViewTests):
-    """Tests for the required login"""
+    """Tests for the required login
+    
+    Most views do require a login, but because of certain conditions, 
+    the Django decorator is not used by this app. Therefore test cases for
+    this implementations are provided.
+    """
 
     def test_home2login(self):
         r = self.client.get(reverse('oweb:home'))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_update2login(self):
-        r = self.client.get(reverse('oweb:home'))
+        r = self.client.get(reverse('oweb:item_update'))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+
+    def test_create_account2login(self):
+        r = self.client.get(reverse('oweb:create_account'))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
 
@@ -51,36 +60,71 @@ class OWebViewUpdatesTests(OWebViewTests):
         self.assertEqual(True, True)
 
     def test_update_research_update(self):
-        """Does ``item_update()`` correctly update researches?"""
+        """Does ``item_update()`` correctly update researches?
+        
+        Basically the Django ORM can be trusted, but since there is some logic
+        involved in determine the correct field to update, this test is
+        included
+        """
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
     def test_update_ship_update(self):
-        """Does ``item_update()`` correctly update ships?"""
+        """Does ``item_update()`` correctly update ships?
+        
+        Basically the Django ORM can be trusted, but since there is some logic
+        involved in determine the correct field to update, this test is
+        included
+        """
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
     def test_update_building_update(self):
-        """Does ``item_update()`` correctly update buildings?"""
+        """Does ``item_update()`` correctly update buildings?
+        
+        Basically the Django ORM can be trusted, but since there is some logic
+        involved in determine the correct field to update, this test is
+        included
+        """
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
     def test_update_moon_building_update(self):
-        """Does ``item_update()`` correctly update moon buildings?"""
+        """Does ``item_update()`` correctly update moon buildings?
+        
+        Basically the Django ORM can be trusted, but since there is some logic
+        involved in determine the correct field to update, this test is
+        included
+        """
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
     def test_update_defense_update(self):
-        """Does ``item_update()`` correctly update defense devices?"""
+        """Does ``item_update()`` correctly update defense devices?
+        
+        Basically the Django ORM can be trusted, but since there is some logic
+        involved in determine the correct field to update, this test is
+        included
+        """
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
     def test_update_moon_defense_update(self):
-        """Does ``item_update()`` correctly update moon defense devices?"""
+        """Does ``item_update()`` correctly update moon defense devices?
+        
+        Basically the Django ORM can be trusted, but since there is some logic
+        involved in determine the correct field to update, this test is
+        included
+        """
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(True, True)
 
     def test_update_unknown_item_type(self):
         """Does ``item_update()`` correctly handle unknown item_types?"""
         # TODO insert real test here (should raise OWebDoesNotExist)
+        self.assertEqual(True, True)
+
+    def test_update_create_account_redirect(self):
+        """Does ``create_account()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to account_settings)
         self.assertEqual(True, True)
