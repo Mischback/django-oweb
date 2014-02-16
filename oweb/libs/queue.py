@@ -3,31 +3,30 @@ from django.shortcuts import get_object_or_404
 # app imports
 from oweb.models import Supply1, Supply2, Supply3, Supply4, Supply12, Station14, Station15, Civil212, Research113, Research122
 from oweb.libs.production import get_metal_production, get_crystal_production, get_deuterium_production, get_plasma_bonus, get_capacity, get_sat_production, get_energy_production
-from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_onepointeight, costs_two
+from oweb.libs.costs import costs_onepointfive, costs_onepointsix, costs_two
 
 
-def get_mse(ressources, trade):
-    """Returns the equivalent of a given ressource tupel
+def get_mse(resources, trade):
+    """Returns the equivalent of a given resource tuple
 
-    :param ressources: A ressource tuple
-    :type ressources: tuple
+    :param resources: A resource tuple
+    :type resources: tuple
     :param trade: A tuple with the account's trading rates
     :type trade: tuple
-    :returns: int -- ressources in MSE
+    :returns: int -- resources in MSE
     """
-    mse = ressources[0]
-    mse = mse + (trade[0] / float(trade[1]) * ressources[1])
-    mse = mse + (trade[0] / float(trade[2]) * ressources[2])
+    mse = resources[0]
+    mse = mse + (trade[0] / float(trade[1]) * resources[1])
+    mse = mse + (trade[0] / float(trade[2]) * resources[2])
 
     return int(mse)
 
 
 def queue_item(id, name, level,
-    next_cost, next_prod, this_prod, trade,
-    this_capacity, next_capacity, next_cap_cost, next_cap_time,
-    required_energy, required_sats,
-    planet
-    ):
+               next_cost, next_prod, this_prod, trade,
+               this_capacity, next_capacity, next_cap_cost, next_cap_time,
+               required_energy, required_sats,
+               planet):
     """Returns a queue item, which is a tuple of related values in a specific order
     
     :param id: The ID of this item
@@ -36,7 +35,7 @@ def queue_item(id, name, level,
     :type name: string
     :param level: The level of this item
     :type level: int
-    :param next_cost: The ressource tuple with the items costs
+    :param next_cost: The resource tuple with the items costs
     :type next_cost: tuple
     :param next_prod: This items production in MSE
     :type next_prod: int
@@ -99,31 +98,31 @@ def queue_item(id, name, level,
         required_sats = 0
 
     return (score,
-        required_sats,
-        this_build_time,
-        need_capacity,
-        {
-            'id': id,
-            'name': name, 
-            'level': level,
-            'gain': gain,
-            'required_energy': -1 * required_energy,
-            'planet': planet,
-        })
+            required_sats,
+            this_build_time,
+            need_capacity,
+            {
+                'id': id,
+                'name': name,
+                'level': level,
+                'gain': gain,
+                'required_energy': -1 * required_energy,
+                'planet': planet,
+            })
 
 
 def get_planet_queue(planet,
-    speed=None, 
-    trade=None,
-    supply1=None,
-    supply2=None,
-    supply3=None,
-    supply4=None,
-    supply12=None,
-    station14=None,
-    station15=None,
-    civil212=None,
-    research113=None):
+                     speed=None,
+                     trade=None,
+                     supply1=None,
+                     supply2=None,
+                     supply3=None,
+                     supply4=None,
+                     supply12=None,
+                     station14=None,
+                     station15=None,
+                     civil212=None,
+                     research113=None):
     """Returns the queue for a given planet
 
     :param planet: The planet in question
