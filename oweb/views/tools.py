@@ -4,14 +4,16 @@ from math import ceil
 # Django imports
 from django.core.urlresolvers import reverse
 from django.http import Http404
-from django.shortcuts import redirect, render, get_list_or_404, get_object_or_404
+from django.shortcuts import redirect, render
 # app imports
+from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation
 from oweb.models.planet import Planet
 from oweb.models.building import Supply12
 from oweb.models.research import Research113
 from oweb.libs.production import get_fusion_production
 from oweb.libs.costs import costs_onepointeight_total, costs_two_total
 from oweb.libs.queue import get_mse
+from oweb.libs.shortcuts import get_list_or_404, get_object_or_404
 
 def tools_energy(req, account_id, energy_level=None, fusion_level=None):
     """Shows some energy related information"""
@@ -26,11 +28,13 @@ def tools_energy(req, account_id, energy_level=None, fusion_level=None):
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
         account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planet_ids = planets.values_list('id', flat=True)
 

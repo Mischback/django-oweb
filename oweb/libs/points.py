@@ -1,11 +1,10 @@
-# Django imports
-from django.shortcuts import get_list_or_404
 # app imports
 from oweb.models.planet import Moon
 from oweb.models.building import Building, Supply1, Supply2, Supply3, Supply4, Supply12
 from oweb.models.defense import Defense
 from oweb.models.ship import Ship, Civil202, Civil203, Civil208, Civil210, Civil212
 from oweb.models.research import Research
+from oweb.libs.shortcuts import get_list_or_404
 
 def get_planet_points(planet):
     buildings = get_list_or_404(Building, astro_object=planet)

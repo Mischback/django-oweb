@@ -4,12 +4,14 @@ import hashlib
 # Django imports
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 # app imports
+from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research113, Research122, Moon, Station41
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue
 from oweb.libs.points import get_planet_points
+from oweb.libs.shortcuts import get_list_or_404, get_object_or_404
 
 
 def planet_overview(req, planet_id):
@@ -25,11 +27,11 @@ def planet_overview(req, planet_id):
     try:
         planet = Planet.objects.select_related('account').get(id=planet_id)
     except Planet.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     try:
         moon = Moon.objects.get(planet=planet.id)
@@ -75,11 +77,11 @@ def planet_settings(req, planet_id):
     try:
         planet = Planet.objects.select_related('account').get(id=planet_id)
     except Planet.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     try:
         moon = Moon.objects.get(planet=planet.id)
@@ -111,12 +113,12 @@ def planet_buildings(req, planet_id):
     try:
         buildings = Building.objects.select_related('astro_object', 'astro_object__account').filter(astro_object=planet_id)
         planet = buildings.first().astro_object.as_real_class()
-    except Planet.DoesNotExist:
-        raise Http404
+    except Building.DoesNotExist:
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     try:
         moon = Moon.objects.get(planet=planet.id)
@@ -153,12 +155,12 @@ def planet_defense(req, planet_id):
     try:
         defense = Defense.objects.select_related('astro_object', 'astro_object__account').filter(astro_object=planet_id)
         planet = defense.first().astro_object.as_real_class()
-    except Planet.DoesNotExist:
-        raise Http404
+    except Defense.DoesNotExist:
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     try:
         moon = Moon.objects.get(planet=planet.id)
@@ -189,11 +191,11 @@ def moon_overview(req, moon_id):
     try:
         moon = Moon.objects.select_related('planet','planet__account').get(id=moon_id)
     except Moon.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == moon.planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planets = Planet.objects.filter(account_id=moon.planet.account.id)
 
@@ -228,13 +230,13 @@ def moon_buildings(req, moon_id):
         buildings = Building.objects.select_related('astro_object', 'astro_object__planet').filter(astro_object=moon_id)
         moon = buildings.first().astro_object.as_real_class()
     except Moon.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
     except AttributeError:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == moon.planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planets = Planet.objects.filter(account_id=moon.planet.account.id)
     solarsat = get_object_or_404(Civil212, astro_object=moon_id)
@@ -267,13 +269,13 @@ def moon_defense(req, moon_id):
         defense = Defense.objects.select_related('astro_object', 'astro_object__planet').filter(astro_object=moon_id)
         moon = defense.first().astro_object.as_real_class()
     except Moon.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
     except AttributeError:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == moon.planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planets = Planet.objects.filter(account_id=moon.planet.account.id)
 
@@ -299,11 +301,11 @@ def moon_settings(req, moon_id):
     try:
         moon = Moon.objects.select_related('planet','planet__account').get(id=moon_id)
     except Moon.DoesNotExist:
-        raise Http404
+        raise OWebDoesNotExist
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == moon.planet.account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planets = Planet.objects.filter(account_id=moon.planet.account.id)
 

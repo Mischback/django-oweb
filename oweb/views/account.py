@@ -4,12 +4,14 @@ from itertools import chain, izip_longest, repeat
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
+from django.shortcuts import redirect, render
 # app imports
+from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship, Moon
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
 from oweb.libs.points import get_planet_points, get_ship_points, get_research_points
+from oweb.libs.shortcuts import get_object_or_404, get_list_or_404
 
 def account_overview(req, account_id):
     """
@@ -25,15 +27,13 @@ def account_overview(req, account_id):
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
         account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
     except AttributeError:
         return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     # production
     production = []
@@ -139,13 +139,13 @@ def account_empire(req, account_id):
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
         account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     tmp_meta = []
     tmp_buildings = []
@@ -251,15 +251,15 @@ def account_settings(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     return render(req, 'oweb/account_settings.html', 
         {
@@ -281,15 +281,15 @@ def account_research(req, account_id):
     # fetch the account and the list of planets
     try:
         research = Research.objects.select_related('account').filter(account=account_id)
-        account = research[0].account
+        account = research.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     planets = get_list_or_404(Planet, account=account_id)
 
@@ -314,15 +314,15 @@ def account_ships(req, account_id):
     # fetch the account and the list of planets
     try:
         planets = Planet.objects.select_related('account').filter(account_id=account_id)
-        account = planets[0].account
+        account = planets.first().account
     except Planet.DoesNotExist:
-        raise Http404
-    except IndexError:
-        raise Http404
+        raise OWebDoesNotExist
+    except AttributeError:
+        return redirect(reverse('oweb:account_delete', args=account_id))
 
     # checks, if this account belongs to the authenticated user
     if not req.user.id == account.owner_id:
-        raise Http404
+        raise OWebAccountAccessViolation
 
     sat_id = ContentType.objects.get(model='civil212').id
 
