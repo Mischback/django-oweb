@@ -1,3 +1,5 @@
+# Django imports
+from django.shortcuts import _get_queryset
 # app imports
 from oweb.exceptions import OWebDoesNotExist
 

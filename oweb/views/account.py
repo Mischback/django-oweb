@@ -4,13 +4,14 @@ from itertools import chain, izip_longest, repeat
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
+from django.shortcuts import redirect, render
 # app imports
 from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation
 from oweb.models import Account, Building, Civil212, Defense, Planet, Research, Ship, Moon
 from oweb.libs.production import get_planet_production
 from oweb.libs.queue import get_planet_queue, get_plasma_queue
 from oweb.libs.points import get_planet_points, get_ship_points, get_research_points
+from oweb.libs.shortcuts import get_object_or_404, get_list_or_404
 
 def account_overview(req, account_id):
     """
