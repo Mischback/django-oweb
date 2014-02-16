@@ -21,7 +21,7 @@ set the correct ``base_cost`` of the building.
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
-# Advisor stuff
+# app stuff
 from oweb.models import Planet
 from oweb.libs.costs import costs_two, costs_two_total, costs_onepointfive, costs_onepointfive_total, costs_onepointsix, costs_onepointsix_total, costs_onepointeight, costs_onepointeight_total, costs_twopointthree, costs_twopointthree_total
 
@@ -45,27 +45,27 @@ class Building(models.Model):
     """The base costs of the building """
 
     def get_next_cost(self):
-        """Returns a tupel with the costs of the next level
+        """Returns a tuple with the costs of the next level
 
         Please note, that the real calculation is done in the
-        _calc_next_cost() function. This construct is necessary to access the
-        "real" objects calculation function.
+        ``_calc_next_cost()`` function. This construct is necessary to access the
+        *real* objects calculation function.
         """
         return self.as_real_class()._calc_next_cost()
 
     def get_total_cost(self):
-        """Returns a tupel with the total costs of the current level
+        """Returns a tuple with the total costs of the current level
 
         Please note, that the real calculation is done in the
-        _calc_total_cost() function. This construct is necessary to access the
-        "real" objects calculation function.
+        ``_calc_total_cost()`` function. This construct is necessary to access the
+        *real* objects calculation function.
         """
         return self.as_real_class()._calc_total_cost()
 
     def _calc_next_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should **not** be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use ``get_next_cost()``
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -74,20 +74,20 @@ class Building(models.Model):
     def _calc_total_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should **not** be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use ``get_next_cost()``
         instead, as it will make sure to call the correct calculation
         function.
         """
         return costs_two_total(self.base_cost, self.level)
 
     def save(self, *args, **kwargs):
-        """Overwrites the Models save()-method to store the "real" class"""
+        """Overwrites the Models ``save()``-method to store the *real* class"""
         if not self.content_type:
             self.content_type = ContentType.objects.get_for_model(self.__class__)
         self.save_base()
 
     def as_real_class(self):
-        """Access the "real" class methods"""
+        """Access the *real* class methods"""
         model = self.content_type.model_class()
         if model == Building:
             return self
@@ -101,21 +101,16 @@ class Building(models.Model):
 
 
 class Building_onepointfive(Building):
-    """Calculates the costs for buildings with a modfier of 1.5
+    """Calculates the costs for buildings with a modifier of 1.5
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
-
-    This class uses a modifier of 1.5 and is suitable for:
-    - Metallmine
-    - Deuteriumsynthetisierer
-    - Solarkraftwerk
     """
 
     def _calc_next_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should **not** be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use ``get_next_cost()``
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -129,19 +124,16 @@ class Building_onepointfive(Building):
 
 
 class Building_onepointsix(Building):
-    """Calculates the costs for buildings with a modfier of 1.5
+    """Calculates the costs for buildings with a modifier of 1.5
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
-
-    This class uses a modifier of 1.6 and is suitable for:
-    - Kristallmine
     """
 
     def _calc_next_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should **not** be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use ``get_next_cost()``
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -155,19 +147,16 @@ class Building_onepointsix(Building):
 
 
 class Building_onepointeight(Building):
-    """Calculates the costs for buildings with a modfier of 1.8
+    """Calculates the costs for buildings with a modifier of 1.8
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
-
-    This class uses a modifier of 1.8 and is suitable for:
-    - Fusionskraftwerk
     """
 
     def _calc_next_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should **not** be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use ``get_next_cost()``
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -181,21 +170,16 @@ class Building_onepointeight(Building):
 
 
 class Building_twopointthree(Building):
-    """Calculates the costs for buildings with a modfier of 2.3
+    """Calculates the costs for buildings with a modifier of 2.3
 
     The base Building class uses a modifier of 2.0, which is suitable for most
     buildings.
-
-    This class uses a modifier of 2.3 and is suitable for:
-    - Metallversteck
-    - Kristallversteck
-    - Deuteriumversteck
     """
 
     def _calc_next_cost(self):
         """Calculates the cost of the next level of the building
 
-        This function should **not** be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use ``get_next_cost()``
         instead, as it will make sure to call the correct calculation
         function.
         """
@@ -407,7 +391,7 @@ class Station33(Building):
         This building is the only one, which requires a certain amount of
         energy, therefore this method is implemented here.
 
-        This function should **not** be called directly! Use get_next_cost()
+        This function should **not** be called directly! Use ``get_next_cost()``
         instead, as it will make sure to call the correct calculation
         function.
 
