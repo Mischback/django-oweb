@@ -24,10 +24,8 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_account_settings_commit(self):
-        # TODO Needs data fixture, because it needs a valid account_id for reverse
-        # r = self.client.get(reverse('oweb:account_settings_commit'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:account_settings_commit', args=[1,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_planet_settings_commit(self):
         # TODO Needs data fixture, because it needs a valid planet_id for reverse
