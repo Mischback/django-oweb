@@ -66,8 +66,11 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_account_settings_commit(self):
         """Can somebody update an account he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        self.client.login(username='test02', password='foo')
+        # no need to perform a real POST request here, since the check is
+        # performed before actual POST-parameters are considered
+        r = self.client.get(reverse('oweb:account_settings_commit', args=[1,]))
+        self.assertEqual(r.status_code, 404)
 
     def test_planet_settings_commit(self):
         """Can somebody update a planet he doesn't posess?"""

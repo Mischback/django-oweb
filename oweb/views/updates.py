@@ -89,7 +89,11 @@ def account_settings_commit(req, account_id):
     if not req.user.is_authenticated():
         return redirect(reverse('oweb:app_login'))
 
-    acc = get_object_or_404(Account, pk=account_id)
+    account = get_object_or_404(Account, pk=account_id)
+
+    # check, if the objects account is actually owned by the current user
+    if not req.user.id == account.owner_id:
+        raise OWebAccountAccessViolation
 
     acc.username = req.POST['account_username']
     acc.universe = req.POST['account_universe']
