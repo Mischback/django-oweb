@@ -1,10 +1,6 @@
 # Django imports
-from django.test import TestCase
 from django.core.urlresolvers import reverse
-
-class OWebViewTests(TestCase):
-    """Provides view related tests"""
-    pass
+from oweb.tests import OWebViewTests
 
 
 class OWebViewLoginRequiredTests(OWebViewTests):

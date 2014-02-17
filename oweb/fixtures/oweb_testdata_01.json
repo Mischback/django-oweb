@@ -1,0 +1,3155 @@
+[
+{
+    "pk": 1, 
+    "model": "oweb.astronomicalobject", 
+    "fields": {
+        "name": "Planet_01", 
+        "content_type": [
+            "oweb", 
+            "planet"
+        ], 
+        "coord": "1:1:1"
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.astronomicalobject", 
+    "fields": {
+        "name": "Planet_02", 
+        "content_type": [
+            "oweb", 
+            "planet"
+        ], 
+        "coord": "2:2:2"
+    }
+},
+{
+    "pk": 3, 
+    "model": "oweb.astronomicalobject", 
+    "fields": {
+        "name": "Moon_02", 
+        "content_type": [
+            "oweb", 
+            "moon"
+        ], 
+        "coord": "2:2:2"
+    }
+},
+{
+    "pk": 4, 
+    "model": "oweb.astronomicalobject", 
+    "fields": {
+        "name": "Homeworld", 
+        "content_type": [
+            "oweb", 
+            "planet"
+        ], 
+        "coord": "0:000:00"
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.planet", 
+    "fields": {
+        "account": 1, 
+        "max_temp": 59
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.planet", 
+    "fields": {
+        "account": 1, 
+        "max_temp": 46
+    }
+},
+{
+    "pk": 4, 
+    "model": "oweb.planet", 
+    "fields": {
+        "account": 2, 
+        "max_temp": 0
+    }
+},
+{
+    "pk": 3, 
+    "model": "oweb.moon", 
+    "fields": {
+        "planet": 2
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research106"
+        ], 
+        "name": "Espionage Technology", 
+        "level": 12
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research108"
+        ], 
+        "name": "Computer Technology", 
+        "level": 15
+    }
+},
+{
+    "pk": 3, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research109"
+        ], 
+        "name": "Weapons Technology", 
+        "level": 13
+    }
+},
+{
+    "pk": 4, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research110"
+        ], 
+        "name": "Shielding Technology", 
+        "level": 11
+    }
+},
+{
+    "pk": 5, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research111"
+        ], 
+        "name": "Armour Technology", 
+        "level": 14
+    }
+},
+{
+    "pk": 6, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research113"
+        ], 
+        "name": "Energy Technology", 
+        "level": 17
+    }
+},
+{
+    "pk": 7, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research114"
+        ], 
+        "name": "Hyperspace Technology", 
+        "level": 8
+    }
+},
+{
+    "pk": 8, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research115"
+        ], 
+        "name": "Combustion Drive", 
+        "level": 12
+    }
+},
+{
+    "pk": 9, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research117"
+        ], 
+        "name": "Impulse Drive", 
+        "level": 10
+    }
+},
+{
+    "pk": 10, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research118"
+        ], 
+        "name": "Hyperspace Drive", 
+        "level": 7
+    }
+},
+{
+    "pk": 11, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research120"
+        ], 
+        "name": "Laser Technology", 
+        "level": 12
+    }
+},
+{
+    "pk": 12, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research121"
+        ], 
+        "name": "Ion Technology", 
+        "level": 5
+    }
+},
+{
+    "pk": 13, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research122"
+        ], 
+        "name": "Plasma Technology", 
+        "level": 15
+    }
+},
+{
+    "pk": 14, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research123"
+        ], 
+        "name": "Intergalactic Research Network", 
+        "level": 5
+    }
+},
+{
+    "pk": 15, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research124"
+        ], 
+        "name": "Astrophysics", 
+        "level": 17
+    }
+},
+{
+    "pk": 16, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 1, 
+        "real_class": [
+            "oweb", 
+            "research199"
+        ], 
+        "name": "Graviton Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 17, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research106"
+        ], 
+        "name": "Espionage Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 18, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research108"
+        ], 
+        "name": "Computer Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 19, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research109"
+        ], 
+        "name": "Weapons Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 20, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research110"
+        ], 
+        "name": "Shielding Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 21, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research111"
+        ], 
+        "name": "Armour Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 22, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research113"
+        ], 
+        "name": "Energy Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 23, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research114"
+        ], 
+        "name": "Hyperspace Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 24, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research115"
+        ], 
+        "name": "Combustion Drive", 
+        "level": 1
+    }
+},
+{
+    "pk": 25, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research117"
+        ], 
+        "name": "Impulse Drive", 
+        "level": 1
+    }
+},
+{
+    "pk": 26, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research118"
+        ], 
+        "name": "Hyperspace Drive", 
+        "level": 1
+    }
+},
+{
+    "pk": 27, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research120"
+        ], 
+        "name": "Laser Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 28, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research121"
+        ], 
+        "name": "Ion Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 29, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research122"
+        ], 
+        "name": "Plasma Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 30, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research123"
+        ], 
+        "name": "Intergalactic Research Network", 
+        "level": 1
+    }
+},
+{
+    "pk": 31, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research124"
+        ], 
+        "name": "Astrophysics", 
+        "level": 1
+    }
+},
+{
+    "pk": 32, 
+    "model": "oweb.research", 
+    "fields": {
+        "account": 2, 
+        "real_class": [
+            "oweb", 
+            "research199"
+        ], 
+        "name": "Graviton Technology", 
+        "level": 1
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.research106", 
+    "fields": {}
+},
+{
+    "pk": 17, 
+    "model": "oweb.research106", 
+    "fields": {}
+},
+{
+    "pk": 2, 
+    "model": "oweb.research108", 
+    "fields": {}
+},
+{
+    "pk": 18, 
+    "model": "oweb.research108", 
+    "fields": {}
+},
+{
+    "pk": 3, 
+    "model": "oweb.research109", 
+    "fields": {}
+},
+{
+    "pk": 19, 
+    "model": "oweb.research109", 
+    "fields": {}
+},
+{
+    "pk": 4, 
+    "model": "oweb.research110", 
+    "fields": {}
+},
+{
+    "pk": 20, 
+    "model": "oweb.research110", 
+    "fields": {}
+},
+{
+    "pk": 5, 
+    "model": "oweb.research111", 
+    "fields": {}
+},
+{
+    "pk": 21, 
+    "model": "oweb.research111", 
+    "fields": {}
+},
+{
+    "pk": 6, 
+    "model": "oweb.research113", 
+    "fields": {}
+},
+{
+    "pk": 22, 
+    "model": "oweb.research113", 
+    "fields": {}
+},
+{
+    "pk": 7, 
+    "model": "oweb.research114", 
+    "fields": {}
+},
+{
+    "pk": 23, 
+    "model": "oweb.research114", 
+    "fields": {}
+},
+{
+    "pk": 8, 
+    "model": "oweb.research115", 
+    "fields": {}
+},
+{
+    "pk": 24, 
+    "model": "oweb.research115", 
+    "fields": {}
+},
+{
+    "pk": 9, 
+    "model": "oweb.research117", 
+    "fields": {}
+},
+{
+    "pk": 25, 
+    "model": "oweb.research117", 
+    "fields": {}
+},
+{
+    "pk": 10, 
+    "model": "oweb.research118", 
+    "fields": {}
+},
+{
+    "pk": 26, 
+    "model": "oweb.research118", 
+    "fields": {}
+},
+{
+    "pk": 11, 
+    "model": "oweb.research120", 
+    "fields": {}
+},
+{
+    "pk": 27, 
+    "model": "oweb.research120", 
+    "fields": {}
+},
+{
+    "pk": 12, 
+    "model": "oweb.research121", 
+    "fields": {}
+},
+{
+    "pk": 28, 
+    "model": "oweb.research121", 
+    "fields": {}
+},
+{
+    "pk": 13, 
+    "model": "oweb.research122", 
+    "fields": {}
+},
+{
+    "pk": 29, 
+    "model": "oweb.research122", 
+    "fields": {}
+},
+{
+    "pk": 14, 
+    "model": "oweb.research123", 
+    "fields": {}
+},
+{
+    "pk": 30, 
+    "model": "oweb.research123", 
+    "fields": {}
+},
+{
+    "pk": 15, 
+    "model": "oweb.research124", 
+    "fields": {}
+},
+{
+    "pk": 31, 
+    "model": "oweb.research124", 
+    "fields": {}
+},
+{
+    "pk": 16, 
+    "model": "oweb.research199", 
+    "fields": {}
+},
+{
+    "pk": 32, 
+    "model": "oweb.research199", 
+    "fields": {}
+},
+{
+    "pk": 1, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 1338, 
+        "account": 1, 
+        "name": "Light Fighter", 
+        "content_type": [
+            "oweb", 
+            "military204"
+        ]
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Heavy Figher", 
+        "content_type": [
+            "oweb", 
+            "military205"
+        ]
+    }
+},
+{
+    "pk": 3, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Cruiser", 
+        "content_type": [
+            "oweb", 
+            "military206"
+        ]
+    }
+},
+{
+    "pk": 4, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Battleship", 
+        "content_type": [
+            "oweb", 
+            "military207"
+        ]
+    }
+},
+{
+    "pk": 5, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Battlecruiser", 
+        "content_type": [
+            "oweb", 
+            "military215"
+        ]
+    }
+},
+{
+    "pk": 6, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Bomber", 
+        "content_type": [
+            "oweb", 
+            "military211"
+        ]
+    }
+},
+{
+    "pk": 7, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Destroyer", 
+        "content_type": [
+            "oweb", 
+            "military213"
+        ]
+    }
+},
+{
+    "pk": 8, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Deathstar", 
+        "content_type": [
+            "oweb", 
+            "military214"
+        ]
+    }
+},
+{
+    "pk": 9, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Small Cargo", 
+        "content_type": [
+            "oweb", 
+            "civil202"
+        ]
+    }
+},
+{
+    "pk": 10, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 250, 
+        "account": 1, 
+        "name": "Large Cargo", 
+        "content_type": [
+            "oweb", 
+            "civil203"
+        ]
+    }
+},
+{
+    "pk": 11, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Colony Ship", 
+        "content_type": [
+            "oweb", 
+            "civil208"
+        ]
+    }
+},
+{
+    "pk": 12, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Recycler", 
+        "content_type": [
+            "oweb", 
+            "civil209"
+        ]
+    }
+},
+{
+    "pk": 13, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 1000, 
+        "account": 1, 
+        "name": "Espionage Probe", 
+        "content_type": [
+            "oweb", 
+            "civil210"
+        ]
+    }
+},
+{
+    "pk": 14, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 83, 
+        "account": 1, 
+        "name": "Solar Satellite", 
+        "content_type": [
+            "oweb", 
+            "civil212"
+        ]
+    }
+},
+{
+    "pk": 15, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 97, 
+        "account": 1, 
+        "name": "Solar Satellite", 
+        "content_type": [
+            "oweb", 
+            "civil212"
+        ]
+    }
+},
+{
+    "pk": 16, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 1, 
+        "name": "Solar Satellite", 
+        "content_type": [
+            "oweb", 
+            "civil212"
+        ]
+    }
+},
+{
+    "pk": 17, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Light Fighter", 
+        "content_type": [
+            "oweb", 
+            "military204"
+        ]
+    }
+},
+{
+    "pk": 18, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Heavy Figher", 
+        "content_type": [
+            "oweb", 
+            "military205"
+        ]
+    }
+},
+{
+    "pk": 19, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Cruiser", 
+        "content_type": [
+            "oweb", 
+            "military206"
+        ]
+    }
+},
+{
+    "pk": 20, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Battleship", 
+        "content_type": [
+            "oweb", 
+            "military207"
+        ]
+    }
+},
+{
+    "pk": 21, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Battlecruiser", 
+        "content_type": [
+            "oweb", 
+            "military215"
+        ]
+    }
+},
+{
+    "pk": 22, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Bomber", 
+        "content_type": [
+            "oweb", 
+            "military211"
+        ]
+    }
+},
+{
+    "pk": 23, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Destroyer", 
+        "content_type": [
+            "oweb", 
+            "military213"
+        ]
+    }
+},
+{
+    "pk": 24, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Deathstar", 
+        "content_type": [
+            "oweb", 
+            "military214"
+        ]
+    }
+},
+{
+    "pk": 25, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Small Cargo", 
+        "content_type": [
+            "oweb", 
+            "civil202"
+        ]
+    }
+},
+{
+    "pk": 26, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Large Cargo", 
+        "content_type": [
+            "oweb", 
+            "civil203"
+        ]
+    }
+},
+{
+    "pk": 27, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Colony Ship", 
+        "content_type": [
+            "oweb", 
+            "civil208"
+        ]
+    }
+},
+{
+    "pk": 28, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Recycler", 
+        "content_type": [
+            "oweb", 
+            "civil209"
+        ]
+    }
+},
+{
+    "pk": 29, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 0, 
+        "account": 2, 
+        "name": "Espionage Probe", 
+        "content_type": [
+            "oweb", 
+            "civil210"
+        ]
+    }
+},
+{
+    "pk": 30, 
+    "model": "oweb.ship", 
+    "fields": {
+        "count": 10, 
+        "account": 2, 
+        "name": "Solar Satellite", 
+        "content_type": [
+            "oweb", 
+            "civil212"
+        ]
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.military204", 
+    "fields": {}
+},
+{
+    "pk": 17, 
+    "model": "oweb.military204", 
+    "fields": {}
+},
+{
+    "pk": 2, 
+    "model": "oweb.military205", 
+    "fields": {}
+},
+{
+    "pk": 18, 
+    "model": "oweb.military205", 
+    "fields": {}
+},
+{
+    "pk": 3, 
+    "model": "oweb.military206", 
+    "fields": {}
+},
+{
+    "pk": 19, 
+    "model": "oweb.military206", 
+    "fields": {}
+},
+{
+    "pk": 4, 
+    "model": "oweb.military207", 
+    "fields": {}
+},
+{
+    "pk": 20, 
+    "model": "oweb.military207", 
+    "fields": {}
+},
+{
+    "pk": 5, 
+    "model": "oweb.military215", 
+    "fields": {}
+},
+{
+    "pk": 21, 
+    "model": "oweb.military215", 
+    "fields": {}
+},
+{
+    "pk": 6, 
+    "model": "oweb.military211", 
+    "fields": {}
+},
+{
+    "pk": 22, 
+    "model": "oweb.military211", 
+    "fields": {}
+},
+{
+    "pk": 7, 
+    "model": "oweb.military213", 
+    "fields": {}
+},
+{
+    "pk": 23, 
+    "model": "oweb.military213", 
+    "fields": {}
+},
+{
+    "pk": 8, 
+    "model": "oweb.military214", 
+    "fields": {}
+},
+{
+    "pk": 24, 
+    "model": "oweb.military214", 
+    "fields": {}
+},
+{
+    "pk": 9, 
+    "model": "oweb.civil202", 
+    "fields": {}
+},
+{
+    "pk": 25, 
+    "model": "oweb.civil202", 
+    "fields": {}
+},
+{
+    "pk": 10, 
+    "model": "oweb.civil203", 
+    "fields": {}
+},
+{
+    "pk": 26, 
+    "model": "oweb.civil203", 
+    "fields": {}
+},
+{
+    "pk": 11, 
+    "model": "oweb.civil208", 
+    "fields": {}
+},
+{
+    "pk": 27, 
+    "model": "oweb.civil208", 
+    "fields": {}
+},
+{
+    "pk": 12, 
+    "model": "oweb.civil209", 
+    "fields": {}
+},
+{
+    "pk": 28, 
+    "model": "oweb.civil209", 
+    "fields": {}
+},
+{
+    "pk": 13, 
+    "model": "oweb.civil210", 
+    "fields": {}
+},
+{
+    "pk": 29, 
+    "model": "oweb.civil210", 
+    "fields": {}
+},
+{
+    "pk": 14, 
+    "model": "oweb.civil212", 
+    "fields": {
+        "astro_object": 1
+    }
+},
+{
+    "pk": 15, 
+    "model": "oweb.civil212", 
+    "fields": {
+        "astro_object": 2
+    }
+},
+{
+    "pk": 16, 
+    "model": "oweb.civil212", 
+    "fields": {
+        "astro_object": 3
+    }
+},
+{
+    "pk": 30, 
+    "model": "oweb.civil212", 
+    "fields": {
+        "astro_object": 4
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Metal Mine", 
+        "content_type": [
+            "oweb", 
+            "supply1"
+        ], 
+        "level": 33
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Crystal Mine", 
+        "content_type": [
+            "oweb", 
+            "supply2"
+        ], 
+        "level": 31
+    }
+},
+{
+    "pk": 3, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Deuterium Synthesizer", 
+        "content_type": [
+            "oweb", 
+            "supply3"
+        ], 
+        "level": 30
+    }
+},
+{
+    "pk": 4, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Solar Plant", 
+        "content_type": [
+            "oweb", 
+            "supply4"
+        ], 
+        "level": 20
+    }
+},
+{
+    "pk": 5, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Fusion Reactor", 
+        "content_type": [
+            "oweb", 
+            "supply12"
+        ], 
+        "level": 18
+    }
+},
+{
+    "pk": 6, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Metal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply22"
+        ], 
+        "level": 8
+    }
+},
+{
+    "pk": 7, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Crystal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply23"
+        ], 
+        "level": 12
+    }
+},
+{
+    "pk": 8, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Deuterium Tank", 
+        "content_type": [
+            "oweb", 
+            "supply24"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 9, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Shielded Metal Den", 
+        "content_type": [
+            "oweb", 
+            "supply25"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 10, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Underground Crystal Den", 
+        "content_type": [
+            "oweb", 
+            "supply26"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 11, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Seabed Deuterium Den", 
+        "content_type": [
+            "oweb", 
+            "supply27"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 12, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Robotics Factory", 
+        "content_type": [
+            "oweb", 
+            "station14"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 13, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Nanite Factory", 
+        "content_type": [
+            "oweb", 
+            "station15"
+        ], 
+        "level": 4
+    }
+},
+{
+    "pk": 14, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Shipyard", 
+        "content_type": [
+            "oweb", 
+            "station21"
+        ], 
+        "level": 12
+    }
+},
+{
+    "pk": 15, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Research Lab", 
+        "content_type": [
+            "oweb", 
+            "station31"
+        ], 
+        "level": 12
+    }
+},
+{
+    "pk": 16, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Terraformer", 
+        "content_type": [
+            "oweb", 
+            "station33"
+        ], 
+        "level": 6
+    }
+},
+{
+    "pk": 17, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Alliance Depot", 
+        "content_type": [
+            "oweb", 
+            "station34"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 18, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 1, 
+        "name": "Missile Silo", 
+        "content_type": [
+            "oweb", 
+            "station44"
+        ], 
+        "level": 2
+    }
+},
+{
+    "pk": 19, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Metal Mine", 
+        "content_type": [
+            "oweb", 
+            "supply1"
+        ], 
+        "level": 33
+    }
+},
+{
+    "pk": 20, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Crystal Mine", 
+        "content_type": [
+            "oweb", 
+            "supply2"
+        ], 
+        "level": 30
+    }
+},
+{
+    "pk": 21, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Deuterium Synthesizer", 
+        "content_type": [
+            "oweb", 
+            "supply3"
+        ], 
+        "level": 30
+    }
+},
+{
+    "pk": 22, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Solar Plant", 
+        "content_type": [
+            "oweb", 
+            "supply4"
+        ], 
+        "level": 20
+    }
+},
+{
+    "pk": 23, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Fusion Reactor", 
+        "content_type": [
+            "oweb", 
+            "supply12"
+        ], 
+        "level": 18
+    }
+},
+{
+    "pk": 24, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Metal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply22"
+        ], 
+        "level": 8
+    }
+},
+{
+    "pk": 25, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Crystal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply23"
+        ], 
+        "level": 8
+    }
+},
+{
+    "pk": 26, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Deuterium Tank", 
+        "content_type": [
+            "oweb", 
+            "supply24"
+        ], 
+        "level": 7
+    }
+},
+{
+    "pk": 27, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Shielded Metal Den", 
+        "content_type": [
+            "oweb", 
+            "supply25"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 28, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Underground Crystal Den", 
+        "content_type": [
+            "oweb", 
+            "supply26"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 29, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Seabed Deuterium Den", 
+        "content_type": [
+            "oweb", 
+            "supply27"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 30, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Robotics Factory", 
+        "content_type": [
+            "oweb", 
+            "station14"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 31, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Nanite Factory", 
+        "content_type": [
+            "oweb", 
+            "station15"
+        ], 
+        "level": 2
+    }
+},
+{
+    "pk": 32, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Shipyard", 
+        "content_type": [
+            "oweb", 
+            "station21"
+        ], 
+        "level": 8
+    }
+},
+{
+    "pk": 33, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Research Lab", 
+        "content_type": [
+            "oweb", 
+            "station31"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 34, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Terraformer", 
+        "content_type": [
+            "oweb", 
+            "station33"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 35, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Alliance Depot", 
+        "content_type": [
+            "oweb", 
+            "station34"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 36, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 2, 
+        "name": "Missile Silo", 
+        "content_type": [
+            "oweb", 
+            "station44"
+        ], 
+        "level": 2
+    }
+},
+{
+    "pk": 37, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Metal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply22"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 38, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Crystal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply23"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 39, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Deuterium Tank", 
+        "content_type": [
+            "oweb", 
+            "supply24"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 40, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Shielded Metal Den", 
+        "content_type": [
+            "oweb", 
+            "supply25"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 41, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Underground Crystal Den", 
+        "content_type": [
+            "oweb", 
+            "supply26"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 42, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Seabed Deuterium Den", 
+        "content_type": [
+            "oweb", 
+            "supply27"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 43, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Robotics Factory", 
+        "content_type": [
+            "oweb", 
+            "station14"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 44, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Shipyard", 
+        "content_type": [
+            "oweb", 
+            "station21"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 45, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Lunar Base", 
+        "content_type": [
+            "oweb", 
+            "station41"
+        ], 
+        "level": 1
+    }
+},
+{
+    "pk": 46, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Sensor Phalanx", 
+        "content_type": [
+            "oweb", 
+            "station42"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 47, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 3, 
+        "name": "Jump Gate", 
+        "content_type": [
+            "oweb", 
+            "station43"
+        ], 
+        "level": 0
+    }
+},
+{
+    "pk": 48, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Metal Mine", 
+        "content_type": [
+            "oweb", 
+            "supply1"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 49, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Crystal Mine", 
+        "content_type": [
+            "oweb", 
+            "supply2"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 50, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Deuterium Synthesizer", 
+        "content_type": [
+            "oweb", 
+            "supply3"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 51, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Solar Plant", 
+        "content_type": [
+            "oweb", 
+            "supply4"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 52, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Fusion Reactor", 
+        "content_type": [
+            "oweb", 
+            "supply12"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 53, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Metal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply22"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 54, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Crystal Storage", 
+        "content_type": [
+            "oweb", 
+            "supply23"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 55, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Deuterium Tank", 
+        "content_type": [
+            "oweb", 
+            "supply24"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 56, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Shielded Metal Den", 
+        "content_type": [
+            "oweb", 
+            "supply25"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 57, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Underground Crystal Den", 
+        "content_type": [
+            "oweb", 
+            "supply26"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 58, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Seabed Deuterium Den", 
+        "content_type": [
+            "oweb", 
+            "supply27"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 59, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Robotics Factory", 
+        "content_type": [
+            "oweb", 
+            "station14"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 60, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Nanite Factory", 
+        "content_type": [
+            "oweb", 
+            "station15"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 61, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Shipyard", 
+        "content_type": [
+            "oweb", 
+            "station21"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 62, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Research Lab", 
+        "content_type": [
+            "oweb", 
+            "station31"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 63, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Terraformer", 
+        "content_type": [
+            "oweb", 
+            "station33"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 64, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Alliance Depot", 
+        "content_type": [
+            "oweb", 
+            "station34"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 65, 
+    "model": "oweb.building", 
+    "fields": {
+        "astro_object": 4, 
+        "name": "Missile Silo", 
+        "content_type": [
+            "oweb", 
+            "station44"
+        ], 
+        "level": 10
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.supply1", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 19, 
+    "model": "oweb.supply1", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 48, 
+    "model": "oweb.supply1", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.supply2", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 20, 
+    "model": "oweb.supply2", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 49, 
+    "model": "oweb.supply2", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 3, 
+    "model": "oweb.supply3", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 21, 
+    "model": "oweb.supply3", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 50, 
+    "model": "oweb.supply3", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 4, 
+    "model": "oweb.supply4", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 22, 
+    "model": "oweb.supply4", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 51, 
+    "model": "oweb.supply4", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 5, 
+    "model": "oweb.supply12", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 23, 
+    "model": "oweb.supply12", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 52, 
+    "model": "oweb.supply12", 
+    "fields": {
+        "performance": 1.0
+    }
+},
+{
+    "pk": 6, 
+    "model": "oweb.supply22", 
+    "fields": {}
+},
+{
+    "pk": 24, 
+    "model": "oweb.supply22", 
+    "fields": {}
+},
+{
+    "pk": 37, 
+    "model": "oweb.supply22", 
+    "fields": {}
+},
+{
+    "pk": 53, 
+    "model": "oweb.supply22", 
+    "fields": {}
+},
+{
+    "pk": 7, 
+    "model": "oweb.supply23", 
+    "fields": {}
+},
+{
+    "pk": 25, 
+    "model": "oweb.supply23", 
+    "fields": {}
+},
+{
+    "pk": 38, 
+    "model": "oweb.supply23", 
+    "fields": {}
+},
+{
+    "pk": 54, 
+    "model": "oweb.supply23", 
+    "fields": {}
+},
+{
+    "pk": 8, 
+    "model": "oweb.supply24", 
+    "fields": {}
+},
+{
+    "pk": 26, 
+    "model": "oweb.supply24", 
+    "fields": {}
+},
+{
+    "pk": 39, 
+    "model": "oweb.supply24", 
+    "fields": {}
+},
+{
+    "pk": 55, 
+    "model": "oweb.supply24", 
+    "fields": {}
+},
+{
+    "pk": 9, 
+    "model": "oweb.supply25", 
+    "fields": {}
+},
+{
+    "pk": 27, 
+    "model": "oweb.supply25", 
+    "fields": {}
+},
+{
+    "pk": 40, 
+    "model": "oweb.supply25", 
+    "fields": {}
+},
+{
+    "pk": 56, 
+    "model": "oweb.supply25", 
+    "fields": {}
+},
+{
+    "pk": 10, 
+    "model": "oweb.supply26", 
+    "fields": {}
+},
+{
+    "pk": 28, 
+    "model": "oweb.supply26", 
+    "fields": {}
+},
+{
+    "pk": 41, 
+    "model": "oweb.supply26", 
+    "fields": {}
+},
+{
+    "pk": 57, 
+    "model": "oweb.supply26", 
+    "fields": {}
+},
+{
+    "pk": 11, 
+    "model": "oweb.supply27", 
+    "fields": {}
+},
+{
+    "pk": 29, 
+    "model": "oweb.supply27", 
+    "fields": {}
+},
+{
+    "pk": 42, 
+    "model": "oweb.supply27", 
+    "fields": {}
+},
+{
+    "pk": 58, 
+    "model": "oweb.supply27", 
+    "fields": {}
+},
+{
+    "pk": 12, 
+    "model": "oweb.station14", 
+    "fields": {}
+},
+{
+    "pk": 30, 
+    "model": "oweb.station14", 
+    "fields": {}
+},
+{
+    "pk": 43, 
+    "model": "oweb.station14", 
+    "fields": {}
+},
+{
+    "pk": 59, 
+    "model": "oweb.station14", 
+    "fields": {}
+},
+{
+    "pk": 13, 
+    "model": "oweb.station15", 
+    "fields": {}
+},
+{
+    "pk": 31, 
+    "model": "oweb.station15", 
+    "fields": {}
+},
+{
+    "pk": 60, 
+    "model": "oweb.station15", 
+    "fields": {}
+},
+{
+    "pk": 14, 
+    "model": "oweb.station21", 
+    "fields": {}
+},
+{
+    "pk": 32, 
+    "model": "oweb.station21", 
+    "fields": {}
+},
+{
+    "pk": 44, 
+    "model": "oweb.station21", 
+    "fields": {}
+},
+{
+    "pk": 61, 
+    "model": "oweb.station21", 
+    "fields": {}
+},
+{
+    "pk": 15, 
+    "model": "oweb.station31", 
+    "fields": {}
+},
+{
+    "pk": 33, 
+    "model": "oweb.station31", 
+    "fields": {}
+},
+{
+    "pk": 62, 
+    "model": "oweb.station31", 
+    "fields": {}
+},
+{
+    "pk": 16, 
+    "model": "oweb.station33", 
+    "fields": {}
+},
+{
+    "pk": 34, 
+    "model": "oweb.station33", 
+    "fields": {}
+},
+{
+    "pk": 63, 
+    "model": "oweb.station33", 
+    "fields": {}
+},
+{
+    "pk": 17, 
+    "model": "oweb.station34", 
+    "fields": {}
+},
+{
+    "pk": 35, 
+    "model": "oweb.station34", 
+    "fields": {}
+},
+{
+    "pk": 64, 
+    "model": "oweb.station34", 
+    "fields": {}
+},
+{
+    "pk": 45, 
+    "model": "oweb.station41", 
+    "fields": {}
+},
+{
+    "pk": 46, 
+    "model": "oweb.station42", 
+    "fields": {}
+},
+{
+    "pk": 47, 
+    "model": "oweb.station43", 
+    "fields": {}
+},
+{
+    "pk": 18, 
+    "model": "oweb.station44", 
+    "fields": {}
+},
+{
+    "pk": 36, 
+    "model": "oweb.station44", 
+    "fields": {}
+},
+{
+    "pk": 65, 
+    "model": "oweb.station44", 
+    "fields": {}
+},
+{
+    "pk": 1, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 2000, 
+        "astro_object": 1, 
+        "name": "Rocket Launcher", 
+        "content_type": [
+            "oweb", 
+            "defense401"
+        ]
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 186, 
+        "astro_object": 1, 
+        "name": "Light Laser", 
+        "content_type": [
+            "oweb", 
+            "defense402"
+        ]
+    }
+},
+{
+    "pk": 3, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 93, 
+        "astro_object": 1, 
+        "name": "Heavy Laser", 
+        "content_type": [
+            "oweb", 
+            "defense403"
+        ]
+    }
+},
+{
+    "pk": 4, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 46, 
+        "astro_object": 1, 
+        "name": "Gauss Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense404"
+        ]
+    }
+},
+{
+    "pk": 5, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 1, 
+        "name": "Ion Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense405"
+        ]
+    }
+},
+{
+    "pk": 6, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 23, 
+        "astro_object": 1, 
+        "name": "Plasma Turret", 
+        "content_type": [
+            "oweb", 
+            "defense406"
+        ]
+    }
+},
+{
+    "pk": 7, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 1, 
+        "astro_object": 1, 
+        "name": "Small Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense407"
+        ]
+    }
+},
+{
+    "pk": 8, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 1, 
+        "astro_object": 1, 
+        "name": "Large Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense408"
+        ]
+    }
+},
+{
+    "pk": 9, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 20, 
+        "astro_object": 1, 
+        "name": "Anti-Ballistic Missiles", 
+        "content_type": [
+            "oweb", 
+            "defense502"
+        ]
+    }
+},
+{
+    "pk": 10, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 1, 
+        "name": "Interplanetary Missiles", 
+        "content_type": [
+            "oweb", 
+            "defense503"
+        ]
+    }
+},
+{
+    "pk": 11, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 3000, 
+        "astro_object": 2, 
+        "name": "Rocket Launcher", 
+        "content_type": [
+            "oweb", 
+            "defense401"
+        ]
+    }
+},
+{
+    "pk": 12, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 2, 
+        "name": "Light Laser", 
+        "content_type": [
+            "oweb", 
+            "defense402"
+        ]
+    }
+},
+{
+    "pk": 13, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 8, 
+        "astro_object": 2, 
+        "name": "Heavy Laser", 
+        "content_type": [
+            "oweb", 
+            "defense403"
+        ]
+    }
+},
+{
+    "pk": 14, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 3, 
+        "astro_object": 2, 
+        "name": "Gauss Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense404"
+        ]
+    }
+},
+{
+    "pk": 15, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 2, 
+        "name": "Ion Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense405"
+        ]
+    }
+},
+{
+    "pk": 16, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 1, 
+        "astro_object": 2, 
+        "name": "Plasma Turret", 
+        "content_type": [
+            "oweb", 
+            "defense406"
+        ]
+    }
+},
+{
+    "pk": 17, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 2, 
+        "name": "Small Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense407"
+        ]
+    }
+},
+{
+    "pk": 18, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 2, 
+        "name": "Large Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense408"
+        ]
+    }
+},
+{
+    "pk": 19, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 20, 
+        "astro_object": 2, 
+        "name": "Anti-Ballistic Missiles", 
+        "content_type": [
+            "oweb", 
+            "defense502"
+        ]
+    }
+},
+{
+    "pk": 20, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 2, 
+        "name": "Interplanetary Missiles", 
+        "content_type": [
+            "oweb", 
+            "defense503"
+        ]
+    }
+},
+{
+    "pk": 21, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Rocket Launcher", 
+        "content_type": [
+            "oweb", 
+            "defense401"
+        ]
+    }
+},
+{
+    "pk": 22, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Light Laser", 
+        "content_type": [
+            "oweb", 
+            "defense402"
+        ]
+    }
+},
+{
+    "pk": 23, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Heavy Laser", 
+        "content_type": [
+            "oweb", 
+            "defense403"
+        ]
+    }
+},
+{
+    "pk": 24, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Gauss Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense404"
+        ]
+    }
+},
+{
+    "pk": 25, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Ion Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense405"
+        ]
+    }
+},
+{
+    "pk": 26, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Plasma Turret", 
+        "content_type": [
+            "oweb", 
+            "defense406"
+        ]
+    }
+},
+{
+    "pk": 27, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Small Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense407"
+        ]
+    }
+},
+{
+    "pk": 28, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 0, 
+        "astro_object": 3, 
+        "name": "Large Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense408"
+        ]
+    }
+},
+{
+    "pk": 29, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Rocket Launcher", 
+        "content_type": [
+            "oweb", 
+            "defense401"
+        ]
+    }
+},
+{
+    "pk": 30, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Light Laser", 
+        "content_type": [
+            "oweb", 
+            "defense402"
+        ]
+    }
+},
+{
+    "pk": 31, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Heavy Laser", 
+        "content_type": [
+            "oweb", 
+            "defense403"
+        ]
+    }
+},
+{
+    "pk": 32, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Gauss Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense404"
+        ]
+    }
+},
+{
+    "pk": 33, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Ion Cannon", 
+        "content_type": [
+            "oweb", 
+            "defense405"
+        ]
+    }
+},
+{
+    "pk": 34, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Plasma Turret", 
+        "content_type": [
+            "oweb", 
+            "defense406"
+        ]
+    }
+},
+{
+    "pk": 35, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Small Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense407"
+        ]
+    }
+},
+{
+    "pk": 36, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Large Shield Dome", 
+        "content_type": [
+            "oweb", 
+            "defense408"
+        ]
+    }
+},
+{
+    "pk": 37, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Anti-Ballistic Missiles", 
+        "content_type": [
+            "oweb", 
+            "defense502"
+        ]
+    }
+},
+{
+    "pk": 38, 
+    "model": "oweb.defense", 
+    "fields": {
+        "count": 10, 
+        "astro_object": 4, 
+        "name": "Interplanetary Missiles", 
+        "content_type": [
+            "oweb", 
+            "defense503"
+        ]
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.defense401", 
+    "fields": {}
+},
+{
+    "pk": 11, 
+    "model": "oweb.defense401", 
+    "fields": {}
+},
+{
+    "pk": 21, 
+    "model": "oweb.defense401", 
+    "fields": {}
+},
+{
+    "pk": 29, 
+    "model": "oweb.defense401", 
+    "fields": {}
+},
+{
+    "pk": 2, 
+    "model": "oweb.defense402", 
+    "fields": {}
+},
+{
+    "pk": 12, 
+    "model": "oweb.defense402", 
+    "fields": {}
+},
+{
+    "pk": 22, 
+    "model": "oweb.defense402", 
+    "fields": {}
+},
+{
+    "pk": 30, 
+    "model": "oweb.defense402", 
+    "fields": {}
+},
+{
+    "pk": 3, 
+    "model": "oweb.defense403", 
+    "fields": {}
+},
+{
+    "pk": 13, 
+    "model": "oweb.defense403", 
+    "fields": {}
+},
+{
+    "pk": 23, 
+    "model": "oweb.defense403", 
+    "fields": {}
+},
+{
+    "pk": 31, 
+    "model": "oweb.defense403", 
+    "fields": {}
+},
+{
+    "pk": 4, 
+    "model": "oweb.defense404", 
+    "fields": {}
+},
+{
+    "pk": 14, 
+    "model": "oweb.defense404", 
+    "fields": {}
+},
+{
+    "pk": 24, 
+    "model": "oweb.defense404", 
+    "fields": {}
+},
+{
+    "pk": 32, 
+    "model": "oweb.defense404", 
+    "fields": {}
+},
+{
+    "pk": 5, 
+    "model": "oweb.defense405", 
+    "fields": {}
+},
+{
+    "pk": 15, 
+    "model": "oweb.defense405", 
+    "fields": {}
+},
+{
+    "pk": 25, 
+    "model": "oweb.defense405", 
+    "fields": {}
+},
+{
+    "pk": 33, 
+    "model": "oweb.defense405", 
+    "fields": {}
+},
+{
+    "pk": 6, 
+    "model": "oweb.defense406", 
+    "fields": {}
+},
+{
+    "pk": 16, 
+    "model": "oweb.defense406", 
+    "fields": {}
+},
+{
+    "pk": 26, 
+    "model": "oweb.defense406", 
+    "fields": {}
+},
+{
+    "pk": 34, 
+    "model": "oweb.defense406", 
+    "fields": {}
+},
+{
+    "pk": 7, 
+    "model": "oweb.defense407", 
+    "fields": {}
+},
+{
+    "pk": 17, 
+    "model": "oweb.defense407", 
+    "fields": {}
+},
+{
+    "pk": 27, 
+    "model": "oweb.defense407", 
+    "fields": {}
+},
+{
+    "pk": 35, 
+    "model": "oweb.defense407", 
+    "fields": {}
+},
+{
+    "pk": 8, 
+    "model": "oweb.defense408", 
+    "fields": {}
+},
+{
+    "pk": 18, 
+    "model": "oweb.defense408", 
+    "fields": {}
+},
+{
+    "pk": 28, 
+    "model": "oweb.defense408", 
+    "fields": {}
+},
+{
+    "pk": 36, 
+    "model": "oweb.defense408", 
+    "fields": {}
+},
+{
+    "pk": 9, 
+    "model": "oweb.defense502", 
+    "fields": {}
+},
+{
+    "pk": 19, 
+    "model": "oweb.defense502", 
+    "fields": {}
+},
+{
+    "pk": 37, 
+    "model": "oweb.defense502", 
+    "fields": {}
+},
+{
+    "pk": 10, 
+    "model": "oweb.defense503", 
+    "fields": {}
+},
+{
+    "pk": 20, 
+    "model": "oweb.defense503", 
+    "fields": {}
+},
+{
+    "pk": 38, 
+    "model": "oweb.defense503", 
+    "fields": {}
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "test01", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2014-02-17T17:45:53.007", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$cTqQ3Wa46vAl$sK3uSUa8yFaxAK8dgbYljtZzoHruQmK4vzI5n/Fp8H4=", 
+        "email": "", 
+        "date_joined": "2014-02-17T17:45:02.609"
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "test02", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2014-02-17T18:08:36.582", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$zpMTKEhlBf5M$ylH9RtZsHDSfGVLEoEZfzEx9lRDQf/7wIytld905ADc=", 
+        "email": "", 
+        "date_joined": "2014-02-17T17:46:27.538"
+    }
+},
+{
+    "pk": 1, 
+    "model": "oweb.account", 
+    "fields": {
+        "username": "test01", 
+        "trade_crystal": 2, 
+        "universe": "test", 
+        "trade_deut": 1, 
+        "owner": [
+            "test01"
+        ], 
+        "trade_metal": 3, 
+        "speed": 4
+    }
+},
+{
+    "pk": 2, 
+    "model": "oweb.account", 
+    "fields": {
+        "username": "test02", 
+        "trade_crystal": 2, 
+        "universe": "test", 
+        "trade_deut": 1, 
+        "owner": [
+            "test02"
+        ], 
+        "trade_metal": 3, 
+        "speed": 1
+    }
+}
+]
