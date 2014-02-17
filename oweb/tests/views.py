@@ -28,46 +28,32 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_planet_settings_commit(self):
-        # TODO Needs data fixture, because it needs a valid planet_id for reverse
-        # r = self.client.get(reverse('oweb:planet_settings_update'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:planet_settings_update', args=[1,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_planet_create(self):
-        # TODO Needs data fixture, because it needs a valid account_id for reverse
-        # r = self.client.get(reverse('oweb:planet_create'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:planet_create', args=[1,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_planet_delete(self):
-        # TODO Needs data fixture, because it needs a valid account_id and planet_id for reverse
-        # r = self.client.get(reverse('oweb:planet_delete'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:planet_delete', args=[1,1,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_account_delete(self):
-        # TODO Needs data fixture, because it needs a valid account_id for reverse
-        # r = self.client.get(reverse('oweb:account_delete'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:account_delete', args=[1,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_moon_create(self):
-        # TODO Needs data fixture, because it needs a valid planet_id for reverse
-        # r = self.client.get(reverse('oweb:moon_create'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:moon_create', args=[1,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_moon_settings_commit(self):
-        # TODO Needs data fixture, because it needs a valid moon_id for reverse
-        # r = self.client.get(reverse('oweb:moon_settings_update'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:moon_settings_commit', args=[3,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_moon_delete(self):
-        # TODO Needs data fixture, because it needs a valid moon_id for reverse
-        # r = self.client.get(reverse('oweb:moon_delete'))
-        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:moon_delete', args=[3,]))
+        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
 
 class OWebViewAccountOwnerTests(OWebViewTests):
