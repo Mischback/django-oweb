@@ -69,6 +69,12 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
         self.assertEqual(True, True)
 
+    def test_moon_delete(self):
+        # TODO Needs data fixture, because it needs a valid moon_id for reverse
+        # r = self.client.get(reverse('oweb:moon_delete'))
+        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+        self.assertEqual(True, True)
+
 
 class OWebViewAccountOwnerTests(OWebViewTests):
     """Tests if the account owner is checked"""
@@ -110,6 +116,11 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_moon_settings_commit(self):
         """Can somebody update a moon in an account he doesn't posess?"""
+        # TODO insert real test here (should raise OWebAccountAccessViolation)
+        self.assertEqual(True, True)
+
+    def test_moon_delete(self):
+        """Can somebody delete a moon in an account he doesn't posess?"""
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 
@@ -289,4 +300,19 @@ class OWebViewUpdatesTests(OWebViewTests):
     def test_moon_settings_commit_redirect(self):
         """Does ``moon_settings_commit()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to planet_settings)
+        self.assertEqual(True, True)
+
+    def test_moon_delete_get(self):
+        """Does a GET to ``moon_delete()`` show the confirmation template?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)
+
+    def test_moon_delete_redirect(self):
+        """Does ``moon_delete()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to planet)
+        self.assertEqual(True, True)
+
+    def test_moon_delete_post_tamper(self):
+        """What does happen, if somebody tampers POST data?"""
+        # TODO insert real test here
         self.assertEqual(True, True)
