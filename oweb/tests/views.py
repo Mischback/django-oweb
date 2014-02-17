@@ -57,6 +57,12 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
         self.assertEqual(True, True)
 
+    def test_moon_create(self):
+        # TODO Needs data fixture, because it needs a valid planet_id for reverse
+        # r = self.client.get(reverse('oweb:moon_create'))
+        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+        self.assertEqual(True, True)
+
 
 class OWebViewAccountOwnerTests(OWebViewTests):
     """Tests if the account owner is checked"""
@@ -88,6 +94,11 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_account_delete(self):
         """Can somebody delete an account he doesn't posess?"""
+        # TODO insert real test here (should raise OWebAccountAccessViolation)
+        self.assertEqual(True, True)
+
+    def test_moon_create(self):
+        """Can somebody create a moon in an account he doesn't posess?"""
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 
@@ -247,4 +258,9 @@ class OWebViewUpdatesTests(OWebViewTests):
     def test_account_delete_post_tamper(self):
         """What does happen, if somebody tampers POST data?"""
         # TODO insert real test here
+        self.assertEqual(True, True)
+
+    def test_moon_create_redirect(self):
+        """Does ``moon_create()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to moon_settings of new moon)
         self.assertEqual(True, True)
