@@ -51,6 +51,12 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
         self.assertEqual(True, True)
 
+    def test_account_delete(self):
+        # TODO Needs data fixture, because it needs a valid account_id for reverse
+        # r = self.client.get(reverse('oweb:account_delete'))
+        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+        self.assertEqual(True, True)
+
 
 class OWebViewAccountOwnerTests(OWebViewTests):
     """Tests if the account owner is checked"""
@@ -77,6 +83,11 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_planet_delete(self):
         """Can somebody delete a planet for an account he doesn't posess?"""
+        # TODO insert real test here (should raise OWebAccountAccessViolation)
+        self.assertEqual(True, True)
+
+    def test_account_delete(self):
+        """Can somebody delete an account he doesn't posess?"""
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 
@@ -219,6 +230,21 @@ class OWebViewUpdatesTests(OWebViewTests):
         self.assertEqual(True, True)
 
     def test_planet_delete_post_tamper(self):
+        """What does happen, if somebody tampers POST data?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)
+
+    def test_account_delete_get(self):
+        """Does a GET to ``account_delete()`` show the confirmation template?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)
+
+    def test_account_delete_redirect(self):
+        """Does ``planet_delete()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to home)
+        self.assertEqual(True, True)
+
+    def test_account_delete_post_tamper(self):
         """What does happen, if somebody tampers POST data?"""
         # TODO insert real test here
         self.assertEqual(True, True)
