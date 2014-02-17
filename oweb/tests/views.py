@@ -63,6 +63,12 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
         self.assertEqual(True, True)
 
+    def test_moon_settings_commit(self):
+        # TODO Needs data fixture, because it needs a valid moon_id for reverse
+        # r = self.client.get(reverse('oweb:moon_settings_update'))
+        # self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
+        self.assertEqual(True, True)
+
 
 class OWebViewAccountOwnerTests(OWebViewTests):
     """Tests if the account owner is checked"""
@@ -99,6 +105,11 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_moon_create(self):
         """Can somebody create a moon in an account he doesn't posess?"""
+        # TODO insert real test here (should raise OWebAccountAccessViolation)
+        self.assertEqual(True, True)
+
+    def test_moon_settings_commit(self):
+        """Can somebody update a moon in an account he doesn't posess?"""
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 
@@ -263,4 +274,19 @@ class OWebViewUpdatesTests(OWebViewTests):
     def test_moon_create_redirect(self):
         """Does ``moon_create()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to moon_settings of new moon)
+        self.assertEqual(True, True)
+
+    def test_moon_settings_commit_no_post(self):
+        """What does ``moon_settings_commit()`` do, if no POST data is provided?"""
+        # TODO insert real test here (should raise OWebDoesNotExist)
+        self.assertEqual(True, True)
+
+    def test_moon_settings_commit_post_tamper(self):
+        """What does happen, if somebody tampers POST data?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)
+
+    def test_moon_settings_commit_redirect(self):
+        """Does ``moon_settings_commit()`` redirect to the correct page?"""
+        # TODO insert real test here (should redirect to planet_settings)
         self.assertEqual(True, True)
