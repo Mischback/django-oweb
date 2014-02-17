@@ -36,7 +36,7 @@ class OWebViewLoginRequiredTests(OWebViewTests):
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_planet_delete(self):
-        r = self.client.get(reverse('oweb:planet_delete', args=[1,1,]))
+        r = self.client.get(reverse('oweb:planet_delete', args=[1, 1,]))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
 
     def test_account_delete(self):
@@ -58,6 +58,9 @@ class OWebViewLoginRequiredTests(OWebViewTests):
 
 class OWebViewAccountOwnerTests(OWebViewTests):
     """Tests if the account owner is checked"""
+    def setUp(self):
+        # prepare a client login
+        self.client.login(username='test02', password='foo')
 
     def test_update(self):
         """Can somebody update an item he doesn't posess?"""
@@ -66,7 +69,6 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_account_settings_commit(self):
         """Can somebody update an account he doesn't posess?"""
-        self.client.login(username='test02', password='foo')
         # no need to perform a real POST request here, since the check is
         # performed before actual POST-parameters are considered
         r = self.client.get(reverse('oweb:account_settings_commit', args=[1,]))
@@ -74,38 +76,58 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
     def test_planet_settings_commit(self):
         """Can somebody update a planet he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        # no need to perform a real POST request here, since the check is
+        # performed before actual POST-parameters are considered
+        r = self.client.get(reverse('oweb:planet_settings_update', args=[1,]))
+        self.assertEqual(r.status_code, 404)
 
     def test_planet_create(self):
         """Can somebody create a planet for an account he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        # no need to perform a real POST request here, since the check is
+        # performed before actual POST-parameters are considered
+        r = self.client.get(reverse('oweb:planet_settings_update', args=[1,]))
+        self.assertEqual(r.status_code, 404)
 
     def test_planet_delete(self):
         """Can somebody delete a planet for an account he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        # no need to perform a real POST request here, since the check is
+        # performed before actual POST-parameters are considered
+        r = self.client.get(reverse('oweb:planet_delete', args=[1, 1,]))
+        self.assertEqual(r.status_code, 404)
+        r = self.client.post(reverse('oweb:planet_delete', args=[1, 1,]))
+        self.assertEqual(r.status_code, 404)
 
     def test_account_delete(self):
         """Can somebody delete an account he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        # no need to perform a real POST request here, since the check is
+        # performed before actual POST-parameters are considered
+        r = self.client.get(reverse('oweb:account_delete', args=[1,]))
+        self.assertEqual(r.status_code, 404)
+        r = self.client.post(reverse('oweb:account_delete', args=[1,]))
+        self.assertEqual(r.status_code, 404)
 
     def test_moon_create(self):
         """Can somebody create a moon in an account he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:moon_create', args=[1,]))
+        self.assertEqual(r.status_code, 404)
 
     def test_moon_settings_commit(self):
         """Can somebody update a moon in an account he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        # no need to perform a real POST request here, since the check is
+        # performed before actual POST-parameters are considered
+        r = self.client.get(reverse('oweb:moon_settings_commit', args=[3,]))
+        self.assertEqual(r.status_code, 404)
+        r = self.client.post(reverse('oweb:moon_settings_commit', args=[3,]))
+        self.assertEqual(r.status_code, 404)
 
     def test_moon_delete(self):
         """Can somebody delete a moon in an account he doesn't posess?"""
-        # TODO insert real test here (should raise OWebAccountAccessViolation)
-        self.assertEqual(True, True)
+        # no need to perform a real POST request here, since the check is
+        # performed before actual POST-parameters are considered
+        r = self.client.get(reverse('oweb:moon_delete', args=[3,]))
+        self.assertEqual(r.status_code, 404)
+        r = self.client.post(reverse('oweb:moon_delete', args=[3,]))
+        self.assertEqual(r.status_code, 404)
 
 
 class OWebViewBasicTests(OWebViewTests):
