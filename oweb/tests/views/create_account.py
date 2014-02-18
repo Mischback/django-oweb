@@ -11,7 +11,7 @@ class OWebViewsCreateAccountTests(OWebViewTests):
 
     def test_login_required(self):
         """Unauthenticated users should be redirected to oweb:app_login"""
-        r = self.client.get(reverse('oweb:item_update'))
+        r = self.client.get(reverse('oweb:create_account'))
         self.assertRedirects(r,
                              reverse('oweb:app_login'),
                              status_code=302,
