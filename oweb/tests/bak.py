@@ -11,10 +11,6 @@ class OWebViewLoginRequiredTests(OWebViewTests):
     this implementations are provided.
     """
 
-    def test_home(self):
-        r = self.client.get(reverse('oweb:home'))
-        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-
     def test_update(self):
         r = self.client.get(reverse('oweb:item_update'))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)

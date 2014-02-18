@@ -1,1 +1,1 @@
-from oweb.tests.views import *
+from oweb.tests.views.home import *
