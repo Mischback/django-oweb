@@ -19,7 +19,7 @@ class OWebViewsPlanetCreateTests(OWebViewTests):
 
     @skip('not yet implemented')
     def test_account_owner(self):
-        """Can somebody update an item he doesn't posess?"""
+        """Can somebody create a planet in an account he doesn't posess?"""
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 

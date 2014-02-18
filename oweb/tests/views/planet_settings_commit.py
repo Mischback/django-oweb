@@ -17,6 +17,7 @@ class OWebViewsPlanetSettingsCommitTests(OWebViewTests):
                              status_code=302,
                              target_status_code=200)
 
+    @skip('not yet implemented')
     def test_account_owner(self):
         """Can somebody update a planet he doesn't posess?"""
         # no need to perform a real POST request here, since the check is

@@ -11,10 +11,6 @@ class OWebViewLoginRequiredTests(OWebViewTests):
     this implementations are provided.
     """
 
-    def test_planet_delete(self):
-        r = self.client.get(reverse('oweb:planet_delete', args=[1, 1,]))
-        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-
     def test_account_delete(self):
         r = self.client.get(reverse('oweb:account_delete', args=[1,]))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
@@ -37,15 +33,6 @@ class OWebViewAccountOwnerTests(OWebViewTests):
     def setUp(self):
         # prepare a client login
         self.client.login(username='test02', password='foo')
-
-    def test_planet_delete(self):
-        """Can somebody delete a planet for an account he doesn't posess?"""
-        # no need to perform a real POST request here, since the check is
-        # performed before actual POST-parameters are considered
-        r = self.client.get(reverse('oweb:planet_delete', args=[1, 1,]))
-        self.assertEqual(r.status_code, 404)
-        r = self.client.post(reverse('oweb:planet_delete', args=[1, 1,]))
-        self.assertEqual(r.status_code, 404)
 
     def test_account_delete(self):
         """Can somebody delete an account he doesn't posess?"""
@@ -82,21 +69,6 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
 class OWebViewUpdatesTests(OWebViewTests):
     """Tests for views in views/updates.py"""
-
-    def test_planet_delete_get(self):
-        """Does a GET to ``planet_delete()`` show the confirmation template?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
-
-    def test_planet_delete_redirect(self):
-        """Does ``planet_delete()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to account_overview)
-        self.assertEqual(True, True)
-
-    def test_planet_delete_post_tamper(self):
-        """What does happen, if somebody tampers POST data?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
 
     def test_account_delete_get(self):
         """Does a GET to ``account_delete()`` show the confirmation template?"""
