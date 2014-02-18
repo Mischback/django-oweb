@@ -14,3 +14,8 @@ class OWebViewsHomeTests(OWebViewTests):
                              reverse('oweb:app_login'),
                              status_code=302,
                              target_status_code=200)
+
+    def test_account_listing(self):
+        """Does the home view list the correct accounts?"""
+        # TODO insert real test here
+        self.assertEqual(True, True)

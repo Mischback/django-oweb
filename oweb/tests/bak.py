@@ -129,11 +129,6 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 class OWebViewBasicTests(OWebViewTests):
     """Tests for views in views/basic.py"""
 
-    def test_home_listing(self):
-        """Does the home view list the correct accounts?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
-
 
 class OWebViewUpdatesTests(OWebViewTests):
     """Tests for views in views/updates.py"""
