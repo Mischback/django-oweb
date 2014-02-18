@@ -1,3 +1,4 @@
+from oweb.tests.views.account_delete import *
 from oweb.tests.views.account_settings_commit import *
 from oweb.tests.views.create_account import *
 from oweb.tests.views.home import *
