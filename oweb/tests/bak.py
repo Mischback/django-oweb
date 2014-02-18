@@ -117,18 +117,8 @@ class OWebViewAccountOwnerTests(OWebViewTests):
         self.assertEqual(r.status_code, 404)
 
 
-class OWebViewBasicTests(OWebViewTests):
-    """Tests for views in views/basic.py"""
-
-
 class OWebViewUpdatesTests(OWebViewTests):
     """Tests for views in views/updates.py"""
-
-
-    def test_create_account_redirect(self):
-        """Does ``create_account()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to account_settings of new account)
-        self.assertEqual(True, True)
 
     def test_account_settings_commit_no_post(self):
         """What does ``account_settings_commit()`` do, if no POST data is provided?"""
