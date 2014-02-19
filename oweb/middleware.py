@@ -1,8 +1,10 @@
 """App specific middleware"""
 # Django imports
 from django.views.defaults import page_not_found
-from django.http import HttpResponseNotFound, HttpResponseServerError
-from django.template import loader, Context
+from django.http import HttpResponseNotFound, HttpResponseForbidden
+from django.template import loader
+# Sekizai imports
+from sekizai.context import SekizaiContext as Context
 # app imports
 from oweb.exceptions import OWebException, OWebAccountAccessViolation
 
