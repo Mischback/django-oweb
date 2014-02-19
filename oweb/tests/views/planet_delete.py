@@ -1,4 +1,4 @@
-"""Contains tests for oweb.views.updates.item_update"""
+"""Contains tests for oweb.views.updates.planet_delete"""
 # Python imports
 from unittest import skip
 # Django imports

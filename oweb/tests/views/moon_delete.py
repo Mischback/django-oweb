@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from oweb.tests import OWebViewTests
 
 
-class OWebViewsItemUpdateTests(OWebViewTests):
+class OWebViewsMoonDeleteTests(OWebViewTests):
 
     def test_login_required(self):
         """Unauthenticated users should be redirected to oweb:app_login"""
