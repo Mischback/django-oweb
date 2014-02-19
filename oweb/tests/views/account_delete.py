@@ -20,18 +20,21 @@ class OWebViewsAccountDeleteTests(OWebViewTests):
     def test_account_owner(self):
         """Can somebody delete an account he doesn't posess?"""
         self.client.login(username='test02', password='foo')
-        # no need to perform a real POST request here, since the check is
-        # performed before actual POST-parameters are considered
+        # Should display a 403-page and use oweb/403.html
         r = self.client.get(reverse('oweb:account_delete', args=[1,]))
-        self.assertEqual(r.status_code, 404)
+        self.assertEqual(r.status_code, 403)
+        self.assertTemplateUsed(r, 'oweb/403.html')
         r = self.client.post(reverse('oweb:account_delete', args=[1,]))
-        self.assertEqual(r.status_code, 404)
+        self.assertEqual(r.status_code, 403)
+        self.assertTemplateUsed(r, 'oweb/403.html')
 
-    @skip('not yet implemented')
     def test_get(self):
         """Does a GET to ``account_delete()`` show the confirmation template?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
+        self.client.login(username='test01', password='foo')
+        # Should display oweb/account_delete.html with status 200
+        r = self.client.get(reverse('oweb:account_delete', args=[1,]))
+        self.assertEqual(r.status_code, 200)
+        self.assertTemplateUsed(r, 'oweb/account_delete.html')
 
     @skip('not yet implemented')
     def test_redirect(self):
