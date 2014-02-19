@@ -91,6 +91,10 @@ def account_settings_commit(req, account_id):
 
     acc = get_object_or_404(Account, pk=account_id)
 
+    # check, if the objects account is actually owned by the current user
+    if not req.user.id == acc.owner_id:
+        raise OWebAccountAccessViolation
+
     acc.username = req.POST['account_username']
     acc.universe = req.POST['account_universe']
     acc.speed = req.POST['account_speed']

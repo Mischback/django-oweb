@@ -1,5 +1,6 @@
 """Contains signals"""
-
+# Python imports
+from functools import wraps
 # Django imports
 from django.db.models import signals
 # app imports
@@ -10,6 +11,16 @@ from oweb.models.building import *
 from oweb.models.defense import *
 
 
+def disable_for_loaddata(signal_handler):
+    @wraps(signal_handler)
+    def wrapper(*args, **kwargs):
+        if kwargs['raw']:
+            return
+        signal_handler(*args, **kwargs)
+    return wrapper
+
+
+@disable_for_loaddata
 def callback_create_account(sender, instance, created, **kwargs):
     """Creates :py:class:`Research` and :py:class:`Ship` objects after account creation"""
     if created:
@@ -47,6 +58,7 @@ def callback_create_account(sender, instance, created, **kwargs):
         Planet.objects.create(account=instance, name='Homeworld')
 
 
+@disable_for_loaddata
 def callback_create_planet(sender, instance, created, **kwargs):
     """Creates :py:class:`Building`, :py:class:`Defense` and
     :py:class:`Civil212` objects after planet creation"""
@@ -84,6 +96,7 @@ def callback_create_planet(sender, instance, created, **kwargs):
         Defense503.objects.create(astro_object=instance)
 
 
+@disable_for_loaddata
 def callback_create_moon(sender, instance, created, **kwargs):
     if created:
         Supply22.objects.create(astro_object=instance)
@@ -110,6 +123,7 @@ def callback_create_moon(sender, instance, created, **kwargs):
         Defense408.objects.create(astro_object=instance)
 
 
+@disable_for_loaddata
 def callback_update_moon_coord(sender, instance, **kwargs):
     try:
         moon = Moon.objects.get(planet=instance)
