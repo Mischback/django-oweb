@@ -1,1 +1,10 @@
-OWeb 404
+{% extends 'oweb/error.html' %}
+
+{% block html_title %}Not Found (404) | OWeb{% endblock %}
+
+{% block oweb_layout %}
+<section>
+    <header>Not Found (404)</header>
+    <p>Dude, you're lost in space...</p>
+</section>
+{% endblock %}
