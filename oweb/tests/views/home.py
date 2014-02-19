@@ -1,4 +1,6 @@
 """Contains tests for oweb.views.basic.home"""
+# Python imports
+from unittest import skip
 # Django imports
 from django.core.urlresolvers import reverse
 # app imports
@@ -15,6 +17,7 @@ class OWebViewsHomeTests(OWebViewTests):
                              status_code=302,
                              target_status_code=200)
 
+    @skip('not yet implemented')
     def test_account_listing(self):
         """Does the home view list the correct accounts?"""
         # TODO insert real test here
