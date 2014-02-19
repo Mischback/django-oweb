@@ -11,10 +11,6 @@ class OWebViewLoginRequiredTests(OWebViewTests):
     this implementations are provided.
     """
 
-    def test_moon_create(self):
-        r = self.client.get(reverse('oweb:moon_create', args=[1,]))
-        self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
-
     def test_moon_settings_commit(self):
         r = self.client.get(reverse('oweb:moon_settings_commit', args=[3,]))
         self.assertRedirects(r, reverse('oweb:app_login'), status_code=302, target_status_code=200)
@@ -29,11 +25,6 @@ class OWebViewAccountOwnerTests(OWebViewTests):
     def setUp(self):
         # prepare a client login
         self.client.login(username='test02', password='foo')
-
-    def test_moon_create(self):
-        """Can somebody create a moon in an account he doesn't posess?"""
-        r = self.client.get(reverse('oweb:moon_create', args=[1,]))
-        self.assertEqual(r.status_code, 404)
 
     def test_moon_settings_commit(self):
         """Can somebody update a moon in an account he doesn't posess?"""
@@ -56,11 +47,6 @@ class OWebViewAccountOwnerTests(OWebViewTests):
 
 class OWebViewUpdatesTests(OWebViewTests):
     """Tests for views in views/updates.py"""
-
-    def test_moon_create_redirect(self):
-        """Does ``moon_create()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to moon_settings of new moon)
-        self.assertEqual(True, True)
 
     def test_moon_settings_commit_no_post(self):
         """What does ``moon_settings_commit()`` do, if no POST data is provided?"""
