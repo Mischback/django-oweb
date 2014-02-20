@@ -26,11 +26,18 @@ class OWebViewsAccountSettingsCommitTests(OWebViewTests):
         self.assertEqual(r.status_code, 403)
         self.assertTemplateUsed(r, 'oweb/403.html')
 
-    @skip('not yet implemented')
-    def test_no_post(self):
+    def test_unknown_account(self):
+        """What happens, if an invalid account_id is provided?"""
+        self.client.login(username='test01', password='foo')
+        r = self.client.get(reverse('oweb:account_settings_commit', args=[1338,]))
+        self.assertEqual(r.status_code, 404)
+        self.assertTemplateUsed(r, 'oweb/404.html')
+
+    def test_no_post_data(self):
         """What does ``account_settings_commit()`` do, if no POST data is provided?"""
-        # TODO insert real test here (should raise OWebDoesNotExist)
-        self.assertEqual(True, True)
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:account_settings_commit', args=[1,]))
+        self.assertEqual(r.status_code, 500)
 
     @skip('not yet implemented')
     def test_post_tamper(self):
