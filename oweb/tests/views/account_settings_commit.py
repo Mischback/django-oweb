@@ -38,6 +38,7 @@ class OWebViewsAccountSettingsCommitTests(OWebViewTests):
         self.client.login(username='test01', password='foo')
         r = self.client.post(reverse('oweb:account_settings_commit', args=[1,]))
         self.assertEqual(r.status_code, 500)
+        self.assertTemplateUsed(r, 'oweb/500.html')
 
     @skip('not yet implemented')
     def test_post_tamper(self):
