@@ -1,12 +1,12 @@
 """App specific middleware"""
 # Django imports
 from django.views.defaults import page_not_found
-from django.http import HttpResponseNotFound, HttpResponseForbidden
+from django.http import HttpResponseNotFound, HttpResponseForbidden, HttpResponseServerError
 from django.template import loader
 # Sekizai imports
 from sekizai.context import SekizaiContext as Context
 # app imports
-from oweb.exceptions import OWebException, OWebAccountAccessViolation
+from oweb.exceptions import OWebException, OWebAccountAccessViolation, OWebParameterMissingException
 
 class OWebExceptionMiddleware(object):
     """Catches OWeb specific Exceptions"""
@@ -17,8 +17,15 @@ class OWebExceptionMiddleware(object):
             # unauthorized access to an account
             if isinstance(e, OWebAccountAccessViolation):
                 t = loader.get_template('oweb/403.html')
-                c = Context({'request': req})
+                c = Context()
                 return HttpResponseForbidden(t.render(c))
+
+            # missing parameter
+            # Which status code is right, if a parameter is missing? Going with 500
+            if isinstance(e, OWebParameterMissingException):
+                t = loader.get_template('oweb/500.html')
+                c = Context()
+                return HttpResponseServerError(t.render(c))
 
             # handle with a 404
             return HttpResponseNotFound(

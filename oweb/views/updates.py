@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 # app imports
-from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation
+from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation, OWebParameterMissingException
 from oweb.models import Account, Building, Defense, Planet, Research, Ship, Moon
 from oweb.libs.shortcuts import get_object_or_404
 
@@ -95,13 +95,16 @@ def account_settings_commit(req, account_id):
     if not req.user.id == acc.owner_id:
         raise OWebAccountAccessViolation
 
-    acc.username = req.POST['account_username']
-    acc.universe = req.POST['account_universe']
-    acc.speed = req.POST['account_speed']
-    acc.trade_metal = req.POST['account_trade_metal']
-    acc.trade_crystal = req.POST['account_trade_crystal']
-    acc.trade_deut = req.POST['account_trade_deut']
-    acc.save()
+    try:
+        acc.username = req.POST['account_username']
+        acc.universe = req.POST['account_universe']
+        acc.speed = req.POST['account_speed']
+        acc.trade_metal = req.POST['account_trade_metal']
+        acc.trade_crystal = req.POST['account_trade_crystal']
+        acc.trade_deut = req.POST['account_trade_deut']
+        acc.save()
+    except KeyError:
+        raise OWebParameterMissingException
 
     return HttpResponseRedirect(req.META['HTTP_REFERER'])
 
