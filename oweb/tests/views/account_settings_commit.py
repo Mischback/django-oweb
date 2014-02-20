@@ -41,12 +41,6 @@ class OWebViewsAccountSettingsCommitTests(OWebViewTests):
         self.assertTemplateUsed(r, 'oweb/500.html')
 
     @skip('not yet implemented')
-    def test_post_tamper(self):
-        """What does happen, if somebody tampers POST data?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
-
-    @skip('not yet implemented')
     def test_redirect(self):
         """Does ``account_settings_commit()`` redirect to the correct page?"""
         # TODO insert real test here (should redirect to account_settings)
