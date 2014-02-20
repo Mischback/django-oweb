@@ -52,9 +52,3 @@ class OWebViewsAccountDeleteTests(OWebViewTests):
                              reverse('oweb:home'),
                              status_code=302,
                              target_status_code=200)
-
-    @skip('not yet implemented')
-    def test_post_tamper(self):
-        """What does happen, if somebody tampers POST data?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
