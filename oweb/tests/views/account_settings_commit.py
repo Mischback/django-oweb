@@ -40,6 +40,21 @@ class OWebViewsAccountSettingsCommitTests(OWebViewTests):
         self.assertEqual(r.status_code, 500)
         self.assertTemplateUsed(r, 'oweb/500.html')
 
+    def test_illegal_post_parameter(self):
+        """What if a parameter is illegal?"""
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:account_settings_commit', args=[1,]),
+                             data={
+                                 'account_username': 'This',
+                                 'account_universe': 'is',
+                                 'account_speed': 'just',
+                                 'account_trade_metal': 'a',
+                                 'account_trade_crystal': 'test',
+                                 'account_trade_deut': '!'
+                             })
+        self.assertEqual(r.status_code, 500)
+        self.assertTemplateUsed(r, 'oweb/500.html')
+
     @skip('not yet implemented')
     def test_redirect(self):
         """Does ``account_settings_commit()`` redirect to the correct page?"""
