@@ -6,7 +6,7 @@ from django.template import loader
 # Sekizai imports
 from sekizai.context import SekizaiContext as Context
 # app imports
-from oweb.exceptions import OWebException, OWebAccountAccessViolation, OWebParameterMissingException
+from oweb.exceptions import OWebException, OWebAccountAccessViolation, OWebParameterMissingException, OWebIllegalParameterException
 
 class OWebExceptionMiddleware(object):
     """Catches OWeb specific Exceptions"""
@@ -22,7 +22,8 @@ class OWebExceptionMiddleware(object):
 
             # missing parameter
             # Which status code is right, if a parameter is missing? Going with 500
-            if isinstance(e, OWebParameterMissingException):
+            if isinstance(e, (OWebParameterMissingException,
+                              OWebIllegalParameterException)):
                 t = loader.get_template('oweb/500.html')
                 c = Context()
                 return HttpResponseServerError(t.render(c))

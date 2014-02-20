@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 # app imports
-from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation, OWebParameterMissingException
+from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation, OWebParameterMissingException, OWebIllegalParameterException
 from oweb.models import Account, Building, Defense, Planet, Research, Ship, Moon
 from oweb.libs.shortcuts import get_object_or_404
 
@@ -105,6 +105,8 @@ def account_settings_commit(req, account_id):
         acc.save()
     except KeyError:
         raise OWebParameterMissingException
+    except ValueError:
+        raise OWebIllegalParameterException
 
     return HttpResponseRedirect(req.META['HTTP_REFERER'])
 
