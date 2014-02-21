@@ -55,8 +55,19 @@ class OWebViewsAccountSettingsCommitTests(OWebViewTests):
         self.assertEqual(r.status_code, 500)
         self.assertTemplateUsed(r, 'oweb/500.html')
 
-    @skip('not yet implemented')
     def test_redirect(self):
         """Does ``account_settings_commit()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to account_settings)
-        self.assertEqual(True, True)
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:account_settings_commit', args=[1,]),
+                             data={
+                                 'account_username': 'username',
+                                 'account_universe': 'universe',
+                                 'account_speed': 4,
+                                 'account_trade_metal': 3,
+                                 'account_trade_crystal': 2,
+                                 'account_trade_deut': 1 
+                             })
+        self.assertRedirects(r,
+                             reverse('oweb:account_settings', args=[1]),
+                             status_code=302,
+                             target_status_code=200)

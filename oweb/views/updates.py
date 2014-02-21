@@ -108,7 +108,7 @@ def account_settings_commit(req, account_id):
     except ValueError:
         raise OWebIllegalParameterException
 
-    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+    return redirect(reverse('oweb:account_settings', args=[acc.id]))
 
 
 def planet_settings_commit(req, planet_id):
