@@ -49,7 +49,7 @@ def item_update(req):
         obj = Defense.objects.get(pk=item_id)
         account = obj.astro_object.as_real_class().planet.account
     else:
-        raise OWebDoesNotExist
+        raise OWebIllegalParameterException
 
     # check, if the objects account is actually owned by the current user
     if not req.user.id == account.owner_id:

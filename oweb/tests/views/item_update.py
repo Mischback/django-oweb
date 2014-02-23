@@ -102,8 +102,14 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(False, True)
 
-    @skip('not yet implemented')
     def test_unknown_item_type(self):
         """Does ``item_update()`` correctly handle unknown item_types?"""
-        # TODO insert real test here (should raise OWebDoesNotExist)
-        self.assertEqual(False, True)
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:item_update'),
+                             data={
+                                 'item_type': 'foobar',
+                                 'item_id': 1,
+                                 'item_level': 1
+                             })
+        self.assertEqual(r.status_code, 500)
+        self.assertTemplateUsed(r, 'oweb/500.html')
