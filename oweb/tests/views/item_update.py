@@ -23,11 +23,12 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         # TODO insert real test here (should raise OWebAccountAccessViolation)
         self.assertEqual(True, True)
 
-    @skip('not yet implemented')
     def test_no_post(self):
         """What if no POST data is supplied?"""
-        # TODO insert real test here (should raise OWebDoesNotExist)
-        self.assertEqual(False, True)
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:item_update'))
+        self.assertEqual(r.status_code, 500)
+        self.assertTemplateUsed(r, 'oweb/500.html')
 
     @skip('not yet implemented')
     def test_redirect(self):

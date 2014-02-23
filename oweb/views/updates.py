@@ -27,8 +27,8 @@ def item_update(req):
         item_type = req.POST['item_type']
         item_id = req.POST['item_id']
         item_level = req.POST['item_level']
-    except:
-        raise OWebDoesNotExist
+    except KeyError:
+        raise OWebParameterMissingException
 
     if 'research' == item_type:
         obj = Research.objects.get(pk=item_id)
