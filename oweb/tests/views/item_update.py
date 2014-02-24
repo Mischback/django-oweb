@@ -3,10 +3,15 @@
 from unittest import skip
 # Django imports
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
+from django.contrib.auth.models import User
 # app imports
 from oweb.tests import OWebViewTests
+from oweb.models.account import Account
+from oweb.models.research import Research
 
 
+@override_settings(AUTH_USER_MODEL='auth.User')
 class OWebViewsItemUpdateTests(OWebViewTests):
 
     def test_login_required(self):
@@ -30,13 +35,6 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         self.assertEqual(r.status_code, 500)
         self.assertTemplateUsed(r, 'oweb/500.html')
 
-    @skip('not yet implemented')
-    def test_redirect(self):
-        """Does ``item_update()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to referer)
-        self.assertEqual(False, True)
-
-    @skip('not yet implemented')
     def test_research_update(self):
         """Does ``item_update()`` correctly update researches?
         
@@ -44,8 +42,22 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         involved in determine the correct field to update, this test is
         included
         """
-        # TODO insert real test here (is item updated after finishing?)
-        self.assertEqual(False, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.get(owner=u)
+        res_pre = Research.objects.filter(account=acc).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:item_update'),
+                             data={ 'item_type': 'research',
+                                    'item_id': res_pre.id,
+                                    'item_level': res_pre.level + 1 },
+                             HTTP_REFERER=reverse('oweb:account_research',
+                                                  args=[acc.id]))
+        self.assertRedirects(r,
+                             reverse('oweb:account_research', args=[acc.id]),
+                             status_code=302,
+                             target_status_code=200)
+        res_post = Research.objects.get(pk=res_pre.pk)
+        self.assertEqual(res_pre.level + 1, res_post.level)
 
     @skip('not yet implemented')
     def test_ship_update(self):
