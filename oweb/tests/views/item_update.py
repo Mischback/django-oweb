@@ -12,6 +12,7 @@ from oweb.models.research import Research
 from oweb.models.ship import Ship
 from oweb.models.planet import Planet, Moon
 from oweb.models.building import Building
+from oweb.models.defense import Defense
 
 
 @override_settings(AUTH_USER_MODEL='auth.User')
@@ -122,7 +123,6 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         # TODO insert real test here (is item updated after finishing?)
         self.assertEqual(False, True)
 
-    @skip('not yet implemented')
     def test_defense_update(self):
         """Does ``item_update()`` correctly update defense devices?
         
@@ -130,8 +130,23 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         involved in determine the correct field to update, this test is
         included
         """
-        # TODO insert real test here (is item updated after finishing?)
-        self.assertEqual(False, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.get(owner=u)
+        p = Planet.objects.filter(account=acc).first()
+        d_pre = Defense.objects.filter(astro_object=p).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:item_update'),
+                             data={ 'item_type': 'defense',
+                                    'item_id': d_pre.id,
+                                    'item_level': d_pre.count - 1 },
+                             HTTP_REFERER=reverse('oweb:planet_defense',
+                                                  args=[p.id]))
+        self.assertRedirects(r,
+                             reverse('oweb:planet_defense', args=[p.id]),
+                             status_code=302,
+                             target_status_code=200)
+        d_post = Defense.objects.get(pk=d_pre.pk)
+        self.assertEqual(d_pre.count - 1, d_post.count)
 
     @skip('not yet implemented')
     def test_moon_defense_update(self):
