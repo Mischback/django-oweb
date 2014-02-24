@@ -112,7 +112,6 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         b_post = Building.objects.get(pk=b_pre.pk)
         self.assertEqual(b_pre.level - 1, b_post.level)
 
-    @skip('not yet implemented')
     def test_moon_building_update(self):
         """Does ``item_update()`` correctly update moon buildings?
         
@@ -120,8 +119,24 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         involved in determine the correct field to update, this test is
         included
         """
-        # TODO insert real test here (is item updated after finishing?)
-        self.assertEqual(False, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.get(owner=u)
+        p = Planet.objects.filter(account=acc).values_list('id', flat=True)
+        m = Moon.objects.filter(planet__in=p).first()
+        b_pre = Building.objects.filter(astro_object=m).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:item_update'),
+                             data={ 'item_type': 'moon_building',
+                                    'item_id': b_pre.id,
+                                    'item_level': b_pre.level + 2 },
+                             HTTP_REFERER=reverse('oweb:moon_buildings',
+                                                  args=[m.id]))
+        self.assertRedirects(r,
+                             reverse('oweb:moon_buildings', args=[m.id]),
+                             status_code=302,
+                             target_status_code=200)
+        b_post = Building.objects.get(pk=b_pre.pk)
+        self.assertEqual(b_pre.level + 2, b_post.level)
 
     def test_defense_update(self):
         """Does ``item_update()`` correctly update defense devices?
