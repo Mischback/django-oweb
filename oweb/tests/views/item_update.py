@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from oweb.tests import OWebViewTests
 from oweb.models.account import Account
 from oweb.models.research import Research
+from oweb.models.ship import Ship
 
 
 @override_settings(AUTH_USER_MODEL='auth.User')
@@ -59,7 +60,6 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         res_post = Research.objects.get(pk=res_pre.pk)
         self.assertEqual(res_pre.level + 1, res_post.level)
 
-    @skip('not yet implemented')
     def test_ship_update(self):
         """Does ``item_update()`` correctly update ships?
         
@@ -67,8 +67,22 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         involved in determine the correct field to update, this test is
         included
         """
-        # TODO insert real test here (is item updated after finishing?)
-        self.assertEqual(False, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.get(owner=u)
+        ship_pre = Ship.objects.filter(account=acc).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:item_update'),
+                             data={ 'item_type': 'ship',
+                                    'item_id': ship_pre.id,
+                                    'item_level': ship_pre.count + 1338 },
+                             HTTP_REFERER=reverse('oweb:account_ships',
+                                                  args=[acc.id]))
+        self.assertRedirects(r,
+                             reverse('oweb:account_ships', args=[acc.id]),
+                             status_code=302,
+                             target_status_code=200)
+        ship_post = Ship.objects.get(pk=ship_pre.pk)
+        self.assertEqual(ship_pre.count + 1338, ship_post.count)
 
     @skip('not yet implemented')
     def test_building_update(self):
