@@ -92,8 +92,23 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         involved in determine the correct field to update, this test is
         included
         """
-        # TODO insert real test here (is item updated after finishing?)
-        self.assertEqual(False, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.get(owner=u)
+        p = Planet.objects.filter(account=acc).first()
+        b_pre = Building.objects.filter(astro_object=p).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:item_update'),
+                             data={ 'item_type': 'building',
+                                    'item_id': b_pre.id,
+                                    'item_level': b_pre.level - 1 },
+                             HTTP_REFERER=reverse('oweb:planet_buildings',
+                                                  args=[p.id]))
+        self.assertRedirects(r,
+                             reverse('oweb:planet_buildings', args=[p.id]),
+                             status_code=302,
+                             target_status_code=200)
+        b_pre = Building.objects.get(pk=b_pre.pk)
+        self.assertEqual(b_pre.level - 1, b_post.level)
 
     @skip('not yet implemented')
     def test_moon_building_update(self):
