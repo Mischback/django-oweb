@@ -10,6 +10,8 @@ from oweb.tests import OWebViewTests
 from oweb.models.account import Account
 from oweb.models.research import Research
 from oweb.models.ship import Ship
+from oweb.models.planet import Planet, Moon
+from oweb.models.building import Building
 
 
 @override_settings(AUTH_USER_MODEL='auth.User')
@@ -84,7 +86,6 @@ class OWebViewsItemUpdateTests(OWebViewTests):
         ship_post = Ship.objects.get(pk=ship_pre.pk)
         self.assertEqual(ship_pre.count + 1338, ship_post.count)
 
-    @skip('not yet implemented')
     def test_building_update(self):
         """Does ``item_update()`` correctly update buildings?
         
@@ -107,7 +108,7 @@ class OWebViewsItemUpdateTests(OWebViewTests):
                              reverse('oweb:planet_buildings', args=[p.id]),
                              status_code=302,
                              target_status_code=200)
-        b_pre = Building.objects.get(pk=b_pre.pk)
+        b_post = Building.objects.get(pk=b_pre.pk)
         self.assertEqual(b_pre.level - 1, b_post.level)
 
     @skip('not yet implemented')
