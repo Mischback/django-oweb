@@ -257,8 +257,11 @@ def moon_settings_commit(req, moon_id):
     if not req.user.id == moon.planet.account.owner_id:
         raise OWebAccountAccessViolation
 
-    moon.name = req.POST['moon_name']
-    moon.save()
+    try:
+        moon.name = req.POST['moon_name']
+        moon.save()
+    except KeyError:
+        raise OWebParameterMissingException
 
     return HttpResponseRedirect(req.META['HTTP_REFERER'])
 

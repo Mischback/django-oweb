@@ -39,11 +39,16 @@ class OWebViewsMoonSettingsCommitTests(OWebViewTests):
         self.assertEqual(r.status_code, 403)
         self.assertTemplateUsed(r, 'oweb/403.html')
 
-    @skip('not yet implemented')
     def test_no_post(self):
         """What does ``moon_settings_commit()`` do, if no POST data is provided?"""
-        # TODO insert real test here (should raise OWebDoesNotExist)
-        self.assertEqual(True, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.filter(owner=u).first()
+        p = Planet.objects.filter(account=acc).values_list('id', flat=True)
+        m = Moon.objects.filter(planet__in=p).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:moon_settings_commit', args=[m.id]))
+        self.assertEqual(r.status_code, 500)
+        self.assertTemplateUsed(r, 'oweb/500.html')
 
     @skip('not yet implemented')
     def test_post_tamper(self):
