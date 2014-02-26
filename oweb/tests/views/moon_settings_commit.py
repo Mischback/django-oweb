@@ -16,7 +16,11 @@ class OWebViewsMoonSettingsCommitTests(OWebViewTests):
 
     def test_login_required(self):
         """Unauthenticated users should be redirected to oweb:app_login"""
-        r = self.client.get(reverse('oweb:moon_settings_commit', args=[3]))
+        u = User.objects.get(username='test01')
+        acc = Account.objects.filter(owner=u).first()
+        p = Planet.objects.filter(account=acc).values_list('id', flat=True)
+        m = Moon.objects.filter(planet__in=p).first()
+        r = self.client.get(reverse('oweb:moon_settings_commit', args=[m.id]))
         self.assertRedirects(r,
                              reverse('oweb:app_login'),
                              status_code=302,
