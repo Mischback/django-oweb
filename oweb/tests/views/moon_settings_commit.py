@@ -50,14 +50,16 @@ class OWebViewsMoonSettingsCommitTests(OWebViewTests):
         self.assertEqual(r.status_code, 500)
         self.assertTemplateUsed(r, 'oweb/500.html')
 
-    @skip('not yet implemented')
-    def test_post_tamper(self):
-        """What does happen, if somebody tampers POST data?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
-
-    @skip('not yet implemented')
     def test_redirect(self):
         """Does ``moon_settings_commit()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to planet_settings)
-        self.assertEqual(True, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.filter(owner=u).first()
+        p = Planet.objects.filter(account=acc).values_list('id', flat=True)
+        m = Moon.objects.filter(planet__in=p).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:moon_settings_commit', args=[m.id]),
+                             data={'moon_name': 'foobar'})
+        self.assertRedirects(r,
+                             reverse('oweb:moon_settings', args=[m.id]),
+                             status_code=302,
+                             target_status_code=200)

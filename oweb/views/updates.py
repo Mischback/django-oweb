@@ -263,7 +263,7 @@ def moon_settings_commit(req, moon_id):
     except KeyError:
         raise OWebParameterMissingException
 
-    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+    return HttpResponseRedirect(reverse('oweb:moon_settings', args=[moon.id]))
 
 
 def moon_delete(req, moon_id):
