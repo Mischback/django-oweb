@@ -151,14 +151,9 @@ def planet_create(req, account_id):
     if not req.user.id == account.owner_id:
         raise OWebAccountAccessViolation
 
-    tmp_name = hashlib.md5(str(datetime.now))
-    Planet.objects.create(account=account, name=tmp_name)
+    planet = Planet.objects.create(account=account, name='Colony')
 
-    planet = get_object_or_404(Planet, name=tmp_name)
-    planet.name = 'Colony'
-    planet.save()
-
-    return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet.id,)))
+    return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet.id)))
 
 
 def planet_delete(req, account_id, planet_id):
