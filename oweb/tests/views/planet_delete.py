@@ -3,15 +3,22 @@
 from unittest import skip
 # Django imports
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
+from django.contrib.auth.models import User
 # app imports
 from oweb.tests import OWebViewTests
+from oweb.models.account import Account
+from oweb.models.planet import Planet
 
 
+@override_settings(AUTH_USER_MODEL='auth.User')
 class OWebViewsPlanetDeleteTests(OWebViewTests):
 
     def test_login_required(self):
         """Unauthenticated users should be redirected to oweb:app_login"""
-        r = self.client.get(reverse('oweb:planet_delete', args=[1, 1,]))
+        acc = Account.objects.filter().first()
+        p = Planet.objects.filter(account=acc).first()
+        r = self.client.get(reverse('oweb:planet_delete', args=[acc.id, p.id]))
         self.assertRedirects(r,
                              reverse('oweb:app_login'),
                              status_code=302,
