@@ -153,7 +153,7 @@ def planet_create(req, account_id):
 
     planet = Planet.objects.create(account=account, name='Colony')
 
-    return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet.id)))
+    return HttpResponseRedirect(reverse('oweb:planet_settings', args=[planet.id]))
 
 
 def planet_delete(req, account_id, planet_id):
