@@ -24,23 +24,27 @@ class OWebViewsPlanetDeleteTests(OWebViewTests):
                              status_code=302,
                              target_status_code=200)
 
-    @skip('not yet implemented')
     def test_account_owner(self):
         """Can somebody delete a planet for an account he doesn't posess?"""
+        u = User.objects.get(username='test01')
+        acc = Account.objects.filter(owner=u).first()
+        p = Planet.objects.filter(account=acc).first()
         self.client.login(username='test02', password='foo')
         # no need to perform a real POST request here, since the check is
         # performed before actual POST-parameters are considered
-        r = self.client.get(reverse('oweb:planet_delete', args=[1, 1,]))
-        self.assertEqual(r.status_code, 404)
-        r = self.client.post(reverse('oweb:planet_delete', args=[1, 1,]))
-        self.assertEqual(r.status_code, 404)
-        self.assertEqual(True, True)
+        r = self.client.get(reverse('oweb:planet_delete', args=[acc.id, p.id]))
+        self.assertEqual(r.status_code, 403)
+        self.assertTemplateUsed(r, 'oweb/403.html')
 
-    @skip('not yet implemented')
-    def test_planet_delete_get(self):
+    def test_get(self):
         """Does a GET to ``planet_delete()`` show the confirmation template?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.filter(owner=u).first()
+        p = Planet.objects.filter(account=acc).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.get(reverse('oweb:planet_delete', args=[acc.id, p.id]))
+        self.assertEqual(r.status_code, 200)
+        self.assertTemplateUsed(r, 'oweb/planet_delete.html')
 
     @skip('not yet implemented')
     def test_planet_delete_redirect(self):
