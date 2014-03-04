@@ -46,14 +46,15 @@ class OWebViewsPlanetDeleteTests(OWebViewTests):
         self.assertEqual(r.status_code, 200)
         self.assertTemplateUsed(r, 'oweb/planet_delete.html')
 
-    @skip('not yet implemented')
-    def test_planet_delete_redirect(self):
+    def test_redirect(self):
         """Does ``planet_delete()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to account_overview)
-        self.assertEqual(True, True)
-
-    @skip('not yet implemented')
-    def test_planet_delete_post_tamper(self):
-        """What does happen, if somebody tampers POST data?"""
-        # TODO insert real test here
-        self.assertEqual(True, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.filter(owner=u).first()
+        p = Planet.objects.filter(account=acc).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:planet_delete', args=[acc.id, p.id]),
+                             data={'confirm_planet_deletion': 'confirm'})
+        self.assertRedirects(r,
+                             reverse('oweb:account_overview', args=[acc.id]),
+                             status_code=302,
+                             target_status_code=200)
