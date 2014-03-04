@@ -37,18 +37,36 @@ class OWebViewsPlanetSettingsCommitTests(OWebViewTests):
         self.assertEqual(r.status_code, 403)
         self.assertTemplateUsed(r, 'oweb/403.html')
 
+    def test_unknown_planet(self):
+        """What happens, if an invalid planet_id is provided?"""
+        self.client.login(username='test01', password='foo')
+        r = self.client.get(reverse('oweb:planet_settings_update', args=[1338]))
+        self.assertEqual(r.status_code, 404)
+        self.assertTemplateUsed(r, 'oweb/404.html')
+
     def test_no_post_data(self):
         """What does ``planet_settings_commit()`` do, if no POST data is provided?"""
         u = User.objects.get(username='test01')
         acc = Account.objects.filter(owner=u).first()
         p = Planet.objects.filter(account=acc).first()
         self.client.login(username='test01', password='foo')
-        r = self.client.get(reverse('oweb:planet_settings_update', args=[p.id]))
+        r = self.client.post(reverse('oweb:planet_settings_update', args=[p.id]))
         self.assertEqual(r.status_code, 500)
         self.assertTemplateUsed(r, 'oweb/500.html')
 
-    @skip('not yet implemented')
     def test_redirect(self):
         """Does ``planet_settings_commit()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to planet_settings)
-        self.assertEqual(True, True)
+        u = User.objects.get(username='test01')
+        acc = Account.objects.filter(owner=u).first()
+        p = Planet.objects.filter(account=acc).first()
+        self.client.login(username='test01', password='foo')
+        r = self.client.post(reverse('oweb:planet_settings_update', args=[p.id]),
+                            data={
+                                'planet_name': 'foobar',
+                                'planet_coord': '1:33:8',
+                                'planet_max_temp': 5
+                            })
+        self.assertRedirects(r,
+                             reverse('oweb:planet_settings', args=[p.id]),
+                             status_code=302,
+                             target_status_code=200)

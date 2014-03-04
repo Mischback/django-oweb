@@ -137,7 +137,7 @@ def planet_settings_commit(req, planet_id):
     except KeyError:
         raise OWebParameterMissingException
 
-    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+    return redirect(reverse('oweb:planet_settings', args=[planet.id]))
 
 
 def planet_create(req, account_id):
