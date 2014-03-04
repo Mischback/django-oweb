@@ -129,10 +129,13 @@ def planet_settings_commit(req, planet_id):
     if not req.user.id == planet.account.owner_id:
         raise OWebAccountAccessViolation
 
-    planet.name = req.POST['planet_name']
-    planet.coord = req.POST['planet_coord']
-    planet.max_temp = req.POST['planet_max_temp']
-    planet.save()
+    try:
+        planet.name = req.POST['planet_name']
+        planet.coord = req.POST['planet_coord']
+        planet.max_temp = req.POST['planet_max_temp']
+        planet.save()
+    except KeyError:
+        raise OWebParameterMissingException
 
     return HttpResponseRedirect(req.META['HTTP_REFERER'])
 
