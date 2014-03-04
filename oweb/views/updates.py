@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 # app imports
-from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation
+from oweb.exceptions import OWebDoesNotExist, OWebAccountAccessViolation, OWebParameterMissingException, OWebIllegalParameterException
 from oweb.models import Account, Building, Defense, Planet, Research, Ship, Moon
 from oweb.libs.shortcuts import get_object_or_404
 
@@ -27,8 +27,8 @@ def item_update(req):
         item_type = req.POST['item_type']
         item_id = req.POST['item_id']
         item_level = req.POST['item_level']
-    except:
-        raise OWebDoesNotExist
+    except KeyError:
+        raise OWebParameterMissingException
 
     if 'research' == item_type:
         obj = Research.objects.get(pk=item_id)
@@ -49,7 +49,7 @@ def item_update(req):
         obj = Defense.objects.get(pk=item_id)
         account = obj.astro_object.as_real_class().planet.account
     else:
-        raise OWebDoesNotExist
+        raise OWebIllegalParameterException
 
     # check, if the objects account is actually owned by the current user
     if not req.user.id == account.owner_id:
@@ -95,15 +95,20 @@ def account_settings_commit(req, account_id):
     if not req.user.id == acc.owner_id:
         raise OWebAccountAccessViolation
 
-    acc.username = req.POST['account_username']
-    acc.universe = req.POST['account_universe']
-    acc.speed = req.POST['account_speed']
-    acc.trade_metal = req.POST['account_trade_metal']
-    acc.trade_crystal = req.POST['account_trade_crystal']
-    acc.trade_deut = req.POST['account_trade_deut']
-    acc.save()
+    try:
+        acc.username = req.POST['account_username']
+        acc.universe = req.POST['account_universe']
+        acc.speed = req.POST['account_speed']
+        acc.trade_metal = req.POST['account_trade_metal']
+        acc.trade_crystal = req.POST['account_trade_crystal']
+        acc.trade_deut = req.POST['account_trade_deut']
+        acc.save()
+    except KeyError:
+        raise OWebParameterMissingException
+    except ValueError:
+        raise OWebIllegalParameterException
 
-    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+    return redirect(reverse('oweb:account_settings', args=[acc.id]))
 
 
 def planet_settings_commit(req, planet_id):
@@ -124,12 +129,15 @@ def planet_settings_commit(req, planet_id):
     if not req.user.id == planet.account.owner_id:
         raise OWebAccountAccessViolation
 
-    planet.name = req.POST['planet_name']
-    planet.coord = req.POST['planet_coord']
-    planet.max_temp = req.POST['planet_max_temp']
-    planet.save()
+    try:
+        planet.name = req.POST['planet_name']
+        planet.coord = req.POST['planet_coord']
+        planet.max_temp = req.POST['planet_max_temp']
+        planet.save()
+    except KeyError:
+        raise OWebParameterMissingException
 
-    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+    return redirect(reverse('oweb:planet_settings', args=[planet.id]))
 
 
 def planet_create(req, account_id):
@@ -146,14 +154,9 @@ def planet_create(req, account_id):
     if not req.user.id == account.owner_id:
         raise OWebAccountAccessViolation
 
-    tmp_name = hashlib.md5(str(datetime.now))
-    Planet.objects.create(account=account, name=tmp_name)
+    planet = Planet.objects.create(account=account, name='Colony')
 
-    planet = get_object_or_404(Planet, name=tmp_name)
-    planet.name = 'Colony'
-    planet.save()
-
-    return HttpResponseRedirect(reverse('oweb:planet_settings', args=(planet.id,)))
+    return HttpResponseRedirect(reverse('oweb:planet_settings', args=[planet.id]))
 
 
 def planet_delete(req, account_id, planet_id):
@@ -252,10 +255,13 @@ def moon_settings_commit(req, moon_id):
     if not req.user.id == moon.planet.account.owner_id:
         raise OWebAccountAccessViolation
 
-    moon.name = req.POST['moon_name']
-    moon.save()
+    try:
+        moon.name = req.POST['moon_name']
+        moon.save()
+    except KeyError:
+        raise OWebParameterMissingException
 
-    return HttpResponseRedirect(req.META['HTTP_REFERER'])
+    return HttpResponseRedirect(reverse('oweb:moon_settings', args=[moon.id]))
 
 
 def moon_delete(req, moon_id):

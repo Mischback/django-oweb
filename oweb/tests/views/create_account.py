@@ -5,6 +5,7 @@ from unittest import skip
 from django.core.urlresolvers import reverse
 # app imports
 from oweb.tests import OWebViewTests
+from oweb.models.account import Account
 
 
 class OWebViewsCreateAccountTests(OWebViewTests):
@@ -17,8 +18,13 @@ class OWebViewsCreateAccountTests(OWebViewTests):
                              status_code=302,
                              target_status_code=200)
 
-    @skip('not yet implemented')
     def test_redirect(self):
         """Does ``create_account()`` redirect to the correct page?"""
-        # TODO insert real test here (should redirect to account_settings of new account)
-        self.assertEqual(True, True)
+        accs = Account.objects.all()
+        num_accs = len(accs) + 1
+        self.client.login(username='test01', password='foo')
+        r = self.client.get(reverse('oweb:create_account'))
+        self.assertRedirects(r,
+                             reverse('oweb:account_settings', args=[num_accs]),
+                             status_code=302,
+                             target_status_code=200)
