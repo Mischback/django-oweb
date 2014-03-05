@@ -99,6 +99,35 @@ def planet_settings(req, planet_id):
     )
 
 
+def planet_settings_commit(req, planet_id):
+    """Commits the planet's settings"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    # fetch the account and the current planet
+    try:
+        planet = Planet.objects.select_related('account').get(id=planet_id)
+    except Planet.DoesNotExist:
+        raise OWebDoesNotExist
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == planet.account.owner_id:
+        raise OWebAccountAccessViolation
+
+    try:
+        planet.name = req.POST['planet_name']
+        planet.coord = req.POST['planet_coord']
+        planet.max_temp = req.POST['planet_max_temp']
+        planet.save()
+    except KeyError:
+        raise OWebParameterMissingException
+
+    return redirect(reverse('oweb:planet_settings', args=[planet.id]))
+
+
 def planet_buildings(req, planet_id):
     """Provides the planet buildings"""
     # this is the non-decorator version of the login_required decorator
@@ -173,6 +202,51 @@ def planet_defense(req, planet_id):
             'planets': planets,
             'planets_url': 'oweb:planet_defense',
             'defense': defense,
+        }
+    )
+
+
+def planet_create(req, account_id):
+    """Creates a :py:class:`Planet`"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    account = get_object_or_404(Account, pk=account_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == account.owner_id:
+        raise OWebAccountAccessViolation
+
+    planet = Planet.objects.create(account=account, name='Colony')
+
+    return HttpResponseRedirect(reverse('oweb:planet_settings', args=[planet.id]))
+
+
+def planet_delete(req, account_id, planet_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    planet = Planet.objects.select_related('account').get(pk=planet_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == planet.account.owner_id:
+        raise OWebAccountAccessViolation
+
+    if 'confirm' == req.POST.get('confirm_planet_deletion'):
+        planet.delete()
+        return redirect(reverse('oweb:account_overview', args=account_id))
+
+    return render(req, 'oweb/planet_delete.html',
+        {
+            'account': planet.account,
+            'planet_del': planet,
         }
     )
 
@@ -312,5 +386,89 @@ def moon_settings(req, moon_id):
             'planet': moon.planet,
             'moon': moon,
             'planets': planets,
+        }
+    )
+
+
+def moon_create(req, planet_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    planet = get_object_or_404(Planet, pk=planet_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == planet.account.owner_id:
+        raise OWebAccountAccessViolation
+
+    try:
+        moon = Moon.objects.get(planet=planet)
+    except Moon.DoesNotExist:
+        tmp_name = hashlib.md5(str(datetime.now))
+        Moon.objects.create(planet=planet, name=tmp_name, coord=planet.coord)
+
+        moon = get_object_or_404(Moon, name=tmp_name)
+        moon.name = 'Moon'
+        moon.save()
+
+    return HttpResponseRedirect(reverse('oweb:moon_settings', args=(moon.id,)))
+
+
+def moon_settings_commit(req, moon_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    # fetch the account and the current planet
+    try:
+        moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
+    except Moon.DoesNotExist:
+        raise OWebDoesNotExist
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == moon.planet.account.owner_id:
+        raise OWebAccountAccessViolation
+
+    try:
+        moon.name = req.POST['moon_name']
+        moon.save()
+    except KeyError:
+        raise OWebParameterMissingException
+
+    return HttpResponseRedirect(reverse('oweb:moon_settings', args=[moon.id]))
+
+
+def moon_delete(req, moon_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    try:
+        moon = Moon.objects.select_related('planet', 'planet__account').get(id=moon_id)
+    except Moon.DoesNotExist:
+        raise OWebDoesNotExist
+
+    planet = moon.planet
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == moon.planet.account.owner_id:
+        raise OWebAccountAccessViolation
+
+    if 'confirm' == req.POST.get('confirm_moon_deletion'):
+        moon.delete()
+        return redirect(reverse('oweb:planet_overview', args=(planet.id,)))
+
+    return render(req, 'oweb/moon_delete.html',
+        {
+            'moon': moon
         }
     )

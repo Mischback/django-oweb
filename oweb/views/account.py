@@ -268,6 +268,36 @@ def account_settings(req, account_id):
     )
 
 
+def account_settings_commit(req, account_id):
+    """Commits the account's settings"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    acc = get_object_or_404(Account, pk=account_id)
+
+    # check, if the objects account is actually owned by the current user
+    if not req.user.id == acc.owner_id:
+        raise OWebAccountAccessViolation
+
+    try:
+        acc.username = req.POST['account_username']
+        acc.universe = req.POST['account_universe']
+        acc.speed = req.POST['account_speed']
+        acc.trade_metal = req.POST['account_trade_metal']
+        acc.trade_crystal = req.POST['account_trade_crystal']
+        acc.trade_deut = req.POST['account_trade_deut']
+        acc.save()
+    except KeyError:
+        raise OWebParameterMissingException
+    except ValueError:
+        raise OWebIllegalParameterException
+
+    return redirect(reverse('oweb:account_settings', args=[acc.id]))
+
+
 def account_research(req, account_id):
     """Provides the research overview"""
     # this is the non-decorator version of the login_required decorator
@@ -331,4 +361,44 @@ def account_ships(req, account_id):
                       'planets': planets,
                       'ships': ships,
                   }
+    )
+
+
+def account_create(req):
+    """Creates an :py:class:`Account`"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    acc = Account()
+    acc.owner = req.user
+    acc.save()
+
+    return redirect(reverse('oweb:account_settings', args=[acc.id]))
+
+
+def account_delete(req, account_id):
+    """todo Documentation still missing!"""
+    # this is the non-decorator version of the login_required decorator
+    # basically it checks, if the user is authenticated and redirects him, if
+    # not. The decorator could not handle the reverse url-resolution.
+    if not req.user.is_authenticated():
+        return redirect(reverse('oweb:app_login'))
+
+    account = get_object_or_404(Account, pk=account_id)
+
+    # checks, if this account belongs to the authenticated user
+    if not req.user.id == account.owner_id:
+        raise OWebAccountAccessViolation
+
+    if 'confirm' == req.POST.get('confirm_account_deletion'):
+        account.delete()
+        return redirect(reverse('oweb:home'))
+
+    return render(req, 'oweb/account_delete.html',
+        {
+            'account': account,
+        }
     )
