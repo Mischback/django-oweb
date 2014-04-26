@@ -256,6 +256,7 @@ table.empire {
 }
 table.empire td {
     text-align: center;
+    white-space: nowrap;
 }
 table.empire th.cat_caption {
     text-align: left;
